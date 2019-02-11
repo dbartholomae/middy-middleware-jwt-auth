@@ -1,0 +1,92 @@
+{
+  "name": "middy-middleware-jwt-auth",
+  "version": "0.0.0",
+  "description": "A mitty JSON web token  authorization middleware.",
+  "homepage": "",
+  "author": {
+    "name": "Daniel Bartholomae",
+    "email": "daniel@bartholomae.name",
+    "url": ""
+  },
+  "files": [
+    "lib"
+  ],
+  "main": "lib/index.js",
+  "keywords": [
+    "middy",
+    "middleware",
+    "jwt",
+    "json web token"
+  ],
+  "types": "lib/index.d.ts",
+  "engines": {
+    "npm": ">= 4.0.0"
+  },
+  "private": false,
+  "dependencies": {
+    "debug": "^4.1.0"
+  },
+  "directories": {
+    "docs": "docs",
+    "example": "examples"
+  },
+  "scripts": {
+    "build": "rimraf ./lib && tsc --project tsconfig.json && npm run docs",
+    "docs": "npm run docs:readme && npm run docs:typedoc",
+    "docs:typedoc": "typedoc --out docs --readme ./README.md --exclude **/*.spec.js --name \"Redux Reset Store\"",
+    "docs:readme": "create-readme",
+    "test": "npm run test:unit && pkg-ok",
+    "test:unit": "jest",
+    "lint": "tslint --project tsconfig.json",
+    "lint:fix": "tslint --project tsconfig.json --fix",
+    "precommit:lint:fix": "tslint --project tsconfig.json --fix"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "cross-env-shell commitlint -e $HUSKY_GIT_PARAMS",
+      "pre-commit": "lint-staged && npm run build && git add lib docs",
+      "pre-push": "npm test"
+    }
+  },
+  "config": {
+    "readme": {
+      "badges": [
+        "npm-version",
+        "npm-downloads",
+        "open-issues",
+        "license",
+        "debug",
+        "travis",
+        "coveralls",
+        "dependencies",
+        "devDependencies",
+        "semantic-release",
+        "greenkeeper",
+        "gitter"
+      ],
+      "unpkg": true
+    }
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^7.2.0",
+    "@commitlint/config-conventional": "^7.1.2",
+    "@types/debug": "^0.0.31",
+    "@types/jest": "^23.3.9",
+    "coveralls": "^3.0.2",
+    "create-readme": "^2.0.1",
+    "cross-env": "^5.2.0",
+    "husky": "^1.1.4",
+    "jest": "^23.6.0",
+    "lint-staged": "^8.0.5",
+    "pkg-ok": "^2.3.1",
+    "prettier-standard": "^8.0.1",
+    "rimraf": "^2.6.2",
+    "semantic-release": "^15.10.3",
+    "ts-jest": "^23.10.4",
+    "tslint": "^5.7.0",
+    "tslint-config-standard": "^8.0.1",
+    "typedoc": "^0.13.0",
+    "typescript": "^3.1.2"
+  },
+  "repository": "git@github.com:dbartholomae/middy-middleware-jwt-auth.git"
+}
