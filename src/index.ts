@@ -1,17 +1,57 @@
 import debugFactory, { IDebugger } from 'debug'
+import { HandlerLambda, MiddlewareFunction } from 'middy'
+import {
+  IAuthorizedEvent,
+  isAuthorizedEvent
+} from './interfaces/IAuthorizedEvent'
+import { IAuthOptions, isAuthOptions } from './interfaces/IAuthOptions'
+import createHttpError from 'http-errors'
+import jwt from 'jsonwebtoken'
+// import createHttpError from 'http-errors'
 
 /** A documented example module */
-export default class Module {
+export class JWTAuthMiddleware {
   /** The logger used in the module */
   private readonly logger: IDebugger
 
+  public static create (options: IAuthOptions): JWTAuthMiddleware {
+    if (!isAuthOptions(options)) {
+      throw new TypeError(`Expected IAuthOptions, received ${options} instead`)
+    }
+    return new JWTAuthMiddleware(options)
+  }
+
   /** Creates a new Module */
-  constructor () {
-    this.logger = debugFactory('module-ts-template')
+  constructor (private options: IAuthOptions) {
+    this.logger = debugFactory('middy-middleware-jwt-auth')
   }
 
   /** Starts the module */
-  start () {
-    this.logger('Starting module')
+  public before: MiddlewareFunction<IAuthorizedEvent, any> = async ({
+    event
+  }: HandlerLambda<IAuthorizedEvent>) => {
+    this.logger('Checking whether event contains authorization data')
+    if (!isAuthorizedEvent(event)) {
+      this.logger('No authorization data found')
+      return
+    }
+    this.logger('Authorization data found')
+
+    const parts = event.headers.Authorization.split(' ')
+    if (parts.length !== 2 || parts[0] !== 'Bearer') {
+      throw createHttpError(401, 'Format is Authorization: Bearer [token]')
+    }
+
+    const token = parts[1]
+    try {
+      jwt.verify(token, this.options.secretOrPublicKey, {
+        algorithms: [this.options.algorithm]
+      })
+      // context.identity
+    } catch (err) {
+      throw createHttpError(401, 'Invalid token')
+    }
   }
 }
+
+export default JWTAuthMiddleware.create

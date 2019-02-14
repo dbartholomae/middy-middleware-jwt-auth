@@ -1,8 +1,9 @@
 {
   "name": "middy-middleware-jwt-auth",
   "version": "0.0.0",
-  "description": "A mitty JSON web token  authorization middleware.",
+  "description": "A mitty JSON web token authorization middleware.",
   "homepage": "",
+  "license": "MIT",
   "author": {
     "name": "Daniel Bartholomae",
     "email": "daniel@bartholomae.name",
@@ -24,7 +25,15 @@
   },
   "private": false,
   "dependencies": {
-    "debug": "^4.1.0"
+    "@types/debug": "^0.0.31",
+    "@types/http-errors": "^1.6.1",
+    "@types/jsonwebtoken": "^8.3.0",
+    "debug": "^4.1.0",
+    "http-errors": "^1.7.1",
+    "jsonwebtoken": "^8.4.0"
+  },
+  "peerDependencies": {
+    "middy": "^0.22.0"
   },
   "directories": {
     "docs": "docs",
@@ -70,7 +79,6 @@
   "devDependencies": {
     "@commitlint/cli": "^7.2.0",
     "@commitlint/config-conventional": "^7.1.2",
-    "@types/debug": "^0.0.31",
     "@types/jest": "^23.3.9",
     "coveralls": "^3.0.2",
     "create-readme": "^2.0.1",
@@ -78,6 +86,7 @@
     "husky": "^1.1.4",
     "jest": "^23.6.0",
     "lint-staged": "^8.0.5",
+    "middy": "^0.22.0",
     "pkg-ok": "^2.3.1",
     "prettier-standard": "^8.0.1",
     "rimraf": "^2.6.2",
