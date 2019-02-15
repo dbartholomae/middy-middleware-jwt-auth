@@ -51,13 +51,6 @@
     "lint:fix": "tslint --project tsconfig.json --fix",
     "precommit:lint:fix": "tslint --project tsconfig.json --fix"
   },
-  "husky": {
-    "hooks": {
-      "commit-msg": "cross-env-shell commitlint -e $HUSKY_GIT_PARAMS",
-      "pre-commit": "lint-staged",
-      "pre-push": "npm test"
-    }
-  },
   "devDependencies": {
     "@commitlint/cli": "^7.2.0",
     "@commitlint/config-conventional": "^7.1.2",
