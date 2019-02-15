@@ -13,12 +13,8 @@ before_script:
   - npm prune
 after_success:
   - npm run coveralls
-deploy:
-  provider: script
-  skip_cleanup: true
-  script:
-    - npm run docs
-    - npm run release
+  - npm run docs
+  - npm run release
 branches:
   except:
     - "/^v\\d+\\.\\d+\\.\\d+$/"
