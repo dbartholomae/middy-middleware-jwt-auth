@@ -61,13 +61,13 @@ jobs:
           command: |
             yarn test:unit --testResultsProcessor="jest-junit"
           environment:
-            JEST_JUNIT_OUTPUT: "reports/junit/js-unit-test-results.xml"
+            JEST_JUNIT_OUTPUT: "reports/junit/unit/test-results-unit.xml"
       - run:
           name: Run integration tests
           command: |
             npx concurrently --kill-others --success first "cd test && serverless offline" "wait-on http://localhost:3000/status && jest -c jest.integration.config.js --testResultsProcessor=\"jest-junit\""
           environment:
-            JEST_JUNIT_OUTPUT: "reports/junit/js-integration-test-results.xml"
+            JEST_JUNIT_OUTPUT: "reports/junit/integration/test-results-integration.xml"
       - store_test_results:
           path: reports/junit
 
