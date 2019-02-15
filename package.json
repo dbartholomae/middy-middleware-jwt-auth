@@ -41,9 +41,7 @@
   },
   "scripts": {
     "build": "rimraf ./lib && tsc --project tsconfig.json && npm run docs",
-    "docs": "npm run docs:readme && npm run docs:typedoc",
-    "docs:typedoc": "typedoc --out docs --readme ./README.md --exclude **/*.spec.js --name \"Redux Reset Store\"",
-    "docs:readme": "create-readme",
+    "docs": "typedoc --out docs --readme ./README.md --exclude **/*.spec.js --name \"Middy JWT Auth Middleware\"",
     "test": "npm run test:unit && pkg-ok",
     "test:unit": "jest",
     "lint": "tslint --project tsconfig.json",
@@ -81,7 +79,6 @@
     "@commitlint/config-conventional": "^7.1.2",
     "@types/jest": "^23.3.9",
     "coveralls": "^3.0.2",
-    "create-readme": "^2.0.1",
     "cross-env": "^5.2.0",
     "husky": "^1.1.4",
     "jest": "^23.6.0",
