@@ -59,13 +59,9 @@ jobs:
       - run:
           name: Run unit tests
           command: |
-            yarn test:unit --testResultsProcessor="jest-junit"
+            yarn test:unit --testResultsProcessor="jest-junit" --coverageReporters=text-lcov | coveralls
           environment:
             JEST_JUNIT_OUTPUT: "reports/junit/unit/test-results-unit.xml"
-      - run:
-          name: Store test results to coveralls
-          command: |
-            npx coveralls
       - run:
           name: Run integration tests
           command: |
