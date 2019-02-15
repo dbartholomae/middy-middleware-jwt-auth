@@ -93,6 +93,7 @@
     "cross-env": "^5.2.0",
     "husky": "^1.1.4",
     "jest": "^23.6.0",
+    "jest-junit": "^6.3.0",
     "lint-staged": "^8.0.5",
     "middy": "^0.22.0",
     "pkg-ok": "^2.3.1",
