@@ -113,7 +113,9 @@ describe('JWTAuthMiddleware', () => {
           next
         )
       ).rejects.toEqual(
-        createHttpError(400, 'The events auth property has to be empty')
+        createHttpError(400, 'The events auth property has to be empty', {
+          type: 'EventAuthNotEmpty'
+        })
       )
     })
 
@@ -140,7 +142,9 @@ describe('JWTAuthMiddleware', () => {
           next
         )
       ).rejects.toEqual(
-        createHttpError(401, 'Format is Authorization: Bearer [token]')
+        createHttpError(401, 'Format is Authorization: Bearer [token]', {
+          type: 'WrongAuthFormat'
+        })
       )
     })
 
@@ -168,7 +172,9 @@ describe('JWTAuthMiddleware', () => {
           next
         )
       ).rejects.toEqual(
-        createHttpError(401, 'Format is Authorization: Bearer [token]')
+        createHttpError(401, 'Format is Authorization: Bearer [token]', {
+          type: 'WrongAuthFormat'
+        })
       )
     })
 
@@ -197,7 +203,11 @@ describe('JWTAuthMiddleware', () => {
           },
           next
         )
-      ).rejects.toEqual(createHttpError(401, 'Invalid token'))
+      ).rejects.toEqual(
+        createHttpError(401, 'Invalid token', {
+          type: 'InvalidToken'
+        })
+      )
     })
   })
 })

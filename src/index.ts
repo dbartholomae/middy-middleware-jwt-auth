@@ -11,7 +11,6 @@ import {
 } from './interfaces/IAuthOptions'
 import createHttpError from 'http-errors'
 import jwt from 'jsonwebtoken'
-// import createHttpError from 'http-errors'
 
 /** A documented example module */
 export class JWTAuthMiddleware {
@@ -34,28 +33,46 @@ export class JWTAuthMiddleware {
   public before: MiddlewareFunction<IAuthorizedEvent, any> = async ({
     event
   }: HandlerLambda<IAuthorizedEvent>) => {
+    this.logger('Checking whether event.auth already is populated')
     if (event && event.auth !== undefined) {
-      throw createHttpError(400, 'The events auth property has to be empty')
+      this.logger('event.auth already populated, has to be empty')
+      throw createHttpError(400, 'The events auth property has to be empty', {
+        type: 'EventAuthNotEmpty'
+      })
     }
-    this.logger('Checking whether event contains authorization data')
+    this.logger('Checking whether event contains authorization header')
     if (!isAuthorizedEvent(event)) {
-      this.logger('No authorization data found')
+      this.logger('No authorization header found')
       return
     }
-    this.logger('Authorization data found')
+    this.logger('Authorization header found')
 
+    this.logger('Checking whether authorization header is formed correctly')
     const parts = event.headers.Authorization.split(' ')
     if (parts.length !== 2 || parts[0] !== 'Bearer') {
-      throw createHttpError(401, 'Format is Authorization: Bearer [token]')
+      this.logger(
+        `Authorization header malformed, it was "${
+          event.headers.Authorization
+        }" but should be of format "Bearer token"`
+      )
+      throw createHttpError(401, 'Format is Authorization: Bearer [token]', {
+        type: 'WrongAuthFormat'
+      })
     }
+    this.logger('Authorization header formed correctly')
 
     const token = parts[1]
+    this.logger('Verifying authorization token')
     try {
       event.auth = jwt.verify(token, this.options.secretOrPublicKey, {
         algorithms: [this.options.algorithm]
       })
+      this.logger('Token verified')
     } catch (err) {
-      throw createHttpError(401, 'Invalid token')
+      this.logger('Token could not be verified')
+      throw createHttpError(401, 'Invalid token', {
+        type: 'InvalidToken'
+      })
     }
   }
 }
