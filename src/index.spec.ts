@@ -4,6 +4,7 @@ import { EncryptionAlgorithms } from './interfaces/IAuthOptions'
 
 import JWT from 'jsonwebtoken'
 import createHttpError from 'http-errors'
+import { IAuthorizedEvent } from './interfaces/IAuthorizedEvent'
 
 describe('JWTAuthMiddleware', () => {
   beforeAll(() => {
@@ -52,6 +53,68 @@ describe('JWTAuthMiddleware', () => {
           next
         )
       ).toEqual(undefined)
+    })
+
+    it('saves token information to event.auth if token is valid', async () => {
+      const next = jest.fn()
+      const options = {
+        algorithm: EncryptionAlgorithms.HS256,
+        secretOrPublicKey: 'secret'
+      }
+      const data = { userId: 1 }
+      const token = JWT.sign(data, options.secretOrPublicKey, {
+        algorithm: options.algorithm
+      })
+      const event: IAuthorizedEvent = {
+        headers: {
+          Authorization: `Bearer ${token}`
+        },
+        httpMethod: 'GET'
+      }
+      await JWTAuthMiddleware(options).before(
+        {
+          event,
+          context: {} as any,
+          response: null,
+          error: {} as Error,
+          callback: jest.fn()
+        },
+        next
+      )
+      expect(event.auth).toEqual({ ...data, iat: expect.any(Number) })
+    })
+
+    it('rejects if event.auth is already filled', async () => {
+      const next = jest.fn()
+      const options = {
+        algorithm: EncryptionAlgorithms.HS256,
+        secretOrPublicKey: 'secret'
+      }
+      const data = { userId: 1 }
+      const token = JWT.sign(data, options.secretOrPublicKey, {
+        algorithm: options.algorithm
+      })
+      const event: IAuthorizedEvent = {
+        auth: {},
+        headers: {
+          Authorization: `Bearer ${token}`
+        },
+        httpMethod: 'GET'
+      }
+      await expect(
+        JWTAuthMiddleware(options).before(
+          {
+            event,
+            context: {} as any,
+            response: null,
+            error: {} as Error,
+            callback: jest.fn()
+          },
+          next
+        )
+      ).rejects.toEqual(
+        createHttpError(400, 'The events auth property has to be empty')
+      )
     })
 
     it('rejects if Authorization header is malformed', async () => {
@@ -134,9 +197,7 @@ describe('JWTAuthMiddleware', () => {
           },
           next
         )
-      ).rejects.toEqual(
-        createHttpError(401, 'Invalid token')
-      )
+      ).rejects.toEqual(createHttpError(401, 'Invalid token'))
     })
   })
 })

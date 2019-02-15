@@ -4,6 +4,7 @@ describe('IAuthorizedEvent', () => {
   describe('interface', () => {
     it('accepts data that has an httpMethod and an Authorization header', () => {
       const event: IAuthorizedEvent = {
+        auth: {},
         headers: {
           Authorization: 'Bearer TOKEN'
         },

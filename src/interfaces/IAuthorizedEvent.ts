@@ -1,5 +1,7 @@
 /** An event that can be checked for authorization with middly-middleware-jwt-auth */
 export interface IAuthorizedEvent {
+  /** Authorization information added by this middleware from a JWT. Has to be undefined before hitting the middleware. */
+  auth?: any
   headers: {
     /**
      * The authorization token to check

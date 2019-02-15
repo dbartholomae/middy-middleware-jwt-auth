@@ -4,7 +4,11 @@ import {
   IAuthorizedEvent,
   isAuthorizedEvent
 } from './interfaces/IAuthorizedEvent'
-import { IAuthOptions, isAuthOptions } from './interfaces/IAuthOptions'
+import {
+  EncryptionAlgorithms,
+  IAuthOptions,
+  isAuthOptions
+} from './interfaces/IAuthOptions'
 import createHttpError from 'http-errors'
 import jwt from 'jsonwebtoken'
 // import createHttpError from 'http-errors'
@@ -30,6 +34,9 @@ export class JWTAuthMiddleware {
   public before: MiddlewareFunction<IAuthorizedEvent, any> = async ({
     event
   }: HandlerLambda<IAuthorizedEvent>) => {
+    if (event && event.auth !== undefined) {
+      throw createHttpError(400, 'The events auth property has to be empty')
+    }
     this.logger('Checking whether event contains authorization data')
     if (!isAuthorizedEvent(event)) {
       this.logger('No authorization data found')
@@ -44,10 +51,9 @@ export class JWTAuthMiddleware {
 
     const token = parts[1]
     try {
-      jwt.verify(token, this.options.secretOrPublicKey, {
+      event.auth = jwt.verify(token, this.options.secretOrPublicKey, {
         algorithms: [this.options.algorithm]
       })
-      // context.identity
     } catch (err) {
       throw createHttpError(401, 'Invalid token')
     }
@@ -55,3 +61,8 @@ export class JWTAuthMiddleware {
 }
 
 export default JWTAuthMiddleware.create
+export { EncryptionAlgorithms, IAuthOptions, isAuthOptions }
+export {
+  IAuthorizedEvent,
+  isAuthorizedEvent
+} from './interfaces/IAuthorizedEvent'
