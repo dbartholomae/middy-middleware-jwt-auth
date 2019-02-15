@@ -79,6 +79,11 @@ jobs:
     - attach_workspace:
         at: .
     - run:
+        name: Add Github to known hosts
+        command: |
+          mkdir ~/.ssh
+          ssh-keyscan -H github.com >> ~/.ssh/known_hosts
+    - run:
         name: Publish via semantic release
         command: |
           yarn run release
@@ -96,7 +101,7 @@ workflows:
             - build
       - release:
           requires:
-          - build
+          - test
           filters:
             branches:
               only:
