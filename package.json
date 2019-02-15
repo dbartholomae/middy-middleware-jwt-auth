@@ -43,13 +43,39 @@
     "build": "rimraf ./lib && tsc --project tsconfig.json && npm run docs",
     "docs": "typedoc",
     "pretest": "npm run build",
-    "start": "cd test && serverless offline -P 8001",
-    "test": "npm run lint && npm run test:unit && pkg-ok",
-    "test:integration": "concurrently --kill-others --success first \"cd test && serverless offline\" \"wait-on http://localhost:3000/hello && jest -c jest.integration.config.js\"",
+    "start": "cd test && serverless offline",
+    "test": "npm run lint && npm run test:unit && npm run test:integration && pkg-ok",
+    "test:integration": "concurrently --kill-others --success first \"cd test && serverless offline\" \"wait-on http://localhost:3000/status && jest -c jest.integration.config.js\"",
     "test:unit": "jest",
     "lint": "tslint --project tsconfig.json",
     "lint:fix": "tslint --project tsconfig.json --fix",
     "precommit:lint:fix": "tslint --project tsconfig.json --fix"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "cross-env-shell commitlint -e $HUSKY_GIT_PARAMS",
+      "pre-commit": "lint-staged",
+      "pre-push": "npm test"
+    }
+  },
+  "config": {
+    "readme": {
+      "badges": [
+        "npm-version",
+        "npm-downloads",
+        "open-issues",
+        "license",
+        "debug",
+        "travis",
+        "coveralls",
+        "dependencies",
+        "devDependencies",
+        "semantic-release",
+        "greenkeeper",
+        "gitter"
+      ],
+      "unpkg": true
+    }
   },
   "devDependencies": {
     "@commitlint/cli": "^7.2.0",
