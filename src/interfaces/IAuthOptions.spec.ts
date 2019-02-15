@@ -17,7 +17,7 @@ describe('IAuthOptions', () => {
     it('accepts data that has algorithm and a Buffer secretOrPublicKey', () => {
       const options: IAuthOptions = {
         algorithm: EncryptionAlgorithms.ES256,
-        secretOrPublicKey: new Buffer([])
+        secretOrPublicKey: Buffer.from([])
       }
       expect(options).not.toBeNull()
     })
@@ -37,7 +37,7 @@ describe('IAuthOptions', () => {
       expect(
         isAuthOptions({
           algorithm: EncryptionAlgorithms.ES256,
-          secretOrPublicKey: new Buffer([])
+          secretOrPublicKey: Buffer.from([])
         })
       ).toBe(true)
     })
