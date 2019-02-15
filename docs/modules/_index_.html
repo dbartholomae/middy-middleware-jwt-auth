@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>&quot;index&quot; | Redux Reset Store</title>
+	<title>&quot;index&quot; | middy-middleware-jwt-auth</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">Redux Reset Store</a>
+					<a href="../index.html" class="title">middy-middleware-jwt-auth</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -66,6 +66,27 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<h1 id="jwt-auth-middleware">JWT Auth Middleware</h1>
+						<h2 id="errors">Errors</h2>
+						<p>All errors are created via <a href="https://www.npmjs.com/package/http-errors">http-errors</a> and therefore follow that format.
+							This allows to use middleware like
+							<a href="https://github.com/middyjs/middy/blob/master/docs/middlewares.md#httperrorhandler">httpErrorHandler</a> to handle these
+							errors. In addition to a human readable message they contain a machine readable error type in the property <code>type</code>.
+						The following error types (status codes) exist:</p>
+						<ul>
+							<li><strong>EventAuthNotEmpty (400)</strong> is thrown if event.auth was not undefined before hitting this middleware.
+								This is necessary to avoid attacks where no Authorization header is set and event.auth is set directly
+							to circumvent the check.</li>
+							<li><strong>WrongAuthFormat (401)</strong> is thrown if the Authorization header is not of the form &quot;Bearer token&quot;</li>
+							<li><strong>InvalidToken (401)</strong> is thrown if the token cannot be verified with the secret or public key
+							used to set up the middleware</li>
+						</ul>
+					</div>
+				</div>
+			</section>
 			<section class="tsd-panel-group tsd-index-group">
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
@@ -73,7 +94,7 @@
 						<section class="tsd-index-section ">
 							<h3>Classes</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-class tsd-parent-kind-external-module"><a href="../classes/_index_.module.html" class="tsd-kind-icon">Module</a></li>
+								<li class="tsd-kind-class tsd-parent-kind-external-module"><a href="../classes/_index_.jwtauthmiddleware.html" class="tsd-kind-icon">JWTAuth<wbr>Middleware</a></li>
 							</ul>
 						</section>
 					</div>
@@ -90,21 +111,24 @@
 						<a href="_index_.html">"index"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="_index_spec_.html">"index.spec"</a>
+						<a href="_interfaces_iauthoptions_.html">"interfaces/IAuth<wbr>Options"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="_interfaces_iauthorizedevent_.html">"interfaces/IAuthorized<wbr>Event"</a>
 					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
 					<li class=" tsd-kind-class tsd-parent-kind-external-module">
-						<a href="../classes/_index_.module.html" class="tsd-kind-icon">Module</a>
+						<a href="../classes/_index_.jwtauthmiddleware.html" class="tsd-kind-icon">JWTAuth<wbr>Middleware</a>
 					</li>
 				</ul>
 			</nav>
 		</div>
 	</div>
 </div>
-<footer class="with-border-bottom">
+<footer>
 	<div class="container">
 		<h2>Legend</h2>
 		<div class="tsd-legend-group">
@@ -163,9 +187,6 @@
 		</div>
 	</div>
 </footer>
-<div class="container tsd-generator">
-	<p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
-</div>
 <div class="overlay"></div>
 <script src="../assets/js/main.js"></script>
 <script>if (location.protocol == 'file:') document.write('<script src="../assets/js/search.js"><' + '/script>');</script>

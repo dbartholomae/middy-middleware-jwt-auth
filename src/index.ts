@@ -1,3 +1,19 @@
+/**
+ * # JWT Auth Middleware
+ * ## Errors
+ * All errors are created via [http-errors](https://www.npmjs.com/package/http-errors) and therefore follow that format.
+ * This allows to use middleware like
+ * [httpErrorHandler](https://github.com/middyjs/middy/blob/master/docs/middlewares.md#httperrorhandler) to handle these
+ * errors. In addition to a human readable message they contain a machine readable error type in the property `type`.
+ * The following error types (status codes) exist:
+ * * __EventAuthNotEmpty (400)__ is thrown if event.auth was not undefined before hitting this middleware.
+ *   This is necessary to avoid attacks where no Authorization header is set and event.auth is set directly
+ *   to circumvent the check.
+ * * __WrongAuthFormat (401)__ is thrown if the Authorization header is not of the form "Bearer token"
+ * * __InvalidToken (401)__ is thrown if the token cannot be verified with the secret or public key
+ *   used to set up the middleware
+ */
+/** An additional comment to make sure Typedoc attributes the comment above to the file itself */
 import debugFactory, { IDebugger } from 'debug'
 import { HandlerLambda, MiddlewareFunction } from 'middy'
 import {
@@ -12,7 +28,7 @@ import {
 import createHttpError from 'http-errors'
 import jwt from 'jsonwebtoken'
 
-/** A documented example module */
+/** The actual middleware */
 export class JWTAuthMiddleware {
   /** The logger used in the module */
   private readonly logger: IDebugger
@@ -24,12 +40,16 @@ export class JWTAuthMiddleware {
     return new JWTAuthMiddleware(options)
   }
 
-  /** Creates a new Module */
+  /** Creates a new JWT Auth middleware */
   constructor (private options: IAuthOptions) {
     this.logger = debugFactory('middy-middleware-jwt-auth')
   }
 
-  /** Starts the module */
+  /**
+   * Checks for an authentication token, saves its content to event.auth and throws errors if anything fishy goes on.
+   * It will pass if no authorization header is present, but will ensure that event.auth is undefined in those cases.
+   * @param event - The event to check
+   */
   public before: MiddlewareFunction<IAuthorizedEvent, any> = async ({
     event
   }: HandlerLambda<IAuthorizedEvent>) => {

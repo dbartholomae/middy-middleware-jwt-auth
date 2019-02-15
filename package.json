@@ -1,7 +1,7 @@
 {
   "name": "middy-middleware-jwt-auth",
   "version": "0.0.0",
-  "description": "A mitty JSON web token authorization middleware.",
+  "description": "A mitty JSON web token authorization middleware inspired by express-jwt.",
   "homepage": "",
   "license": "MIT",
   "author": {
@@ -41,7 +41,7 @@
   },
   "scripts": {
     "build": "rimraf ./lib && tsc --project tsconfig.json && npm run docs",
-    "docs": "typedoc --out docs --readme ./README.md --exclude **/*.spec.js --name \"Middy JWT Auth Middleware\"",
+    "docs": "typedoc",
     "pretest": "npm run build",
     "start": "cd test && serverless offline -P 8001",
     "test": "npm run lint && npm run test:unit && pkg-ok",
@@ -102,7 +102,7 @@
     "ts-loader": "^5.3.3",
     "tslint": "^5.7.0",
     "tslint-config-standard": "^8.0.1",
-    "typedoc": "^0.13.0",
+    "typedoc": "^0.14.2",
     "typescript": "^3.1.2",
     "wait-on": "^3.2.0",
     "webpack": "^4.29.4"

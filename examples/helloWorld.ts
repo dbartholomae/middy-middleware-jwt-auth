@@ -13,8 +13,7 @@ function isTokenPayload (token: any): token is ITokenPayload {
     token.permissions.every((permission: any) => typeof permission === 'string')
 }
 
-// This is your common handler, in no way different than what you are used to doing every day
-// in AWS Lambda
+// This is your AWS handler
 const helloWorld = async (event: IAuthorizedEvent) => {
   // The middleware adds auth information if a valid token was added
   // If no auth was found, event.auth will remain undefined. You have to check
@@ -32,9 +31,6 @@ const helloWorld = async (event: IAuthorizedEvent) => {
       type: 'NotAuthorized'
     })
   }
-
-  // do stuff with this data
-  // ...
 
   return {
     body: JSON.stringify({ data: 'Hello world!' }),
