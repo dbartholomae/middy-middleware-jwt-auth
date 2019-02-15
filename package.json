@@ -42,7 +42,8 @@
   "scripts": {
     "build": "rimraf ./lib && tsc --project tsconfig.json && npm run docs",
     "docs": "typedoc --out docs --readme ./README.md --exclude **/*.spec.js --name \"Middy JWT Auth Middleware\"",
-    "test": "npm run test:unit && pkg-ok",
+    "pretest": "npm run build",
+    "test": "npm run lint && npm run test:unit && pkg-ok",
     "test:unit": "jest",
     "lint": "tslint --project tsconfig.json",
     "lint:fix": "tslint --project tsconfig.json --fix",
