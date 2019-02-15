@@ -63,6 +63,10 @@ jobs:
           environment:
             JEST_JUNIT_OUTPUT: "reports/junit/unit/test-results-unit.xml"
       - run:
+          name: Store test results to coveralls
+          command: |
+            npx coveralls
+      - run:
           name: Run integration tests
           command: |
             npx concurrently --kill-others --success first "cd test && serverless offline" "wait-on http://localhost:3000/status && jest -c jest.integration.config.js --testResultsProcessor=\"jest-junit\""
