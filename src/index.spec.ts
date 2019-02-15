@@ -148,36 +148,6 @@ describe('JWTAuthMiddleware', () => {
       )
     })
 
-    it('rejects if token is malformed', async () => {
-      const next = jest.fn()
-      const options = {
-        algorithm: EncryptionAlgorithms.HS256,
-        secretOrPublicKey: 'secret'
-      }
-      const token = 'malformed token'
-      await expect(
-        JWTAuthMiddleware(options).before(
-          {
-            event: {
-              headers: {
-                Authorization: `Bearer ${token}`
-              },
-              httpMethod: 'GET'
-            },
-            context: {} as any,
-            response: null,
-            error: {} as Error,
-            callback: jest.fn()
-          },
-          next
-        )
-      ).rejects.toEqual(
-        createHttpError(401, 'Format is Authorization: Bearer [token]', {
-          type: 'WrongAuthFormat'
-        })
-      )
-    })
-
     it('rejects if token is invalid', async () => {
       const next = jest.fn()
       const options = {
