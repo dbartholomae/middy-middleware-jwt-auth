@@ -24,3 +24,6 @@ package-lock.json
 yarn-debug.log*
 yarn-error.log*
 yarn.lock
+
+# Built library
+lib

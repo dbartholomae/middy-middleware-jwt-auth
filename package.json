@@ -1,8 +1,9 @@
 {
   "name": "middy-middleware-jwt-auth",
   "version": "0.0.0",
-  "description": "A mitty JSON web token  authorization middleware.",
+  "description": "A mitty JSON web token authorization middleware inspired by express-jwt.",
   "homepage": "",
+  "license": "MIT",
   "author": {
     "name": "Daniel Bartholomae",
     "email": "daniel@bartholomae.name",
@@ -24,18 +25,28 @@
   },
   "private": false,
   "dependencies": {
-    "debug": "^4.1.0"
+    "@types/debug": "^0.0.31",
+    "@types/http-errors": "^1.6.1",
+    "@types/jsonwebtoken": "^8.3.0",
+    "debug": "^4.1.0",
+    "http-errors": "^1.7.1",
+    "jsonwebtoken": "^8.4.0"
+  },
+  "peerDependencies": {
+    "middy": "^0.22.0"
   },
   "directories": {
     "docs": "docs",
     "example": "examples"
   },
   "scripts": {
-    "build": "rimraf ./lib && tsc --project tsconfig.json && npm run docs",
-    "docs": "npm run docs:readme && npm run docs:typedoc",
-    "docs:typedoc": "typedoc --out docs --readme ./README.md --exclude **/*.spec.js --name \"Redux Reset Store\"",
-    "docs:readme": "create-readme",
-    "test": "npm run test:unit && pkg-ok",
+    "build": "rimraf ./lib && tsc --project tsconfig.json",
+    "docs": "typedoc",
+    "pretest": "npm run build",
+    "release": "semantic-release",
+    "start": "cd test && serverless offline",
+    "test": "npm run lint && npm run test:unit && npm run test:integration && pkg-ok",
+    "test:integration": "concurrently --kill-others --success first \"cd test && serverless offline\" \"wait-on http://localhost:3000/status && jest -c jest.integration.config.js\"",
     "test:unit": "jest",
     "lint": "tslint --project tsconfig.json",
     "lint:fix": "tslint --project tsconfig.json --fix",
@@ -44,7 +55,7 @@
   "husky": {
     "hooks": {
       "commit-msg": "cross-env-shell commitlint -e $HUSKY_GIT_PARAMS",
-      "pre-commit": "lint-staged && npm run build && git add lib docs",
+      "pre-commit": "lint-staged",
       "pre-push": "npm test"
     }
   },
@@ -70,23 +81,37 @@
   "devDependencies": {
     "@commitlint/cli": "^7.2.0",
     "@commitlint/config-conventional": "^7.1.2",
-    "@types/debug": "^0.0.31",
+    "@semantic-release/changelog": "^3.0.2",
+    "@semantic-release/commit-analyzer": "^6.1.0",
+    "@semantic-release/git": "^7.0.8",
+    "@semantic-release/npm": "^5.1.4",
+    "@semantic-release/release-notes-generator": "^7.1.4",
     "@types/jest": "^23.3.9",
+    "@types/supertest": "^2.0.7",
+    "concurrently": "^4.1.0",
     "coveralls": "^3.0.2",
-    "create-readme": "^2.0.1",
     "cross-env": "^5.2.0",
     "husky": "^1.1.4",
     "jest": "^23.6.0",
     "lint-staged": "^8.0.5",
+    "middy": "^0.22.0",
     "pkg-ok": "^2.3.1",
     "prettier-standard": "^8.0.1",
     "rimraf": "^2.6.2",
-    "semantic-release": "^15.10.3",
+    "semantic-release": "^15.13.3",
+    "serverless": "^1.37.1",
+    "serverless-offline": "^4.4.2",
+    "serverless-webpack": "^5.2.0",
+    "source-map-support": "^0.5.10",
+    "supertest": "^3.4.2",
     "ts-jest": "^23.10.4",
+    "ts-loader": "^5.3.3",
     "tslint": "^5.7.0",
     "tslint-config-standard": "^8.0.1",
-    "typedoc": "^0.13.0",
-    "typescript": "^3.1.2"
+    "typedoc": "^0.14.2",
+    "typescript": "^3.1.2",
+    "wait-on": "^3.2.0",
+    "webpack": "^4.29.4"
   },
   "repository": "git@github.com:dbartholomae/middy-middleware-jwt-auth.git"
 }
