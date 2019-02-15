@@ -1,5 +1,5 @@
 import debugFactory from 'debug'
-import JWTAuthMiddleware from './index'
+import JWTAuthMiddleware from './JWTAuthMiddleware'
 import { EncryptionAlgorithms } from './interfaces/IAuthOptions'
 
 import JWT from 'jsonwebtoken'
