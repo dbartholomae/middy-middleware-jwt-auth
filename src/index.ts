@@ -55,9 +55,15 @@ export class JWTAuthMiddleware {
           event.headers.Authorization
         }" but should be of format "Bearer token"`
       )
-      throw createHttpError(401, 'Format is Authorization: Bearer [token]', {
-        type: 'WrongAuthFormat'
-      })
+      throw createHttpError(
+        401,
+        `Format should be "Authorization: Bearer [token]", received "Authorization: ${
+          event.headers.Authorization
+        }" instead`,
+        {
+          type: 'WrongAuthFormat'
+        }
+      )
     }
     this.logger('Authorization header formed correctly')
 

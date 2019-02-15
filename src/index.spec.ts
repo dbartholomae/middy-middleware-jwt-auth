@@ -142,9 +142,13 @@ describe('JWTAuthMiddleware', () => {
           next
         )
       ).rejects.toEqual(
-        createHttpError(401, 'Format is Authorization: Bearer [token]', {
-          type: 'WrongAuthFormat'
-        })
+        createHttpError(
+          401,
+          'Format should be "Authorization: Bearer [token]", received "Authorization: Malformed header" instead',
+          {
+            type: 'WrongAuthFormat'
+          }
+        )
       )
     })
 
