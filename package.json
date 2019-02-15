@@ -40,9 +40,10 @@
     "example": "examples"
   },
   "scripts": {
-    "build": "rimraf ./lib && tsc --project tsconfig.json && npm run docs",
+    "build": "rimraf ./lib && tsc --project tsconfig.json",
     "docs": "typedoc",
     "pretest": "npm run build",
+    "release": "semantic-release",
     "start": "cd test && serverless offline",
     "test": "npm run lint && npm run test:unit && npm run test:integration && pkg-ok",
     "test:integration": "concurrently --kill-others --success first \"cd test && serverless offline\" \"wait-on http://localhost:3000/status && jest -c jest.integration.config.js\"",
@@ -80,6 +81,11 @@
   "devDependencies": {
     "@commitlint/cli": "^7.2.0",
     "@commitlint/config-conventional": "^7.1.2",
+    "@semantic-release/changelog": "^3.0.2",
+    "@semantic-release/commit-analyzer": "^6.1.0",
+    "@semantic-release/git": "^7.0.8",
+    "@semantic-release/npm": "^5.1.4",
+    "@semantic-release/release-notes-generator": "^7.1.4",
     "@types/jest": "^23.3.9",
     "@types/supertest": "^2.0.7",
     "concurrently": "^4.1.0",
@@ -92,7 +98,7 @@
     "pkg-ok": "^2.3.1",
     "prettier-standard": "^8.0.1",
     "rimraf": "^2.6.2",
-    "semantic-release": "^15.10.3",
+    "semantic-release": "^15.13.3",
     "serverless": "^1.37.1",
     "serverless-offline": "^4.4.2",
     "serverless-webpack": "^5.2.0",

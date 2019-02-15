@@ -17,7 +17,8 @@ deploy:
   provider: script
   skip_cleanup: true
   script:
-    - npx semantic-release
+    - npm run docs
+    - npm run release
 branches:
   except:
     - "/^v\\d+\\.\\d+\\.\\d+$/"
