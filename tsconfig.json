@@ -21,6 +21,6 @@
     "noUnusedLocals": true
   },
   "include": [
-    "src/**/*"
+    "**/*"
   ]
 }
