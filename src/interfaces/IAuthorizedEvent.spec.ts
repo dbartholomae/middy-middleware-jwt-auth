@@ -62,17 +62,6 @@ describe('IAuthorizedEvent', () => {
           ).toBe(true)
         })
 
-        it(`accepts data that has an httpMethod and a string as an ${authHeader} header`, () => {
-          expect(
-            isAuthorizedEvent({
-              headers: {
-                [authHeader]: 'Bearer TOKEN'
-              },
-              httpMethod: 'GET'
-            })
-          ).toBe(true)
-        })
-
         it('rejects data without an httpMethod', () => {
           expect(
             isAuthorizedEvent({
