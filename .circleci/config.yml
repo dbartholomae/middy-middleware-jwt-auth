@@ -64,9 +64,9 @@ jobs:
           environment:
             JEST_JUNIT_OUTPUT: "reports/junit/unit/test-results-unit.xml"
       - run:
-          name: Save coverage data to coveralls
+          name: Upload code coverage
           command: |
-            cat ./coverage/lcov.info | npx coveralls
+            npx codecov
       - run:
           name: Run integration tests
           command: |
