@@ -34,6 +34,22 @@ describe('IAuthorizedEvent', () => {
       }
       expect(event).not.toBeNull()
     })
+
+    it('accepts data with token information set in the generics', () => {
+      interface IToken {
+        foo: string
+      }
+      const event: IAuthorizedEvent<IToken> = {
+        auth: {
+          foo: ''
+        },
+        headers: {
+          authorization: 'Bearer TOKEN'
+        },
+        httpMethod: 'GET'
+      }
+      expect(event).not.toBeNull()
+    })
   })
 
   describe('type guard', () => {
@@ -48,6 +64,51 @@ describe('IAuthorizedEvent', () => {
               },
               httpMethod: 'GET'
             })
+          ).toBe(true)
+        })
+
+        it(`accepts data that has an httpMethod, a string as an ${authHeader} header and a payload verified by the given type guard`, () => {
+          interface IToken {
+            foo: string
+          }
+          function isToken (token: any): token is IToken {
+            return token != null && typeof token.foo === 'string'
+          }
+
+          expect(
+            isAuthorizedEvent(
+              {
+                auth: {
+                  foo: 'bar'
+                },
+                headers: {
+                  [authHeader]: 'Bearer TOKEN'
+                },
+                httpMethod: 'GET'
+              },
+              isToken
+            )
+          ).toBe(true)
+        })
+
+        it(`accepts data that has an httpMethod, a string as an ${authHeader} header, no auth and a type guard`, () => {
+          interface IToken {
+            foo: string
+          }
+          function isToken (token: any): token is IToken {
+            return token != null && typeof token.foo === 'string'
+          }
+
+          expect(
+            isAuthorizedEvent(
+              {
+                headers: {
+                  [authHeader]: 'Bearer TOKEN'
+                },
+                httpMethod: 'GET'
+              },
+              isToken
+            )
           ).toBe(true)
         })
 
@@ -114,6 +175,26 @@ describe('IAuthorizedEvent', () => {
           headers: {},
           httpMethod: 'GET'
         })
+      ).toBe(false)
+    })
+
+    it('rejects data where the payload is rejected by a given type guard', () => {
+      interface IToken {
+        foo: string
+      }
+      function isToken (token: any): token is IToken {
+        return token != null && typeof token.foo === 'string'
+      }
+
+      expect(
+        isAuthorizedEvent(
+          {
+            auth: {},
+            headers: {},
+            httpMethod: 'GET'
+          },
+          isToken
+        )
       ).toBe(false)
     })
   })

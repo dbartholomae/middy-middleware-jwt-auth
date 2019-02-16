@@ -14,6 +14,7 @@
  * * __TokenExpiredError (401)__ is thrown if the token expired. `expiredAt` is set to the date when the token expired.
  * * __NotBeforeError (401)__ is thrown if the token isn't valid yet. `date` is set to the date when it will become valid.
  * * __InvalidToken (401)__ is thrown if the token cannot be verified with the secret or public key
+ * * __TokenPayloadMalformedError (400)__ is thrown if a token payload type guard is given and if it rejects the token payload
  *   used to set up the middleware
  */
 /** An additional comment to make sure Typedoc attributes the comment above to the file itself */
@@ -34,8 +35,10 @@ import {
 } from './interfaces/IAuthorizedEvent'
 
 /** The actual middleware */
-export class JWTAuthMiddleware {
-  public static create (options: IAuthOptions): JWTAuthMiddleware {
+export class JWTAuthMiddleware<Payload> {
+  public static create<Payload = any> (
+    options: IAuthOptions<Payload>
+  ): JWTAuthMiddleware<Payload> {
     if (!isAuthOptions(options)) {
       throw new TypeError(`Expected IAuthOptions, received ${options} instead`)
     }
@@ -46,7 +49,7 @@ export class JWTAuthMiddleware {
   private readonly logger: IDebugger
 
   /** Creates a new JWT Auth middleware */
-  constructor (private options: IAuthOptions) {
+  constructor (private options: IAuthOptions<Payload>) {
     this.logger = debugFactory('middy-middleware-jwt-auth')
     this.logger(
       `Setting up JWTAuthMiddleware with encryption algorithm ${
@@ -63,7 +66,7 @@ export class JWTAuthMiddleware {
    */
   public before: MiddlewareFunction<IAuthorizedEvent, any> = async ({
     event
-  }: HandlerLambda<IAuthorizedEvent>) => {
+  }: HandlerLambda<IAuthorizedEvent<Payload>>) => {
     this.logger('Checking whether event.auth already is populated')
     if (event && event.auth !== undefined) {
       this.logger('event.auth already populated, has to be empty')
@@ -121,7 +124,7 @@ export class JWTAuthMiddleware {
     const token = parts[1]
     this.logger('Verifying authorization token')
     try {
-      event.auth = jwt.verify(token, this.options.secretOrPublicKey, {
+      jwt.verify(token, this.options.secretOrPublicKey, {
         algorithms: [this.options.algorithm]
       })
       this.logger('Token verified')
@@ -147,6 +150,26 @@ export class JWTAuthMiddleware {
       throw createHttpError(401, 'Invalid token', {
         type: 'InvalidToken'
       })
+    }
+
+    const payload = jwt.decode(token)
+    if (this.options.isPayload !== undefined) {
+      this.logger('Verifying token payload')
+      if (!this.options.isPayload(payload)) {
+        this.logger(`Token payload malformed, was ${JSON.stringify(payload)}`)
+        throw createHttpError(
+          400,
+          `Token payload malformed, was ${JSON.stringify(payload)}`,
+          {
+            payload,
+            type: 'TokenPayloadMalformedError'
+          }
+        )
+      }
+      this.logger('Token payload valid')
+      event.auth = payload
+    } else {
+      event.auth = payload as any
     }
   }
 }

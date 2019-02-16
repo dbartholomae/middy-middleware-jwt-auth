@@ -12,149 +12,119 @@ describe('JWTAuthMiddleware', () => {
   })
 
   describe('before hook', () => {
-    it('resolves successfully if event is misformed', async () => {
-      const next = jest.fn()
-      const options = {
-        algorithm: EncryptionAlgorithms.ES256,
-        secretOrPublicKey: 'secret'
-      }
-      await expect(
-        JWTAuthMiddleware(options).before({} as any, next)
-      ).resolves.toEqual(undefined)
-    })
-
-    it('resolves if token is valid', async () => {
-      const next = jest.fn()
-      const options = {
-        algorithm: EncryptionAlgorithms.HS256,
-        secretOrPublicKey: 'secret'
-      }
-      const token = JWT.sign({}, options.secretOrPublicKey, {
-        algorithm: options.algorithm
+    describe('without a payload type guard', () => {
+      it('resolves successfully if event is misformed', async () => {
+        const next = jest.fn()
+        const options = {
+          algorithm: EncryptionAlgorithms.ES256,
+          secretOrPublicKey: 'secret'
+        }
+        await expect(
+          JWTAuthMiddleware(options).before({} as any, next)
+        ).resolves.toEqual(undefined)
       })
-      expect(
-        await JWTAuthMiddleware(options).before(
-          {
-            callback: jest.fn(),
-            context: {} as any,
-            error: {} as Error,
-            event: {
-              headers: {
-                Authorization: `Bearer ${token}`
+
+      it('resolves if token is valid', async () => {
+        const next = jest.fn()
+        const options = {
+          algorithm: EncryptionAlgorithms.HS256,
+          secretOrPublicKey: 'secret'
+        }
+        const token = JWT.sign({}, options.secretOrPublicKey, {
+          algorithm: options.algorithm
+        })
+        expect(
+          await JWTAuthMiddleware(options).before(
+            {
+              callback: jest.fn(),
+              context: {} as any,
+              error: {} as Error,
+              event: {
+                headers: {
+                  Authorization: `Bearer ${token}`
+                },
+                httpMethod: 'GET'
               },
-              httpMethod: 'GET'
+              response: null
             },
-            response: null
-          },
-          next
-        )
-      ).toEqual(undefined)
-    })
-
-    it('resolves if token is given in lower case authorization header', async () => {
-      const next = jest.fn()
-      const options = {
-        algorithm: EncryptionAlgorithms.HS256,
-        secretOrPublicKey: 'secret'
-      }
-      const token = JWT.sign({}, options.secretOrPublicKey, {
-        algorithm: options.algorithm
+            next
+          )
+        ).toEqual(undefined)
       })
-      expect(
-        await JWTAuthMiddleware(options).before(
-          {
-            callback: jest.fn(),
-            context: {} as any,
-            error: {} as Error,
-            event: {
-              headers: {
-                authorization: `Bearer ${token}`
+
+      it('resolves if token is given in lower case authorization header', async () => {
+        const next = jest.fn()
+        const options = {
+          algorithm: EncryptionAlgorithms.HS256,
+          secretOrPublicKey: 'secret'
+        }
+        const token = JWT.sign({}, options.secretOrPublicKey, {
+          algorithm: options.algorithm
+        })
+        expect(
+          await JWTAuthMiddleware(options).before(
+            {
+              callback: jest.fn(),
+              context: {} as any,
+              error: {} as Error,
+              event: {
+                headers: {
+                  authorization: `Bearer ${token}`
+                },
+                httpMethod: 'GET'
               },
-              httpMethod: 'GET'
+              response: null
             },
-            response: null
-          },
-          next
-        )
-      ).toEqual(undefined)
-    })
-
-    it('resolves if token is only entry in an array', async () => {
-      const next = jest.fn()
-      const options = {
-        algorithm: EncryptionAlgorithms.HS256,
-        secretOrPublicKey: 'secret'
-      }
-      const token = JWT.sign({}, options.secretOrPublicKey, {
-        algorithm: options.algorithm
+            next
+          )
+        ).toEqual(undefined)
       })
-      expect(
-        await JWTAuthMiddleware(options).before(
-          {
-            callback: jest.fn(),
-            context: {} as any,
-            error: {} as Error,
-            event: {
-              headers: {
-                Authorization: [`Bearer ${token}`]
+
+      it('resolves if token is only entry in an array', async () => {
+        const next = jest.fn()
+        const options = {
+          algorithm: EncryptionAlgorithms.HS256,
+          secretOrPublicKey: 'secret'
+        }
+        const token = JWT.sign({}, options.secretOrPublicKey, {
+          algorithm: options.algorithm
+        })
+        expect(
+          await JWTAuthMiddleware(options).before(
+            {
+              callback: jest.fn(),
+              context: {} as any,
+              error: {} as Error,
+              event: {
+                headers: {
+                  Authorization: [`Bearer ${token}`]
+                },
+                httpMethod: 'GET'
               },
-              httpMethod: 'GET'
+              response: null
             },
-            response: null
+            next
+          )
+        ).toEqual(undefined)
+      })
+
+      it('saves token information to event.auth if token is valid', async () => {
+        const next = jest.fn()
+        const options = {
+          algorithm: EncryptionAlgorithms.HS256,
+          secretOrPublicKey: 'secret'
+        }
+        const data = { userId: 1 }
+        const token = JWT.sign(data, options.secretOrPublicKey, {
+          algorithm: options.algorithm
+        })
+        const event: IAuthorizedEvent = {
+          headers: {
+            Authorization: `Bearer ${token}`
           },
-          next
-        )
-      ).toEqual(undefined)
-    })
-
-    it('saves token information to event.auth if token is valid', async () => {
-      const next = jest.fn()
-      const options = {
-        algorithm: EncryptionAlgorithms.HS256,
-        secretOrPublicKey: 'secret'
-      }
-      const data = { userId: 1 }
-      const token = JWT.sign(data, options.secretOrPublicKey, {
-        algorithm: options.algorithm
-      })
-      const event: IAuthorizedEvent = {
-        headers: {
-          Authorization: `Bearer ${token}`
-        },
-        httpMethod: 'GET'
-      }
-      await JWTAuthMiddleware(options).before(
-        {
-          callback: jest.fn(),
-          context: {} as any,
-          error: {} as Error,
-          event,
-          response: null
-        },
-        next
-      )
-      expect(event.auth).toEqual({ ...data, iat: expect.any(Number) })
-    })
-
-    it('rejects if event.auth is already filled', async () => {
-      const next = jest.fn()
-      const options = {
-        algorithm: EncryptionAlgorithms.HS256,
-        secretOrPublicKey: 'secret'
-      }
-      const data = { userId: 1 }
-      const token = JWT.sign(data, options.secretOrPublicKey, {
-        algorithm: options.algorithm
-      })
-      const event: IAuthorizedEvent = {
-        auth: {},
-        headers: {
-          Authorization: `Bearer ${token}`
-        },
-        httpMethod: 'GET'
-      }
-      await expect(
-        JWTAuthMiddleware(options).before(
+          httpMethod: 'GET'
+        }
+        await JWTAuthMiddleware(options).before(
           {
             callback: jest.fn(),
             context: {} as any,
@@ -164,32 +134,249 @@ describe('JWTAuthMiddleware', () => {
           },
           next
         )
-      ).rejects.toEqual(
-        createHttpError(400, 'The events auth property has to be empty', {
-          type: 'EventAuthNotEmpty'
+        expect(event.auth).toEqual({ ...data, iat: expect.any(Number) })
+      })
+
+      it('rejects if event.auth is already filled', async () => {
+        const next = jest.fn()
+        const options = {
+          algorithm: EncryptionAlgorithms.HS256,
+          secretOrPublicKey: 'secret'
+        }
+        const data = { userId: 1 }
+        const token = JWT.sign(data, options.secretOrPublicKey, {
+          algorithm: options.algorithm
         })
-      )
+        const event: IAuthorizedEvent = {
+          auth: {},
+          headers: {
+            Authorization: `Bearer ${token}`
+          },
+          httpMethod: 'GET'
+        }
+        await expect(
+          JWTAuthMiddleware(options).before(
+            {
+              callback: jest.fn(),
+              context: {} as any,
+              error: {} as Error,
+              event,
+              response: null
+            },
+            next
+          )
+        ).rejects.toEqual(
+          createHttpError(400, 'The events auth property has to be empty', {
+            type: 'EventAuthNotEmpty'
+          })
+        )
+      })
+
+      it('rejects if both authorization and Authorization headers are set', async () => {
+        const next = jest.fn()
+        const options = {
+          algorithm: EncryptionAlgorithms.HS256,
+          secretOrPublicKey: 'secret'
+        }
+        const data = { userId: 1 }
+        const token = JWT.sign(data, options.secretOrPublicKey, {
+          algorithm: options.algorithm
+        })
+        const event: IAuthorizedEvent = {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            authorization: `Bearer ${token}`
+          },
+          httpMethod: 'GET'
+        }
+        await expect(
+          JWTAuthMiddleware(options).before(
+            {
+              callback: jest.fn(),
+              context: {} as any,
+              error: {} as Error,
+              event,
+              response: null
+            },
+            next
+          )
+        ).rejects.toEqual(
+          createHttpError(
+            400,
+            'Both authorization and Authorization headers found, only one can be set',
+            {
+              type: 'MultipleAuthorizationHeadersSet'
+            }
+          )
+        )
+      })
+
+      it('rejects if Authorization header is malformed', async () => {
+        const next = jest.fn()
+        const options = {
+          algorithm: EncryptionAlgorithms.HS256,
+          secretOrPublicKey: 'secret'
+        }
+        await expect(
+          JWTAuthMiddleware(options).before(
+            {
+              callback: jest.fn(),
+              context: {} as any,
+              error: {} as Error,
+              event: {
+                headers: {
+                  Authorization: 'Malformed header'
+                },
+                httpMethod: 'GET'
+              },
+              response: null
+            },
+            next
+          )
+        ).rejects.toEqual(
+          createHttpError(
+            401,
+            'Format should be "Authorization: Bearer [token]", received "Authorization: Malformed header" instead',
+            {
+              type: 'WrongAuthFormat'
+            }
+          )
+        )
+      })
+
+      it('rejects if token is invalid', async () => {
+        const next = jest.fn()
+        const options = {
+          algorithm: EncryptionAlgorithms.HS256,
+          secretOrPublicKey: 'secret'
+        }
+        const token = JWT.sign({}, 'wrong secret', {
+          algorithm: options.algorithm
+        })
+        await expect(
+          JWTAuthMiddleware(options).before(
+            {
+              callback: jest.fn(),
+              context: {} as any,
+              error: {} as Error,
+              event: {
+                headers: {
+                  Authorization: `Bearer ${token}`
+                },
+                httpMethod: 'GET'
+              },
+              response: null
+            },
+            next
+          )
+        ).rejects.toEqual(
+          createHttpError(401, 'Invalid token', {
+            type: 'InvalidToken'
+          })
+        )
+      })
+
+      it('rejects if token is expired', async () => {
+        const next = jest.fn()
+        const options = {
+          algorithm: EncryptionAlgorithms.HS256,
+          secretOrPublicKey: 'secret'
+        }
+        const token = JWT.sign({ exp: 1 }, 'secret', {
+          algorithm: options.algorithm
+        })
+        await expect(
+          JWTAuthMiddleware(options).before(
+            {
+              callback: jest.fn(),
+              context: {} as any,
+              error: {} as Error,
+              event: {
+                headers: {
+                  Authorization: `Bearer ${token}`
+                },
+                httpMethod: 'GET'
+              },
+              response: null
+            },
+            next
+          )
+        ).rejects.toEqual(
+          createHttpError(
+            401,
+            'Token expired at Thu Jan 01 1970 01:00:01 GMT+0100 (GMT+01:00)',
+            {
+              expiredAt: new Date(
+                'Thu Jan 01 1970 01:00:01 GMT+0100 (GMT+01:00)'
+              ),
+              type: 'TokenExpiredError'
+            }
+          )
+        )
+      })
+
+      it("rejects if token isn't valid yet", async () => {
+        const validDate = new Date('2100-01-01T00:00:00Z')
+        const next = jest.fn()
+        const options = {
+          algorithm: EncryptionAlgorithms.HS256,
+          secretOrPublicKey: 'secret'
+        }
+        const token = JWT.sign({ nbf: moment(validDate).unix() }, 'secret', {
+          algorithm: options.algorithm
+        })
+        await expect(
+          JWTAuthMiddleware(options).before(
+            {
+              callback: jest.fn(),
+              context: {} as any,
+              error: {} as Error,
+              event: {
+                headers: {
+                  Authorization: `Bearer ${token}`
+                },
+                httpMethod: 'GET'
+              },
+              response: null
+            },
+            next
+          )
+        ).rejects.toEqual(
+          createHttpError(401, `Token not valid before ${validDate}`, {
+            date: validDate,
+            type: 'NotBeforeError'
+          })
+        )
+      })
     })
 
-    it('rejects if both authorization and Authorization headers are set', async () => {
-      const next = jest.fn()
-      const options = {
-        algorithm: EncryptionAlgorithms.HS256,
-        secretOrPublicKey: 'secret'
+    describe('with a payload type guard', () => {
+      interface IPayload {
+        userId: number
       }
-      const data = { userId: 1 }
-      const token = JWT.sign(data, options.secretOrPublicKey, {
-        algorithm: options.algorithm
-      })
-      const event: IAuthorizedEvent = {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          authorization: `Bearer ${token}`
-        },
-        httpMethod: 'GET'
+
+      function isPayload (payload: any): payload is IPayload {
+        return payload != null && typeof payload.userId === 'number'
       }
-      await expect(
-        JWTAuthMiddleware(options).before(
+
+      it('saves token information to event.auth if token is valid', async () => {
+        const next = jest.fn()
+        const options = {
+          algorithm: EncryptionAlgorithms.HS256,
+          isPayload,
+          secretOrPublicKey: 'secret'
+        }
+        const data = { userId: 1 }
+        const token = JWT.sign(data, options.secretOrPublicKey, {
+          algorithm: options.algorithm
+        })
+        const event: IAuthorizedEvent = {
+          headers: {
+            Authorization: `Bearer ${token}`
+          },
+          httpMethod: 'GET'
+        }
+        await JWTAuthMiddleware(options).before(
           {
             callback: jest.fn(),
             context: {} as any,
@@ -199,153 +386,48 @@ describe('JWTAuthMiddleware', () => {
           },
           next
         )
-      ).rejects.toEqual(
-        createHttpError(
-          400,
-          'Both authorization and Authorization headers found, only one can be set',
-          {
-            type: 'MultipleAuthorizationHeadersSet'
-          }
-        )
-      )
-    })
-
-    it('rejects if Authorization header is malformed', async () => {
-      const next = jest.fn()
-      const options = {
-        algorithm: EncryptionAlgorithms.HS256,
-        secretOrPublicKey: 'secret'
-      }
-      await expect(
-        JWTAuthMiddleware(options).before(
-          {
-            callback: jest.fn(),
-            context: {} as any,
-            error: {} as Error,
-            event: {
-              headers: {
-                Authorization: 'Malformed header'
-              },
-              httpMethod: 'GET'
-            },
-            response: null
-          },
-          next
-        )
-      ).rejects.toEqual(
-        createHttpError(
-          401,
-          'Format should be "Authorization: Bearer [token]", received "Authorization: Malformed header" instead',
-          {
-            type: 'WrongAuthFormat'
-          }
-        )
-      )
-    })
-
-    it('rejects if token is invalid', async () => {
-      const next = jest.fn()
-      const options = {
-        algorithm: EncryptionAlgorithms.HS256,
-        secretOrPublicKey: 'secret'
-      }
-      const token = JWT.sign({}, 'wrong secret', {
-        algorithm: options.algorithm
+        expect(event.auth).toEqual({ ...data, iat: expect.any(Number) })
       })
-      await expect(
-        JWTAuthMiddleware(options).before(
-          {
-            callback: jest.fn(),
-            context: {} as any,
-            error: {} as Error,
-            event: {
-              headers: {
-                Authorization: `Bearer ${token}`
-              },
-              httpMethod: 'GET'
-            },
-            response: null
-          },
-          next
-        )
-      ).rejects.toEqual(
-        createHttpError(401, 'Invalid token', {
-          type: 'InvalidToken'
+
+      it("rejects if payload doesn't pass the payload type guard", async () => {
+        const next = jest.fn()
+        const options = {
+          algorithm: EncryptionAlgorithms.HS256,
+          isPayload,
+          secretOrPublicKey: 'secret'
+        }
+        const data = { iat: 1, user: 1 }
+        const token = JWT.sign(data, options.secretOrPublicKey, {
+          algorithm: options.algorithm
         })
-      )
-    })
-
-    it('rejects if token is expired', async () => {
-      const next = jest.fn()
-      const options = {
-        algorithm: EncryptionAlgorithms.HS256,
-        secretOrPublicKey: 'secret'
-      }
-      const token = JWT.sign({ exp: 1 }, 'secret', {
-        algorithm: options.algorithm
-      })
-      await expect(
-        JWTAuthMiddleware(options).before(
-          {
-            callback: jest.fn(),
-            context: {} as any,
-            error: {} as Error,
-            event: {
-              headers: {
-                Authorization: `Bearer ${token}`
-              },
-              httpMethod: 'GET'
-            },
-            response: null
+        const event: IAuthorizedEvent = {
+          headers: {
+            Authorization: `Bearer ${token}`
           },
-          next
-        )
-      ).rejects.toEqual(
-        createHttpError(
-          401,
-          'Token expired at Thu Jan 01 1970 01:00:01 GMT+0100 (GMT+01:00)',
-          {
-            expiredAt: new Date(
-              'Thu Jan 01 1970 01:00:01 GMT+0100 (GMT+01:00)'
-            ),
-            type: 'TokenExpiredError'
-          }
-        )
-      )
-    })
-
-    it("rejects if token isn't valid yet", async () => {
-      const validDate = new Date('2100-01-01T00:00:00Z')
-      const next = jest.fn()
-      const options = {
-        algorithm: EncryptionAlgorithms.HS256,
-        secretOrPublicKey: 'secret'
-      }
-      const token = JWT.sign({ nbf: moment(validDate).unix() }, 'secret', {
-        algorithm: options.algorithm
-      })
-      await expect(
-        JWTAuthMiddleware(options).before(
-          {
-            callback: jest.fn(),
-            context: {} as any,
-            error: {} as Error,
-            event: {
-              headers: {
-                Authorization: `Bearer ${token}`
-              },
-              httpMethod: 'GET'
+          httpMethod: 'GET'
+        }
+        await expect(
+          JWTAuthMiddleware(options).before(
+            {
+              callback: jest.fn(),
+              context: {} as any,
+              error: {} as Error,
+              event,
+              response: null
             },
-            response: null
-          },
-          next
+            next
+          )
+        ).rejects.toEqual(
+          createHttpError(
+            400,
+            'Token payload malformed, was {"iat":1,"user":1}',
+            {
+              payload: { iat: 1, user: 1 },
+              type: 'TokenPayloadMalformedError'
+            }
+          )
         )
-      ).rejects.toEqual(
-        createHttpError(401, `Token not valid before ${validDate}`, {
-          date: validDate,
-          type: 'NotBeforeError'
-        })
-      )
+      })
     })
   })
 })

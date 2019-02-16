@@ -1,11 +1,11 @@
 /** An event that can be checked for authorization with middly-middleware-jwt-auth */
-export type IAuthorizedEvent =
-  | ILowerCaseAuthorizedEvent
-  | IUpperCaseAuthorizedEvent
+export type IAuthorizedEvent<TokenPayload = any> =
+  | ILowerCaseAuthorizedEvent<TokenPayload>
+  | IUpperCaseAuthorizedEvent<TokenPayload>
 
-export interface IAuthorizedEventBase {
+export interface IAuthorizedEventBase<TokenPayload = any> {
   /** Authorization information added by this middleware from a JWT. Has to be undefined before hitting the middleware. */
-  auth?: any
+  auth?: TokenPayload
   /** An object containing event headers */
   headers: any
   /** The http request method of this event */
@@ -13,7 +13,8 @@ export interface IAuthorizedEventBase {
 }
 
 /** An event with a lower case authorization header */
-export interface ILowerCaseAuthorizedEvent extends IAuthorizedEventBase {
+export interface ILowerCaseAuthorizedEvent<TokenPayload = any>
+  extends IAuthorizedEventBase<TokenPayload> {
   headers: {
     /**
      * The authorization token to check. Can be a string or an array with exactly one string.
@@ -24,7 +25,8 @@ export interface ILowerCaseAuthorizedEvent extends IAuthorizedEventBase {
 }
 
 /** An event with an upper case authorization header */
-export interface IUpperCaseAuthorizedEvent extends IAuthorizedEventBase {
+export interface IUpperCaseAuthorizedEvent<TokenPayload = any>
+  extends IAuthorizedEventBase<TokenPayload> {
   headers: {
     /**
      * The authorization token to check. Can be a string or an array with exactly one string.
@@ -34,25 +36,36 @@ export interface IUpperCaseAuthorizedEvent extends IAuthorizedEventBase {
   }
 }
 
-export function isAuthorizedEvent (event: any): event is IAuthorizedEvent {
-  return isUpperCaseAuthorizedEvent(event) || isLowerCaseAuthorizedEvent(event)
+export function isAuthorizedEvent<P> (
+  event: any,
+  isTokenPayload?: (payload: any) => payload is P
+): event is IAuthorizedEvent<P> {
+  return (
+    isUpperCaseAuthorizedEvent<P>(event, isTokenPayload) ||
+    isLowerCaseAuthorizedEvent<P>(event, isTokenPayload)
+  )
 }
 
-export function isAuthorizedEventBase (
-  event: any
+export function isAuthorizedEventBase<P> (
+  event: any,
+  isTokenPayload?: (payload: any) => payload is P
 ): event is IAuthorizedEventBase {
   return (
     event != null &&
     typeof event.httpMethod === 'string' &&
-    event.headers != null
+    event.headers != null &&
+    (event.auth === undefined ||
+      isTokenPayload == null ||
+      isTokenPayload(event.auth))
   )
 }
 
-export function isUpperCaseAuthorizedEvent (
-  event: any
-): event is IUpperCaseAuthorizedEvent {
+export function isUpperCaseAuthorizedEvent<P> (
+  event: any,
+  isTokenPayload?: (payload: any) => payload is P
+): event is IUpperCaseAuthorizedEvent<P> {
   return (
-    isAuthorizedEventBase(event) &&
+    isAuthorizedEventBase<P>(event, isTokenPayload) &&
     (typeof event.headers.Authorization === 'string' ||
       (Array.isArray(event.headers.Authorization) &&
         event.headers.Authorization.length === 1 &&
@@ -62,11 +75,12 @@ export function isUpperCaseAuthorizedEvent (
   )
 }
 
-export function isLowerCaseAuthorizedEvent (
-  event: any
-): event is ILowerCaseAuthorizedEvent {
+export function isLowerCaseAuthorizedEvent<P> (
+  event: any,
+  isTokenPayload?: (payload: any) => payload is P
+): event is ILowerCaseAuthorizedEvent<P> {
   return (
-    isAuthorizedEventBase(event) &&
+    isAuthorizedEventBase<P>(event, isTokenPayload) &&
     (typeof event.headers.authorization === 'string' ||
       (Array.isArray(event.headers.authorization) &&
         event.headers.authorization.length === 1 &&

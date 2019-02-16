@@ -1,7 +1,7 @@
-import middy from 'middy'
-import JWTAuthMiddleware, { EncryptionAlgorithms, IAuthorizedEvent } from '../'
-import { httpErrorHandler, httpHeaderNormalizer } from 'middy/middlewares'
 import createHttpError from 'http-errors'
+import middy from 'middy'
+import { httpErrorHandler, httpHeaderNormalizer } from 'middy/middlewares'
+import JWTAuthMiddleware, { EncryptionAlgorithms, IAuthorizedEvent } from '../'
 
 interface ITokenPayload {
   permissions: string[]
@@ -14,20 +14,19 @@ function isTokenPayload (token: any): token is ITokenPayload {
 }
 
 // This is your AWS handler
-const helloWorld = async (event: IAuthorizedEvent) => {
+const helloWorld = async (event: IAuthorizedEvent<ITokenPayload>) => {
   // The middleware adds auth information if a valid token was added
   // If no auth was found, event.auth will remain undefined. You have to check
   // that it exists and has the expected form.
-  if (!isTokenPayload(event.auth)) {
+  if (event.auth == null) {
     throw createHttpError(401, 'No valid bearer token was set in the authorization header', {
       type: 'AuthenticationRequired'
     })
   }
-  const auth: ITokenPayload = event.auth
 
   // Check for authorization
-  if (auth.permissions.indexOf('helloWorld') === -1) {
-    throw createHttpError(403, `User not authorized for helloWorld, only found permissions [${auth.permissions.join(', ')}]`, {
+  if (event.auth.permissions.indexOf('helloWorld') === -1) {
+    throw createHttpError(403, `User not authorized for helloWorld, only found permissions [${event.auth.permissions.join(', ')}]`, {
       type: 'NotAuthorized'
     })
   }
@@ -45,6 +44,8 @@ export const handler = middy(helloWorld)
   .use(JWTAuthMiddleware({
     /** Algorithm to verify JSON web token signature */
     algorithm: EncryptionAlgorithms.HS256,
+    /** An optional function that checks whether the token payload is formatted correctly */
+    isPayload: isTokenPayload,
     /** A string or buffer containing either the secret for HMAC algorithms, or the PEM encoded public key for RSA and ECDSA */
     secretOrPublicKey: 'secret'
   }))

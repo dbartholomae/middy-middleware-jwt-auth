@@ -21,9 +21,11 @@ export enum EncryptionAlgorithms {
 }
 
 /** Options for the middy-middleware-jwt-auth */
-export interface IAuthOptions {
+export interface IAuthOptions<P = any> {
   /** Algorithm to verify JSON web token signature */
   algorithm: EncryptionAlgorithms
+  /** An optional type guard function that verifies token payload structure */
+  isPayload?: (payload: any) => payload is P
   /** A string or buffer containing either the secret for HMAC algorithms, or the PEM encoded public key for RSA and ECDSA */
   secretOrPublicKey: string | Buffer
 }
@@ -33,6 +35,8 @@ export function isAuthOptions (options: any): options is IAuthOptions {
     options != null &&
     options.algorithm != null &&
     Object.values(EncryptionAlgorithms).includes(options.algorithm) &&
+    (options.isPayload === undefined ||
+      typeof options.isPayload === 'function') &&
     options.secretOrPublicKey != null &&
     (typeof options.secretOrPublicKey === 'string' ||
       Buffer.isBuffer(options.secretOrPublicKey))

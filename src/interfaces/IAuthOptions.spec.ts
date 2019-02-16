@@ -21,6 +21,21 @@ describe('IAuthOptions', () => {
       }
       expect(options).not.toBeNull()
     })
+
+    it('accepts data that has algorithm, a string secretOrPublicKey and a payload type guard', () => {
+      interface IPayload {
+        foo: string
+      }
+      function isPayload (payload: any): payload is IPayload {
+        return payload != null && typeof payload.foo === 'string'
+      }
+      const options: IAuthOptions<IPayload> = {
+        algorithm: EncryptionAlgorithms.ES256,
+        isPayload,
+        secretOrPublicKey: 'secret'
+      }
+      expect(options).not.toBeNull()
+    })
   })
 
   describe('type guard', () => {
@@ -38,6 +53,22 @@ describe('IAuthOptions', () => {
         isAuthOptions({
           algorithm: EncryptionAlgorithms.ES256,
           secretOrPublicKey: Buffer.from([])
+        })
+      ).toBe(true)
+    })
+
+    it('accepts data that has algorithm, a string secretOrPublicKey and a payload type guard', () => {
+      interface IPayload {
+        foo: string
+      }
+      function isPayload (payload: any): payload is IPayload {
+        return payload != null && typeof payload.foo === 'string'
+      }
+      expect(
+        isAuthOptions({
+          algorithm: EncryptionAlgorithms.ES256,
+          isPayload,
+          secretOrPublicKey: 'secret'
         })
       ).toBe(true)
     })
@@ -76,6 +107,16 @@ describe('IAuthOptions', () => {
         isAuthOptions({
           algorithm: EncryptionAlgorithms.ES256,
           secretOrPublicKey: {}
+        })
+      ).toBe(false)
+    })
+
+    it('rejects data with a payload type guard that is not a function', () => {
+      expect(
+        isAuthOptions({
+          algorithm: EncryptionAlgorithms.ES256,
+          isPayload: {} as any,
+          secretOrPublicKey: 'secret'
         })
       ).toBe(false)
     })
