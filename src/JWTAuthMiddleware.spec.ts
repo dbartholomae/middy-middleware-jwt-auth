@@ -3,8 +3,8 @@ import JWTAuthMiddleware from './JWTAuthMiddleware'
 
 import createHttpError from 'http-errors'
 import JWT from 'jsonwebtoken'
+import moment from 'moment'
 import { IAuthorizedEvent } from './interfaces/IAuthorizedEvent'
-import moment = require('moment')
 
 describe('JWTAuthMiddleware', () => {
   it('throws a type error when options are misformed', () => {
