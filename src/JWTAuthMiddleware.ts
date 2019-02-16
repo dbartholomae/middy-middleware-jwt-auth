@@ -10,14 +10,15 @@
  *   This is necessary to avoid attacks where no Authorization header is set and event.auth is set directly
  *   to circumvent the check.
  * * __WrongAuthFormat (401)__ is thrown if the Authorization header is not of the form "Bearer token"
+ * * __MultipleAuthorizationHeadersSet (400)__ is thrown if both authorization and Authorization headers are set
+ * * __TokenExpiredError (401)__ is thrown if the token expired. `expiredAt` is set to the date when the token expired.
  * * __InvalidToken (401)__ is thrown if the token cannot be verified with the secret or public key
  *   used to set up the middleware
- * * __MultipleAuthorizationHeadersSet (400)__ is thrown if both authorization and Authorization headers are set
  */
 /** An additional comment to make sure Typedoc attributes the comment above to the file itself */
 import debugFactory, { IDebugger } from 'debug'
 import createHttpError from 'http-errors'
-import jwt from 'jsonwebtoken'
+import jwt, { TokenExpiredError } from 'jsonwebtoken'
 import { HandlerLambda, MiddlewareFunction } from 'middy'
 import {
   EncryptionAlgorithms,
@@ -125,6 +126,13 @@ export class JWTAuthMiddleware {
       this.logger('Token verified')
     } catch (err) {
       this.logger('Token could not be verified')
+      if (err instanceof TokenExpiredError) {
+        this.logger(`Token expired at ${err.expiredAt}`)
+        throw createHttpError(401, `Token expired at ${err.expiredAt}`, {
+          expiredAt: err.expiredAt,
+          type: 'TokenExpiredError'
+        })
+      }
       throw createHttpError(401, 'Invalid token', {
         type: 'InvalidToken'
       })

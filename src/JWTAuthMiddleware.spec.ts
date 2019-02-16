@@ -273,5 +273,44 @@ describe('JWTAuthMiddleware', () => {
         })
       )
     })
+
+    it('rejects if token is expired', async () => {
+      const next = jest.fn()
+      const options = {
+        algorithm: EncryptionAlgorithms.HS256,
+        secretOrPublicKey: 'secret'
+      }
+      const token = JWT.sign({ exp: 1 }, 'secret', {
+        algorithm: options.algorithm
+      })
+      await expect(
+        JWTAuthMiddleware(options).before(
+          {
+            callback: jest.fn(),
+            context: {} as any,
+            error: {} as Error,
+            event: {
+              headers: {
+                Authorization: `Bearer ${token}`
+              },
+              httpMethod: 'GET'
+            },
+            response: null
+          },
+          next
+        )
+      ).rejects.toEqual(
+        createHttpError(
+          401,
+          'Token expired at Thu Jan 01 1970 01:00:01 GMT+0100 (GMT+01:00)',
+          {
+            expiredAt: new Date(
+              'Thu Jan 01 1970 01:00:01 GMT+0100 (GMT+01:00)'
+            ),
+            type: 'TokenExpiredError'
+          }
+        )
+      )
+    })
   })
 })
