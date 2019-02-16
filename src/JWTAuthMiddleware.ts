@@ -46,6 +46,11 @@ export class JWTAuthMiddleware {
   /** Creates a new JWT Auth middleware */
   constructor (private options: IAuthOptions) {
     this.logger = debugFactory('middy-middleware-jwt-auth')
+    this.logger(
+      `Setting up JWTAuthMiddleware with encryption algorithm ${
+        this.options.algorithm
+      }`
+    )
   }
 
   /**
