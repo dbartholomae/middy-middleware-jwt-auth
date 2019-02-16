@@ -1,3 +1,18 @@
+# [2.1.0](https://github.com/dbartholomae/middy-middleware-jwt-auth/compare/2.0.0...2.1.0) (2019-02-16)
+
+
+### Bug Fixes
+
+* standardize date format in TokenExpired error message ([8ac46c9](https://github.com/dbartholomae/middy-middleware-jwt-auth/commit/8ac46c9))
+
+
+### Features
+
+* add logging of encryption algorithm in debug mode ([d4854b1](https://github.com/dbartholomae/middy-middleware-jwt-auth/commit/d4854b1))
+* allow to check token payload with a type guard ([842232b](https://github.com/dbartholomae/middy-middleware-jwt-auth/commit/842232b))
+* throw more explicit error if token expired ([50896bd](https://github.com/dbartholomae/middy-middleware-jwt-auth/commit/50896bd))
+* throw more explicit error if token isn't valid yet ([3cb1c33](https://github.com/dbartholomae/middy-middleware-jwt-auth/commit/3cb1c33))
+
 # [2.0.0](https://github.com/dbartholomae/middy-middleware-jwt-auth/compare/1.1.0...2.0.0) (2019-02-16)
 
 
