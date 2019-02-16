@@ -132,11 +132,15 @@ export class JWTAuthMiddleware<Payload> {
       this.logger('Token could not be verified')
 
       if (err instanceof TokenExpiredError) {
-        this.logger(`Token expired at ${err.expiredAt}`)
-        throw createHttpError(401, `Token expired at ${err.expiredAt}`, {
-          expiredAt: err.expiredAt,
-          type: 'TokenExpiredError'
-        })
+        this.logger(`Token expired at ${new Date(err.expiredAt).toUTCString()}`)
+        throw createHttpError(
+          401,
+          `Token expired at ${new Date(err.expiredAt).toUTCString()}`,
+          {
+            expiredAt: err.expiredAt,
+            type: 'TokenExpiredError'
+          }
+        )
       }
 
       if (err instanceof NotBeforeError) {

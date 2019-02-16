@@ -304,7 +304,7 @@ describe('JWTAuthMiddleware', () => {
         ).rejects.toEqual(
           createHttpError(
             401,
-            'Token expired at Thu Jan 01 1970 01:00:01 GMT+0100 (GMT+01:00)',
+            'Token expired at Thu, 01 Jan 1970 00:00:01 GMT',
             {
               expiredAt: new Date(
                 'Thu Jan 01 1970 01:00:01 GMT+0100 (GMT+01:00)'
