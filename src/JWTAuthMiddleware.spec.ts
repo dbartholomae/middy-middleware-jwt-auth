@@ -1,4 +1,3 @@
-import debugFactory from 'debug'
 import JWTAuthMiddleware from './JWTAuthMiddleware'
 import { EncryptionAlgorithms } from './interfaces/IAuthOptions'
 
@@ -7,10 +6,6 @@ import createHttpError from 'http-errors'
 import { IAuthorizedEvent } from './interfaces/IAuthorizedEvent'
 
 describe('JWTAuthMiddleware', () => {
-  beforeAll(() => {
-    debugFactory.enable('middy-middleware-jwt-auth')
-  })
-
   it('throws a type error when options are misformed', () => {
     expect(() => JWTAuthMiddleware({} as any)).toThrowError(TypeError)
   })
