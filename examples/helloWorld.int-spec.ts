@@ -1,5 +1,5 @@
-import request from 'supertest'
 import JWT from 'jsonwebtoken'
+import request from 'supertest'
 const server = request('http://localhost:3000')
 
 // Unfortunately the error middleware does not set correct content-type 'text', but instead 'application/json' is
@@ -8,7 +8,7 @@ const server = request('http://localhost:3000')
 //
 // TODO: Delete these two lines as soon as the error middleware sets the correct content-type
 import superagent from 'superagent'
-superagent.parse['application/json'] = superagent.parse['text']
+superagent.parse['application/json'] = superagent.parse.text
 
 describe('Handler with JWT Auth middleware', () => {
   it('returns 200 and "Hello world!" if authorized', async () => {
