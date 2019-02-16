@@ -1,5 +1,9 @@
 {
-  "extends": ["tslint-config-standard"],
+  "extends": [
+    "tslint:recommended",
+    "tslint-consistent-codestyle",
+    "tslint-config-prettier"
+  ],
   "linterOptions": {
     "exclude": [
       "node_modules/**/*.ts",

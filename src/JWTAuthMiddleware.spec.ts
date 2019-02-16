@@ -1,8 +1,8 @@
-import JWTAuthMiddleware from './JWTAuthMiddleware'
 import { EncryptionAlgorithms } from './interfaces/IAuthOptions'
+import JWTAuthMiddleware from './JWTAuthMiddleware'
 
-import JWT from 'jsonwebtoken'
 import createHttpError from 'http-errors'
+import JWT from 'jsonwebtoken'
 import { IAuthorizedEvent } from './interfaces/IAuthorizedEvent'
 
 describe('JWTAuthMiddleware', () => {
@@ -34,16 +34,44 @@ describe('JWTAuthMiddleware', () => {
       expect(
         await JWTAuthMiddleware(options).before(
           {
+            callback: jest.fn(),
+            context: {} as any,
+            error: {} as Error,
             event: {
               headers: {
                 Authorization: `Bearer ${token}`
               },
               httpMethod: 'GET'
             },
+            response: null
+          },
+          next
+        )
+      ).toEqual(undefined)
+    })
+
+    it('resolves if token is given in lower case authorization header', async () => {
+      const next = jest.fn()
+      const options = {
+        algorithm: EncryptionAlgorithms.HS256,
+        secretOrPublicKey: 'secret'
+      }
+      const token = JWT.sign({}, options.secretOrPublicKey, {
+        algorithm: options.algorithm
+      })
+      expect(
+        await JWTAuthMiddleware(options).before(
+          {
+            callback: jest.fn(),
             context: {} as any,
-            response: null,
             error: {} as Error,
-            callback: jest.fn()
+            event: {
+              headers: {
+                authorization: `Bearer ${token}`
+              },
+              httpMethod: 'GET'
+            },
+            response: null
           },
           next
         )
@@ -62,16 +90,16 @@ describe('JWTAuthMiddleware', () => {
       expect(
         await JWTAuthMiddleware(options).before(
           {
+            callback: jest.fn(),
+            context: {} as any,
+            error: {} as Error,
             event: {
               headers: {
                 Authorization: [`Bearer ${token}`]
               },
               httpMethod: 'GET'
             },
-            context: {} as any,
-            response: null,
-            error: {} as Error,
-            callback: jest.fn()
+            response: null
           },
           next
         )
@@ -96,11 +124,11 @@ describe('JWTAuthMiddleware', () => {
       }
       await JWTAuthMiddleware(options).before(
         {
-          event,
+          callback: jest.fn(),
           context: {} as any,
-          response: null,
           error: {} as Error,
-          callback: jest.fn()
+          event,
+          response: null
         },
         next
       )
@@ -127,11 +155,11 @@ describe('JWTAuthMiddleware', () => {
       await expect(
         JWTAuthMiddleware(options).before(
           {
-            event,
+            callback: jest.fn(),
             context: {} as any,
-            response: null,
             error: {} as Error,
-            callback: jest.fn()
+            event,
+            response: null
           },
           next
         )
@@ -139,6 +167,45 @@ describe('JWTAuthMiddleware', () => {
         createHttpError(400, 'The events auth property has to be empty', {
           type: 'EventAuthNotEmpty'
         })
+      )
+    })
+
+    it('rejects if both authorization and Authorization headers are set', async () => {
+      const next = jest.fn()
+      const options = {
+        algorithm: EncryptionAlgorithms.HS256,
+        secretOrPublicKey: 'secret'
+      }
+      const data = { userId: 1 }
+      const token = JWT.sign(data, options.secretOrPublicKey, {
+        algorithm: options.algorithm
+      })
+      const event: IAuthorizedEvent = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          authorization: `Bearer ${token}`
+        },
+        httpMethod: 'GET'
+      }
+      await expect(
+        JWTAuthMiddleware(options).before(
+          {
+            callback: jest.fn(),
+            context: {} as any,
+            error: {} as Error,
+            event,
+            response: null
+          },
+          next
+        )
+      ).rejects.toEqual(
+        createHttpError(
+          400,
+          'Both authorization and Authorization headers found, only one can be set',
+          {
+            type: 'MultipleAuthorizationHeadersSet'
+          }
+        )
       )
     })
 
@@ -151,16 +218,16 @@ describe('JWTAuthMiddleware', () => {
       await expect(
         JWTAuthMiddleware(options).before(
           {
+            callback: jest.fn(),
+            context: {} as any,
+            error: {} as Error,
             event: {
               headers: {
                 Authorization: 'Malformed header'
               },
               httpMethod: 'GET'
             },
-            context: {} as any,
-            response: null,
-            error: {} as Error,
-            callback: jest.fn()
+            response: null
           },
           next
         )
@@ -187,16 +254,16 @@ describe('JWTAuthMiddleware', () => {
       await expect(
         JWTAuthMiddleware(options).before(
           {
+            callback: jest.fn(),
+            context: {} as any,
+            error: {} as Error,
             event: {
               headers: {
                 Authorization: `Bearer ${token}`
               },
               httpMethod: 'GET'
             },
-            context: {} as any,
-            response: null,
-            error: {} as Error,
-            callback: jest.fn()
+            response: null
           },
           next
         )

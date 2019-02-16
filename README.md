@@ -19,7 +19,7 @@ There is [additional documentation](https://dbartholomae.github.com/middy-middle
 ```typescript
 import middy from 'middy'
 import JWTAuthMiddleware, { EncryptionAlgorithms, IAuthorizedEvent } from 'middy-middleware-jwt-auth'
-import { httpErrorHandler } from 'middy/middlewares'
+import { httpErrorHandler, httpHeaderNormalizer } from 'middy/middlewares'
 import createHttpError from 'http-errors'
 
 interface ITokenPayload {
@@ -59,6 +59,7 @@ const helloWorld = async (event: IAuthorizedEvent) => {
 
 // Let's "middyfy" our handler, then we will be able to attach middlewares to it
 export const handler = middy(helloWorld)
+  .use(httpHeaderNormalizer()) // Make sure authorization header is saved in lower case
   .use(httpErrorHandler()) // This middleware is needed do handle the errors thrown by the JWTAuthMiddleware
   .use(JWTAuthMiddleware({
     /** Algorithm to verify JSON web token signature */

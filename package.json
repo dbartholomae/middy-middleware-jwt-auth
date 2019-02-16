@@ -40,7 +40,7 @@
     "example": "examples"
   },
   "scripts": {
-    "build": "rimraf ./lib && tsc --project tsconfig.json",
+    "build": "rimraf ./lib && tsc --project tsconfig.build.json",
     "docs": "typedoc",
     "pretest": "npm run build",
     "release": "semantic-release",
@@ -51,13 +51,6 @@
     "lint": "tslint --project tsconfig.json",
     "lint:fix": "tslint --project tsconfig.json --fix",
     "precommit:lint:fix": "tslint --project tsconfig.json --fix"
-  },
-  "husky": {
-    "hooks": {
-      "commit-msg": "cross-env-shell commitlint -e $HUSKY_GIT_PARAMS",
-      "pre-commit": "lint-staged",
-      "pre-push": "npm test"
-    }
   },
   "devDependencies": {
     "@commitlint/cli": "^7.2.0",
@@ -89,7 +82,8 @@
     "ts-jest": "^23.10.4",
     "ts-loader": "^5.3.3",
     "tslint": "^5.7.0",
-    "tslint-config-standard": "^8.0.1",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-consistent-codestyle": "^1.15.0",
     "typedoc": "^0.14.2",
     "typescript": "^3.1.2",
     "wait-on": "^3.2.0",

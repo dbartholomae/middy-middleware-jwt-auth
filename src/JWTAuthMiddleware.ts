@@ -12,33 +12,36 @@
  * * __WrongAuthFormat (401)__ is thrown if the Authorization header is not of the form "Bearer token"
  * * __InvalidToken (401)__ is thrown if the token cannot be verified with the secret or public key
  *   used to set up the middleware
+ * * __MultipleAuthorizationHeadersSet (400)__ is thrown if both authorization and Authorization headers are set
  */
 /** An additional comment to make sure Typedoc attributes the comment above to the file itself */
 import debugFactory, { IDebugger } from 'debug'
+import createHttpError from 'http-errors'
+import jwt from 'jsonwebtoken'
 import { HandlerLambda, MiddlewareFunction } from 'middy'
-import {
-  IAuthorizedEvent,
-  isAuthorizedEvent
-} from './interfaces/IAuthorizedEvent'
 import {
   EncryptionAlgorithms,
   IAuthOptions,
   isAuthOptions
 } from './interfaces/IAuthOptions'
-import createHttpError from 'http-errors'
-import jwt from 'jsonwebtoken'
+import {
+  IAuthorizedEvent,
+  isAuthorizedEvent,
+  isLowerCaseAuthorizedEvent,
+  isUpperCaseAuthorizedEvent
+} from './interfaces/IAuthorizedEvent'
 
 /** The actual middleware */
 export class JWTAuthMiddleware {
-  /** The logger used in the module */
-  private readonly logger: IDebugger
-
   public static create (options: IAuthOptions): JWTAuthMiddleware {
     if (!isAuthOptions(options)) {
       throw new TypeError(`Expected IAuthOptions, received ${options} instead`)
     }
     return new JWTAuthMiddleware(options)
   }
+
+  /** The logger used in the module */
+  private readonly logger: IDebugger
 
   /** Creates a new JWT Auth middleware */
   constructor (private options: IAuthOptions) {
@@ -48,6 +51,7 @@ export class JWTAuthMiddleware {
   /**
    * Checks for an authentication token, saves its content to event.auth and throws errors if anything fishy goes on.
    * It will pass if no authorization header is present, but will ensure that event.auth is undefined in those cases.
+   * Authorization or authorization headers will both be checked. If both exist, the middleware will throw an error.
    * @param event - The event to check
    */
   public before: MiddlewareFunction<IAuthorizedEvent, any> = async ({
@@ -65,12 +69,33 @@ export class JWTAuthMiddleware {
       this.logger('No authorization header found')
       return
     }
-    this.logger('Authorization header found')
+    this.logger(
+      'Checking whether event contains multiple authorization headers'
+    )
+    if (
+      isLowerCaseAuthorizedEvent(event) &&
+      isUpperCaseAuthorizedEvent(event)
+    ) {
+      this.logger(
+        'Both authorization and Authorization headers found, only one can be set'
+      )
+      throw createHttpError(
+        400,
+        'Both authorization and Authorization headers found, only one can be set',
+        {
+          type: 'MultipleAuthorizationHeadersSet'
+        }
+      )
+    }
+    this.logger('One authorization header found')
 
     this.logger('Checking whether authorization header is formed correctly')
-    const authHeader = Array.isArray(event.headers.Authorization)
-      ? event.headers.Authorization[0]
+    const normalizedAuth = isLowerCaseAuthorizedEvent(event)
+      ? event.headers.authorization
       : event.headers.Authorization
+    const authHeader = Array.isArray(normalizedAuth)
+      ? normalizedAuth[0]
+      : normalizedAuth
     const parts = authHeader.split(' ')
     if (parts.length !== 2 || parts[0] !== 'Bearer') {
       this.logger(
