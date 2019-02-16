@@ -1,8 +1,6 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
-    "outDir": "lib",
-    "declaration": true,
     "module": "esnext",
     "esModuleInterop": true,
     "target": "es5",
