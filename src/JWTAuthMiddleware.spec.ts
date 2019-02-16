@@ -50,6 +50,34 @@ describe('JWTAuthMiddleware', () => {
       ).toEqual(undefined)
     })
 
+    it('resolves if token is only entry in an array', async () => {
+      const next = jest.fn()
+      const options = {
+        algorithm: EncryptionAlgorithms.HS256,
+        secretOrPublicKey: 'secret'
+      }
+      const token = JWT.sign({}, options.secretOrPublicKey, {
+        algorithm: options.algorithm
+      })
+      expect(
+        await JWTAuthMiddleware(options).before(
+          {
+            event: {
+              headers: {
+                Authorization: [`Bearer ${token}`]
+              },
+              httpMethod: 'GET'
+            },
+            context: {} as any,
+            response: null,
+            error: {} as Error,
+            callback: jest.fn()
+          },
+          next
+        )
+      ).toEqual(undefined)
+    })
+
     it('saves token information to event.auth if token is valid', async () => {
       const next = jest.fn()
       const options = {

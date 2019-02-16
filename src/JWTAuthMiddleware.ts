@@ -68,18 +68,17 @@ export class JWTAuthMiddleware {
     this.logger('Authorization header found')
 
     this.logger('Checking whether authorization header is formed correctly')
-    const parts = event.headers.Authorization.split(' ')
+    const authHeader = Array.isArray(event.headers.Authorization)
+      ? event.headers.Authorization[0]
+      : event.headers.Authorization
+    const parts = authHeader.split(' ')
     if (parts.length !== 2 || parts[0] !== 'Bearer') {
       this.logger(
-        `Authorization header malformed, it was "${
-          event.headers.Authorization
-        }" but should be of format "Bearer token"`
+        `Authorization header malformed, it was "${authHeader}" but should be of format "Bearer token"`
       )
       throw createHttpError(
         401,
-        `Format should be "Authorization: Bearer [token]", received "Authorization: ${
-          event.headers.Authorization
-        }" instead`,
+        `Format should be "Authorization: Bearer [token]", received "Authorization: ${authHeader}" instead`,
         {
           type: 'WrongAuthFormat'
         }
