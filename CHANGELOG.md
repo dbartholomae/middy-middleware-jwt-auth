@@ -1,3 +1,10 @@
+## [2.1.1](https://github.com/dbartholomae/middy-middleware-jwt-auth/compare/2.1.0...2.1.1) (2019-02-16)
+
+
+### Bug Fixes
+
+* stringify JWTAuthMiddleware options in error ([2f09634](https://github.com/dbartholomae/middy-middleware-jwt-auth/commit/2f09634))
+
 # [2.1.0](https://github.com/dbartholomae/middy-middleware-jwt-auth/compare/2.0.0...2.1.0) (2019-02-16)
 
 
