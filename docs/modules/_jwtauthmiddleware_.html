@@ -83,6 +83,7 @@
 							<li><strong>WrongAuthFormat (401)</strong> is thrown if the Authorization header is not of the form &quot;Bearer token&quot;</li>
 							<li><strong>InvalidToken (401)</strong> is thrown if the token cannot be verified with the secret or public key
 							used to set up the middleware</li>
+							<li><strong>MultipleAuthorizationHeadersSet (400)</strong> is thrown if both authorization and Authorization headers are set</li>
 						</ul>
 					</div>
 				</div>

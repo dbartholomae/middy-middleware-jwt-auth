@@ -75,7 +75,7 @@
 				<h2 id="usage">Usage</h2>
 				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> middy <span class="hljs-keyword">from</span> <span class="hljs-string">'middy'</span>
 <span class="hljs-keyword">import</span> JWTAuthMiddleware, { EncryptionAlgorithms, IAuthorizedEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">'middy-middleware-jwt-auth'</span>
-<span class="hljs-keyword">import</span> { httpErrorHandler } <span class="hljs-keyword">from</span> <span class="hljs-string">'middy/middlewares'</span>
+<span class="hljs-keyword">import</span> { httpErrorHandler, httpHeaderNormalizer } <span class="hljs-keyword">from</span> <span class="hljs-string">'middy/middlewares'</span>
 <span class="hljs-keyword">import</span> createHttpError <span class="hljs-keyword">from</span> <span class="hljs-string">'http-errors'</span>
 
 <span class="hljs-keyword">interface</span> ITokenPayload {
@@ -115,6 +115,7 @@
 
 <span class="hljs-comment">// Let's "middyfy" our handler, then we will be able to attach middlewares to it</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> handler = middy(helloWorld)
+  .use(httpHeaderNormalizer()) <span class="hljs-comment">// Make sure authorization header is saved in lower case</span>
   .use(httpErrorHandler()) <span class="hljs-comment">// This middleware is needed do handle the errors thrown by the JWTAuthMiddleware</span>
   .use(JWTAuthMiddleware({
     <span class="hljs-comment">/** Algorithm to verify JSON web token signature */</span>

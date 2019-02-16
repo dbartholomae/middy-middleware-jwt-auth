@@ -123,7 +123,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/dbartholomae/middy-middleware-jwt-auth/blob/c7840e7/src/JWTAuthMiddleware.ts#L41">JWTAuthMiddleware.ts:41</a></li>
+									<li>Defined in <a href="https://github.com/dbartholomae/middy-middleware-jwt-auth/blob/84db51c/src/JWTAuthMiddleware.ts#L44">JWTAuthMiddleware.ts:44</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -150,7 +150,7 @@
 					<div class="tsd-signature tsd-kind-icon">logger<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">IDebugger</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/dbartholomae/middy-middleware-jwt-auth/blob/c7840e7/src/JWTAuthMiddleware.ts#L34">JWTAuthMiddleware.ts:34</a></li>
+							<li>Defined in <a href="https://github.com/dbartholomae/middy-middleware-jwt-auth/blob/84db51c/src/JWTAuthMiddleware.ts#L44">JWTAuthMiddleware.ts:44</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -165,7 +165,7 @@
 					<div class="tsd-signature tsd-kind-icon">options<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_interfaces_iauthoptions_.iauthoptions.html" class="tsd-signature-type">IAuthOptions</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/dbartholomae/middy-middleware-jwt-auth/blob/c7840e7/src/JWTAuthMiddleware.ts#L44">JWTAuthMiddleware.ts:44</a></li>
+							<li>Defined in <a href="https://github.com/dbartholomae/middy-middleware-jwt-auth/blob/84db51c/src/JWTAuthMiddleware.ts#L47">JWTAuthMiddleware.ts:47</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -182,13 +182,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/dbartholomae/middy-middleware-jwt-auth/blob/c7840e7/src/JWTAuthMiddleware.ts#L53">JWTAuthMiddleware.ts:53</a></li>
+									<li>Defined in <a href="https://github.com/dbartholomae/middy-middleware-jwt-auth/blob/84db51c/src/JWTAuthMiddleware.ts#L57">JWTAuthMiddleware.ts:57</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Checks for an authentication token, saves its content to event.auth and throws errors if anything fishy goes on.
-									It will pass if no authorization header is present, but will ensure that event.auth is undefined in those cases.</p>
+										It will pass if no authorization header is present, but will ensure that event.auth is undefined in those cases.
+									Authorization or authorization headers will both be checked. If both exist, the middleware will throw an error.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -197,7 +198,7 @@
 									<h5>__namedParameters: <span class="tsd-signature-type">object</span></h5>
 									<ul class="tsd-parameters">
 										<li class="tsd-parameter">
-											<h5>event<span class="tsd-signature-symbol">: </span><a href="../interfaces/_interfaces_iauthorizedevent_.iauthorizedevent.html" class="tsd-signature-type">IAuthorizedEvent</a></h5>
+											<h5>event<span class="tsd-signature-symbol">: </span><a href="../interfaces/_interfaces_iauthorizedevent_.ilowercaseauthorizedevent.html" class="tsd-signature-type">ILowerCaseAuthorizedEvent</a><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_interfaces_iauthorizedevent_.iuppercaseauthorizedevent.html" class="tsd-signature-type">IUpperCaseAuthorizedEvent</a></h5>
 										</li>
 									</ul>
 								</li>
@@ -216,7 +217,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/dbartholomae/middy-middleware-jwt-auth/blob/c7840e7/src/JWTAuthMiddleware.ts#L36">JWTAuthMiddleware.ts:36</a></li>
+									<li>Defined in <a href="https://github.com/dbartholomae/middy-middleware-jwt-auth/blob/84db51c/src/JWTAuthMiddleware.ts#L36">JWTAuthMiddleware.ts:36</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
