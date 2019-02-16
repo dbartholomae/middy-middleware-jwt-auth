@@ -50,6 +50,34 @@ describe('JWTAuthMiddleware', () => {
       ).toEqual(undefined)
     })
 
+    it('resolves if token is given in lower case authorization header', async () => {
+      const next = jest.fn()
+      const options = {
+        algorithm: EncryptionAlgorithms.HS256,
+        secretOrPublicKey: 'secret'
+      }
+      const token = JWT.sign({}, options.secretOrPublicKey, {
+        algorithm: options.algorithm
+      })
+      expect(
+        await JWTAuthMiddleware(options).before(
+          {
+            event: {
+              headers: {
+                authorization: `Bearer ${token}`
+              },
+              httpMethod: 'GET'
+            },
+            context: {} as any,
+            response: null,
+            error: {} as Error,
+            callback: jest.fn()
+          },
+          next
+        )
+      ).toEqual(undefined)
+    })
+
     it('resolves if token is only entry in an array', async () => {
       const next = jest.fn()
       const options = {
@@ -139,6 +167,45 @@ describe('JWTAuthMiddleware', () => {
         createHttpError(400, 'The events auth property has to be empty', {
           type: 'EventAuthNotEmpty'
         })
+      )
+    })
+
+    it('rejects if both authorization and Authorization headers are set', async () => {
+      const next = jest.fn()
+      const options = {
+        algorithm: EncryptionAlgorithms.HS256,
+        secretOrPublicKey: 'secret'
+      }
+      const data = { userId: 1 }
+      const token = JWT.sign(data, options.secretOrPublicKey, {
+        algorithm: options.algorithm
+      })
+      const event: IAuthorizedEvent = {
+        headers: {
+          authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${token}`
+        },
+        httpMethod: 'GET'
+      }
+      await expect(
+        JWTAuthMiddleware(options).before(
+          {
+            event,
+            context: {} as any,
+            response: null,
+            error: {} as Error,
+            callback: jest.fn()
+          },
+          next
+        )
+      ).rejects.toEqual(
+        createHttpError(
+          400,
+          'Both authorization and Authorization headers found, only one can be set',
+          {
+            type: 'MultipleAuthorizationHeadersSet'
+          }
+        )
       )
     })
 
