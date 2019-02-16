@@ -59,25 +59,6 @@
       "pre-push": "npm test"
     }
   },
-  "config": {
-    "readme": {
-      "badges": [
-        "npm-version",
-        "npm-downloads",
-        "open-issues",
-        "license",
-        "debug",
-        "travis",
-        "coveralls",
-        "dependencies",
-        "devDependencies",
-        "semantic-release",
-        "greenkeeper",
-        "gitter"
-      ],
-      "unpkg": true
-    }
-  },
   "devDependencies": {
     "@commitlint/cli": "^7.2.0",
     "@commitlint/config-conventional": "^7.1.2",
