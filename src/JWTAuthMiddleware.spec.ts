@@ -1,4 +1,3 @@
-import debugFactory from 'debug'
 import JWTAuthMiddleware from './JWTAuthMiddleware'
 import { EncryptionAlgorithms } from './interfaces/IAuthOptions'
 
@@ -7,10 +6,6 @@ import createHttpError from 'http-errors'
 import { IAuthorizedEvent } from './interfaces/IAuthorizedEvent'
 
 describe('JWTAuthMiddleware', () => {
-  beforeAll(() => {
-    debugFactory.enable('middy-middleware-jwt-auth')
-  })
-
   it('throws a type error when options are misformed', () => {
     expect(() => JWTAuthMiddleware({} as any)).toThrowError(TypeError)
   })
@@ -42,6 +37,34 @@ describe('JWTAuthMiddleware', () => {
             event: {
               headers: {
                 Authorization: `Bearer ${token}`
+              },
+              httpMethod: 'GET'
+            },
+            context: {} as any,
+            response: null,
+            error: {} as Error,
+            callback: jest.fn()
+          },
+          next
+        )
+      ).toEqual(undefined)
+    })
+
+    it('resolves if token is only entry in an array', async () => {
+      const next = jest.fn()
+      const options = {
+        algorithm: EncryptionAlgorithms.HS256,
+        secretOrPublicKey: 'secret'
+      }
+      const token = JWT.sign({}, options.secretOrPublicKey, {
+        algorithm: options.algorithm
+      })
+      expect(
+        await JWTAuthMiddleware(options).before(
+          {
+            event: {
+              headers: {
+                Authorization: [`Bearer ${token}`]
               },
               httpMethod: 'GET'
             },
