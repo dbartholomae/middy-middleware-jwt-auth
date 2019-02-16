@@ -4,6 +4,7 @@ import JWTAuthMiddleware from './JWTAuthMiddleware'
 import createHttpError from 'http-errors'
 import JWT from 'jsonwebtoken'
 import { IAuthorizedEvent } from './interfaces/IAuthorizedEvent'
+import moment = require('moment')
 
 describe('JWTAuthMiddleware', () => {
   it('throws a type error when options are misformed', () => {
@@ -310,6 +311,40 @@ describe('JWTAuthMiddleware', () => {
             type: 'TokenExpiredError'
           }
         )
+      )
+    })
+
+    it("rejects if token isn't valid yet", async () => {
+      const validDate = new Date('2100-01-01T00:00:00Z')
+      const next = jest.fn()
+      const options = {
+        algorithm: EncryptionAlgorithms.HS256,
+        secretOrPublicKey: 'secret'
+      }
+      const token = JWT.sign({ nbf: moment(validDate).unix() }, 'secret', {
+        algorithm: options.algorithm
+      })
+      await expect(
+        JWTAuthMiddleware(options).before(
+          {
+            callback: jest.fn(),
+            context: {} as any,
+            error: {} as Error,
+            event: {
+              headers: {
+                Authorization: `Bearer ${token}`
+              },
+              httpMethod: 'GET'
+            },
+            response: null
+          },
+          next
+        )
+      ).rejects.toEqual(
+        createHttpError(401, `Token not valid before ${validDate}`, {
+          date: validDate,
+          type: 'NotBeforeError'
+        })
       )
     })
   })

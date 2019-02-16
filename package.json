@@ -70,6 +70,7 @@
     "jest-junit": "^6.3.0",
     "lint-staged": "^8.0.5",
     "middy": "^0.22.0",
+    "moment": "^2.24.0",
     "pkg-ok": "^2.3.1",
     "prettier-standard": "^9.1.1",
     "rimraf": "^2.6.2",
