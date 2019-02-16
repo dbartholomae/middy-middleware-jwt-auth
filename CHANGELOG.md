@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/dbartholomae/middy-middleware-jwt-auth/compare/1.0.0...1.1.0) (2019-02-16)
+
+
+### Features
+
+* accept multivalue header format ([7d30dd1](https://github.com/dbartholomae/middy-middleware-jwt-auth/commit/7d30dd1))
+
 # 1.0.0 (2019-02-15)
 
 
