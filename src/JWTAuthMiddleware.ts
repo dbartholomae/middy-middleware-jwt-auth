@@ -40,7 +40,9 @@ export class JWTAuthMiddleware<Payload> {
     options: IAuthOptions<Payload>
   ): JWTAuthMiddleware<Payload> {
     if (!isAuthOptions(options)) {
-      throw new TypeError(`Expected IAuthOptions, received ${options} instead`)
+      throw new TypeError(
+        `Expected IAuthOptions, received ${JSON.stringify(options)} instead`
+      )
     }
     return new JWTAuthMiddleware(options)
   }
