@@ -25,7 +25,7 @@ describe('Handler with JWT Auth middleware', () => {
       })
   })
 
-  it('returns 403 and "User not authorized" if not authorized', async () => {
+  it('returns 403 and error message if not authorized', async () => {
     const token = JWT.sign({ permissions: [] }, 'secret')
     return server
       .get('/hello')
@@ -36,7 +36,7 @@ describe('Handler with JWT Auth middleware', () => {
       })
   })
 
-  it('returns 401 and "Authentication required" if not authenticated', async () => {
+  it('returns 401 and error message if not authenticated', async () => {
     return server
       .get('/hello')
       .expect(401)
@@ -45,7 +45,7 @@ describe('Handler with JWT Auth middleware', () => {
       })
   })
 
-  it('returns 401 and "Format is Authorization: Bearer [token]" if token is malformed', async () => {
+  it('returns 401 and error message if token is malformed', async () => {
     return server
       .get('/hello')
       .set('Authorization', `Malformed token`)
