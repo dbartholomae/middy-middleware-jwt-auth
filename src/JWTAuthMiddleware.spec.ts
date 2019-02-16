@@ -1,8 +1,8 @@
-import JWTAuthMiddleware from './JWTAuthMiddleware'
 import { EncryptionAlgorithms } from './interfaces/IAuthOptions'
+import JWTAuthMiddleware from './JWTAuthMiddleware'
 
-import JWT from 'jsonwebtoken'
 import createHttpError from 'http-errors'
+import JWT from 'jsonwebtoken'
 import { IAuthorizedEvent } from './interfaces/IAuthorizedEvent'
 
 describe('JWTAuthMiddleware', () => {
@@ -34,16 +34,16 @@ describe('JWTAuthMiddleware', () => {
       expect(
         await JWTAuthMiddleware(options).before(
           {
+            callback: jest.fn(),
+            context: {} as any,
+            error: {} as Error,
             event: {
               headers: {
                 Authorization: `Bearer ${token}`
               },
               httpMethod: 'GET'
             },
-            context: {} as any,
-            response: null,
-            error: {} as Error,
-            callback: jest.fn()
+            response: null
           },
           next
         )
@@ -62,16 +62,16 @@ describe('JWTAuthMiddleware', () => {
       expect(
         await JWTAuthMiddleware(options).before(
           {
+            callback: jest.fn(),
+            context: {} as any,
+            error: {} as Error,
             event: {
               headers: {
                 authorization: `Bearer ${token}`
               },
               httpMethod: 'GET'
             },
-            context: {} as any,
-            response: null,
-            error: {} as Error,
-            callback: jest.fn()
+            response: null
           },
           next
         )
@@ -90,16 +90,16 @@ describe('JWTAuthMiddleware', () => {
       expect(
         await JWTAuthMiddleware(options).before(
           {
+            callback: jest.fn(),
+            context: {} as any,
+            error: {} as Error,
             event: {
               headers: {
                 Authorization: [`Bearer ${token}`]
               },
               httpMethod: 'GET'
             },
-            context: {} as any,
-            response: null,
-            error: {} as Error,
-            callback: jest.fn()
+            response: null
           },
           next
         )
@@ -124,11 +124,11 @@ describe('JWTAuthMiddleware', () => {
       }
       await JWTAuthMiddleware(options).before(
         {
-          event,
+          callback: jest.fn(),
           context: {} as any,
-          response: null,
           error: {} as Error,
-          callback: jest.fn()
+          event,
+          response: null
         },
         next
       )
@@ -155,11 +155,11 @@ describe('JWTAuthMiddleware', () => {
       await expect(
         JWTAuthMiddleware(options).before(
           {
-            event,
+            callback: jest.fn(),
             context: {} as any,
-            response: null,
             error: {} as Error,
-            callback: jest.fn()
+            event,
+            response: null
           },
           next
         )
@@ -182,19 +182,19 @@ describe('JWTAuthMiddleware', () => {
       })
       const event: IAuthorizedEvent = {
         headers: {
-          authorization: `Bearer ${token}`,
-          Authorization: `Bearer ${token}`
+          Authorization: `Bearer ${token}`,
+          authorization: `Bearer ${token}`
         },
         httpMethod: 'GET'
       }
       await expect(
         JWTAuthMiddleware(options).before(
           {
-            event,
+            callback: jest.fn(),
             context: {} as any,
-            response: null,
             error: {} as Error,
-            callback: jest.fn()
+            event,
+            response: null
           },
           next
         )
@@ -218,16 +218,16 @@ describe('JWTAuthMiddleware', () => {
       await expect(
         JWTAuthMiddleware(options).before(
           {
+            callback: jest.fn(),
+            context: {} as any,
+            error: {} as Error,
             event: {
               headers: {
                 Authorization: 'Malformed header'
               },
               httpMethod: 'GET'
             },
-            context: {} as any,
-            response: null,
-            error: {} as Error,
-            callback: jest.fn()
+            response: null
           },
           next
         )
@@ -254,16 +254,16 @@ describe('JWTAuthMiddleware', () => {
       await expect(
         JWTAuthMiddleware(options).before(
           {
+            callback: jest.fn(),
+            context: {} as any,
+            error: {} as Error,
             event: {
               headers: {
                 Authorization: `Bearer ${token}`
               },
               httpMethod: 'GET'
             },
-            context: {} as any,
-            response: null,
-            error: {} as Error,
-            callback: jest.fn()
+            response: null
           },
           next
         )

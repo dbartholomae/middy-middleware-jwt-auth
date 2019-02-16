@@ -16,32 +16,32 @@
  */
 /** An additional comment to make sure Typedoc attributes the comment above to the file itself */
 import debugFactory, { IDebugger } from 'debug'
+import createHttpError from 'http-errors'
+import jwt from 'jsonwebtoken'
 import { HandlerLambda, MiddlewareFunction } from 'middy'
+import {
+  EncryptionAlgorithms,
+  IAuthOptions,
+  isAuthOptions
+} from './interfaces/IAuthOptions'
 import {
   IAuthorizedEvent,
   isAuthorizedEvent,
   isLowerCaseAuthorizedEvent,
   isUpperCaseAuthorizedEvent
 } from './interfaces/IAuthorizedEvent'
-import {
-  EncryptionAlgorithms,
-  IAuthOptions,
-  isAuthOptions
-} from './interfaces/IAuthOptions'
-import createHttpError from 'http-errors'
-import jwt from 'jsonwebtoken'
 
 /** The actual middleware */
 export class JWTAuthMiddleware {
-  /** The logger used in the module */
-  private readonly logger: IDebugger
-
   public static create (options: IAuthOptions): JWTAuthMiddleware {
     if (!isAuthOptions(options)) {
       throw new TypeError(`Expected IAuthOptions, received ${options} instead`)
     }
     return new JWTAuthMiddleware(options)
   }
+
+  /** The logger used in the module */
+  private readonly logger: IDebugger
 
   /** Creates a new JWT Auth middleware */
   constructor (private options: IAuthOptions) {
