@@ -79,7 +79,7 @@
     "serverless-offline": "^4.4.2",
     "serverless-webpack": "^5.2.0",
     "source-map-support": "^0.5.10",
-    "supertest": "^3.4.2",
+    "supertest": "^4.0.0",
     "ts-jest": "^24.0.0",
     "ts-loader": "^5.3.3",
     "tslint": "^5.7.0",
