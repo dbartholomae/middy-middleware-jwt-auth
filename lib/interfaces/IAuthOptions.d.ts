@@ -28,5 +28,7 @@ export interface IAuthOptions<P = any> {
     isPayload?: (payload: any) => payload is P;
     /** A string or buffer containing either the secret for HMAC algorithms, or the PEM encoded public key for RSA and ECDSA */
     secretOrPublicKey: string | Buffer;
+    /** An optional function to get the authorization token from the event */
+    tokenSource?: (event: any) => string;
 }
 export declare function isAuthOptions(options: any): options is IAuthOptions;

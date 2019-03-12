@@ -124,7 +124,12 @@
     <span class="hljs-comment">/** An optional function that checks whether the token payload is formatted correctly */</span>
     isPayload: isTokenPayload,
     <span class="hljs-comment">/** A string or buffer containing either the secret for HMAC algorithms, or the PEM encoded public key for RSA and ECDSA */</span>
-    secretOrPublicKey: <span class="hljs-string">'secret'</span>
+    secretOrPublicKey: <span class="hljs-string">'secret'</span>,
+    <span class="hljs-comment">/**
+     * An optional function used to search for a token e. g. in a query string. By default, and as a fall back,
+     * event.headers.authorization and event.headers.Authorization are used.
+     */</span>
+    tokenSource: <span class="hljs-function">(<span class="hljs-params">event: <span class="hljs-built_in">any</span></span>) =&gt;</span> event.queryStringParameters.token
   }))</code></pre>
 			</div>
 		</div>

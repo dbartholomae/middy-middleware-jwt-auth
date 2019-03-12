@@ -102,6 +102,7 @@
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_src_interfaces_iauthoptions_.iauthoptions.html#algorithm" class="tsd-kind-icon">algorithm</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_src_interfaces_iauthoptions_.iauthoptions.html#ispayload" class="tsd-kind-icon">is<wbr>Payload</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_src_interfaces_iauthoptions_.iauthoptions.html#secretorpublickey" class="tsd-kind-icon">secret<wbr>OrPublic<wbr>Key</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_src_interfaces_iauthoptions_.iauthoptions.html#tokensource" class="tsd-kind-icon">token<wbr>Source</a></li>
 							</ul>
 						</section>
 					</div>
@@ -115,7 +116,7 @@
 					<div class="tsd-signature tsd-kind-icon">algorithm<span class="tsd-signature-symbol">:</span> <a href="../enums/_src_interfaces_iauthoptions_.encryptionalgorithms.html" class="tsd-signature-type">EncryptionAlgorithms</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/dbartholomae/middy-middleware-jwt-auth/blob/2f09634/src/interfaces/IAuthOptions.ts#L26">src/interfaces/IAuthOptions.ts:26</a></li>
+							<li>Defined in <a href="https://github.com/dbartholomae/middy-middleware-jwt-auth/blob/b318ece/src/interfaces/IAuthOptions.ts#L26">src/interfaces/IAuthOptions.ts:26</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -130,7 +131,7 @@
 					<div class="tsd-signature tsd-kind-icon">is<wbr>Payload<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">function</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/dbartholomae/middy-middleware-jwt-auth/blob/2f09634/src/interfaces/IAuthOptions.ts#L28">src/interfaces/IAuthOptions.ts:28</a></li>
+							<li>Defined in <a href="https://github.com/dbartholomae/middy-middleware-jwt-auth/blob/b318ece/src/interfaces/IAuthOptions.ts#L28">src/interfaces/IAuthOptions.ts:28</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -145,12 +146,27 @@
 					<div class="tsd-signature tsd-kind-icon">secret<wbr>OrPublic<wbr>Key<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Buffer</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/dbartholomae/middy-middleware-jwt-auth/blob/2f09634/src/interfaces/IAuthOptions.ts#L30">src/interfaces/IAuthOptions.ts:30</a></li>
+							<li>Defined in <a href="https://github.com/dbartholomae/middy-middleware-jwt-auth/blob/b318ece/src/interfaces/IAuthOptions.ts#L30">src/interfaces/IAuthOptions.ts:30</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
 							<p>A string or buffer containing either the secret for HMAC algorithms, or the PEM encoded public key for RSA and ECDSA</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="tokensource" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> token<wbr>Source</h3>
+					<div class="tsd-signature tsd-kind-icon">token<wbr>Source<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">function</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/dbartholomae/middy-middleware-jwt-auth/blob/b318ece/src/interfaces/IAuthOptions.ts#L32">src/interfaces/IAuthOptions.ts:32</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>An optional function to get the authorization token from the event</p>
 						</div>
 					</div>
 				</section>
@@ -200,6 +216,9 @@
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="_src_interfaces_iauthoptions_.iauthoptions.html#secretorpublickey" class="tsd-kind-icon">secret<wbr>OrPublic<wbr>Key</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_src_interfaces_iauthoptions_.iauthoptions.html#tokensource" class="tsd-kind-icon">token<wbr>Source</a>
 							</li>
 						</ul>
 					</li>

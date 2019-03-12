@@ -1,3 +1,12 @@
+# [2.2.0](https://github.com/dbartholomae/middy-middleware-jwt-auth/compare/2.1.1...2.2.0) (2019-03-12)
+
+
+### Features
+
+* allow for tokenSources in middleware options ([01197c1](https://github.com/dbartholomae/middy-middleware-jwt-auth/commit/01197c1))
+* get token via tokenSource if it is set in the options ([dc28c2d](https://github.com/dbartholomae/middy-middleware-jwt-auth/commit/dc28c2d))
+* set default tokenSources ([e2d5593](https://github.com/dbartholomae/middy-middleware-jwt-auth/commit/e2d5593))
+
 ## [2.1.1](https://github.com/dbartholomae/middy-middleware-jwt-auth/compare/2.1.0...2.1.1) (2019-02-16)
 
 
