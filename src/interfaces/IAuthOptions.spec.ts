@@ -36,6 +36,18 @@ describe('IAuthOptions', () => {
       }
       expect(options).not.toBeNull()
     })
+
+    it('accepts data that has algorithm, a string secretOrPublicKey and an array of tokenSources', () => {
+      function tokenSource (event: any): string {
+        return ''
+      }
+      const options: IAuthOptions = {
+        algorithm: EncryptionAlgorithms.ES256,
+        secretOrPublicKey: 'secret',
+        tokenSources: [tokenSource]
+      }
+      expect(options).not.toBeNull()
+    })
   })
 
   describe('type guard', () => {
@@ -69,6 +81,19 @@ describe('IAuthOptions', () => {
           algorithm: EncryptionAlgorithms.ES256,
           isPayload,
           secretOrPublicKey: 'secret'
+        })
+      ).toBe(true)
+    })
+
+    it('accepts data that has algorithm, a string secretOrPublicKey and an array of tokenSources', () => {
+      function tokenSource (event: any): string {
+        return ''
+      }
+      expect(
+        isAuthOptions({
+          algorithm: EncryptionAlgorithms.ES256,
+          secretOrPublicKey: 'secret',
+          tokenSources: [tokenSource]
         })
       ).toBe(true)
     })
@@ -117,6 +142,16 @@ describe('IAuthOptions', () => {
           algorithm: EncryptionAlgorithms.ES256,
           isPayload: {} as any,
           secretOrPublicKey: 'secret'
+        })
+      ).toBe(false)
+    })
+
+    it('rejects data with malformed tokenSources', () => {
+      expect(
+        isAuthOptions({
+          algorithm: EncryptionAlgorithms.ES256,
+          secretOrPublicKey: 'secret',
+          tokenSources: {}
         })
       ).toBe(false)
     })

@@ -28,6 +28,8 @@ export interface IAuthOptions<P = any> {
   isPayload?: (payload: any) => payload is P
   /** A string or buffer containing either the secret for HMAC algorithms, or the PEM encoded public key for RSA and ECDSA */
   secretOrPublicKey: string | Buffer
+  /** An optional array of functions to get the authorization token from the event */
+  tokenSources?: Array<(event: any) => string>
 }
 
 export function isAuthOptions (options: any): options is IAuthOptions {
@@ -39,6 +41,11 @@ export function isAuthOptions (options: any): options is IAuthOptions {
       typeof options.isPayload === 'function') &&
     options.secretOrPublicKey != null &&
     (typeof options.secretOrPublicKey === 'string' ||
-      Buffer.isBuffer(options.secretOrPublicKey))
+      Buffer.isBuffer(options.secretOrPublicKey)) &&
+    (options.tokenSources === undefined ||
+      (Array.isArray(options.tokenSources) &&
+        options.tokenSources.every(
+          (tokenSource: any) => typeof tokenSource === 'function'
+        )))
   )
 }
