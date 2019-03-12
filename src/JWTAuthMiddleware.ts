@@ -76,37 +76,12 @@ export class JWTAuthMiddleware<Payload> {
         type: 'EventAuthNotEmpty'
       })
     }
-    this.logger('Checking whether event contains authorization header')
-    if (!isAuthorizedEvent(event)) {
-      this.logger('No authorization header found')
+
+    const token = this.getTokenFromAuthHeader(event)
+
+    if (token === undefined) {
       return
     }
-    this.logger(
-      'Checking whether event contains multiple authorization headers'
-    )
-    if (
-      isLowerCaseAuthorizedEvent(event) &&
-      isUpperCaseAuthorizedEvent(event)
-    ) {
-      this.logger(
-        'Both authorization and Authorization headers found, only one can be set'
-      )
-      throw createHttpError(
-        400,
-        'Both authorization and Authorization headers found, only one can be set',
-        {
-          type: 'MultipleAuthorizationHeadersSet'
-        }
-      )
-    }
-    this.logger('One authorization header found')
-
-    this.logger('Checking whether authorization header is formed correctly')
-    const normalizedAuth = isLowerCaseAuthorizedEvent(event)
-      ? event.headers.authorization
-      : event.headers.Authorization
-
-    const token = this.getTokenFromAuthHeader(normalizedAuth)
 
     this.logger('Verifying authorization token')
     try {
@@ -164,7 +139,39 @@ export class JWTAuthMiddleware<Payload> {
   }
 
   /** Extracts a token from an authorization header. */
-  private getTokenFromAuthHeader (normalizedAuth: string | string[]): string {
+  private getTokenFromAuthHeader (
+    event: IAuthorizedEvent<Payload>
+  ): string | undefined {
+    this.logger('Checking whether event contains authorization header')
+    if (!isAuthorizedEvent(event)) {
+      this.logger('No authorization header found')
+      return
+    }
+    this.logger(
+      'Checking whether event contains multiple authorization headers'
+    )
+    if (
+      isLowerCaseAuthorizedEvent(event) &&
+      isUpperCaseAuthorizedEvent(event)
+    ) {
+      this.logger(
+        'Both authorization and Authorization headers found, only one can be set'
+      )
+      throw createHttpError(
+        400,
+        'Both authorization and Authorization headers found, only one can be set',
+        {
+          type: 'MultipleAuthorizationHeadersSet'
+        }
+      )
+    }
+    this.logger('One authorization header found')
+
+    this.logger('Checking whether authorization header is formed correctly')
+    const normalizedAuth = isLowerCaseAuthorizedEvent(event)
+      ? event.headers.authorization
+      : event.headers.Authorization
+
     const authHeader = Array.isArray(normalizedAuth)
       ? normalizedAuth[0]
       : normalizedAuth
