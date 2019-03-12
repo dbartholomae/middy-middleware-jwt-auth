@@ -47,11 +47,23 @@ export class JWTAuthMiddleware<Payload> {
     return new JWTAuthMiddleware(options)
   }
 
+  /** Default options saved in JWTAuthMiddleware#options if not overwritten by the user */
+  private static defaultOptions = {
+    tokenSources: [
+      (event: any) => event.headers.authorization,
+      (event: any) => event.headers.Authorization
+    ]
+  }
+
+  /** The options for this middleware instance */
+  private options: IAuthOptions<Payload>
+
   /** The logger used in the module */
   private readonly logger: IDebugger
 
   /** Creates a new JWT Auth middleware */
-  constructor (private options: IAuthOptions<Payload>) {
+  constructor (options: IAuthOptions<Payload>) {
+    this.options = { ...JWTAuthMiddleware.defaultOptions, ...options }
     this.logger = debugFactory('middy-middleware-jwt-auth')
     this.logger(
       `Setting up JWTAuthMiddleware with encryption algorithm ${

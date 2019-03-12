@@ -429,5 +429,19 @@ describe('JWTAuthMiddleware', () => {
         )
       })
     })
+
+    describe('with custom tokenSources', () => {
+      it('resolves successfully if no token is found', async () => {
+        const next = jest.fn()
+        const options = {
+          algorithm: EncryptionAlgorithms.ES256,
+          secretOrPublicKey: 'secret',
+          tokenSources: [(event: any) => event.queryStringParameters.token]
+        }
+        await expect(
+          JWTAuthMiddleware(options).before({} as any, next)
+        ).resolves.toEqual(undefined)
+      })
+    })
   })
 })
