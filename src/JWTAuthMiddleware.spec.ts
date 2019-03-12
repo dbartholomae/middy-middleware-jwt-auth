@@ -436,7 +436,7 @@ describe('JWTAuthMiddleware', () => {
         const options = {
           algorithm: EncryptionAlgorithms.ES256,
           secretOrPublicKey: 'secret',
-          tokenSources: [(event: any) => event.queryStringParameters.token]
+          tokenSource: (event: any) => event.queryStringParameters.token
         }
         await expect(
           JWTAuthMiddleware(options).before({} as any, next)

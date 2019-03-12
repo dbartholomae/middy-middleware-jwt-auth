@@ -37,14 +37,14 @@ describe('IAuthOptions', () => {
       expect(options).not.toBeNull()
     })
 
-    it('accepts data that has algorithm, a string secretOrPublicKey and an array of tokenSources', () => {
+    it('accepts data that has algorithm, a string secretOrPublicKey and a tokenSource', () => {
       function tokenSource (event: any): string {
         return ''
       }
       const options: IAuthOptions = {
         algorithm: EncryptionAlgorithms.ES256,
         secretOrPublicKey: 'secret',
-        tokenSources: [tokenSource]
+        tokenSource
       }
       expect(options).not.toBeNull()
     })
@@ -146,12 +146,12 @@ describe('IAuthOptions', () => {
       ).toBe(false)
     })
 
-    it('rejects data with malformed tokenSources', () => {
+    it('rejects data with malformed tokenSource', () => {
       expect(
         isAuthOptions({
           algorithm: EncryptionAlgorithms.ES256,
           secretOrPublicKey: 'secret',
-          tokenSources: {}
+          tokenSource: {}
         })
       ).toBe(false)
     })
