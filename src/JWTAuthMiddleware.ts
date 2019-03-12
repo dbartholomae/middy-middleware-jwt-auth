@@ -64,6 +64,8 @@ export class JWTAuthMiddleware<Payload> {
    * Checks for an authentication token, saves its content to event.auth and throws errors if anything fishy goes on.
    * It will pass if no authorization header is present, but will ensure that event.auth is undefined in those cases.
    * Authorization or authorization headers will both be checked. If both exist, the middleware will throw an error.
+   * If options.tokenSource is set, then that function will be used to retrieve the token and Headers will serve as
+   * fallback.
    * @param event - The event to check
    */
   public before: MiddlewareFunction<IAuthorizedEvent, any> = async ({
@@ -77,7 +79,8 @@ export class JWTAuthMiddleware<Payload> {
       })
     }
 
-    const token = this.getTokenFromAuthHeader(event)
+    const token =
+      this.getTokenFromSource(event) || this.getTokenFromAuthHeader(event)
 
     if (token === undefined) {
       return
@@ -191,6 +194,20 @@ export class JWTAuthMiddleware<Payload> {
     this.logger('Authorization header formed correctly')
 
     return parts[1]
+  }
+
+  /** Extracts a token from a source defined in the options. */
+  private getTokenFromSource (
+    event: IAuthorizedEvent<Payload>
+  ): string | undefined {
+    this.logger(
+      'Checking whether event contains token based on given tokenSource'
+    )
+    try {
+      return this.options.tokenSource && this.options.tokenSource(event)
+    } catch (err) {
+      return undefined
+    }
   }
 }
 
