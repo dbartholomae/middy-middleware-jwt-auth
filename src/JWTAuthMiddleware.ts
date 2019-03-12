@@ -64,6 +64,8 @@ export class JWTAuthMiddleware<Payload> {
    * Checks for an authentication token, saves its content to event.auth and throws errors if anything fishy goes on.
    * It will pass if no authorization header is present, but will ensure that event.auth is undefined in those cases.
    * Authorization or authorization headers will both be checked. If both exist, the middleware will throw an error.
+   * If options.tokenSource is set, then that function will be used to retrieve the token and Headers will serve as
+   * fallback.
    * @param event - The event to check
    */
   public before: MiddlewareFunction<IAuthorizedEvent, any> = async ({
@@ -76,54 +78,14 @@ export class JWTAuthMiddleware<Payload> {
         type: 'EventAuthNotEmpty'
       })
     }
-    this.logger('Checking whether event contains authorization header')
-    if (!isAuthorizedEvent(event)) {
-      this.logger('No authorization header found')
+
+    const token =
+      this.getTokenFromSource(event) || this.getTokenFromAuthHeader(event)
+
+    if (token === undefined) {
       return
     }
-    this.logger(
-      'Checking whether event contains multiple authorization headers'
-    )
-    if (
-      isLowerCaseAuthorizedEvent(event) &&
-      isUpperCaseAuthorizedEvent(event)
-    ) {
-      this.logger(
-        'Both authorization and Authorization headers found, only one can be set'
-      )
-      throw createHttpError(
-        400,
-        'Both authorization and Authorization headers found, only one can be set',
-        {
-          type: 'MultipleAuthorizationHeadersSet'
-        }
-      )
-    }
-    this.logger('One authorization header found')
 
-    this.logger('Checking whether authorization header is formed correctly')
-    const normalizedAuth = isLowerCaseAuthorizedEvent(event)
-      ? event.headers.authorization
-      : event.headers.Authorization
-    const authHeader = Array.isArray(normalizedAuth)
-      ? normalizedAuth[0]
-      : normalizedAuth
-    const parts = authHeader.split(' ')
-    if (parts.length !== 2 || parts[0] !== 'Bearer') {
-      this.logger(
-        `Authorization header malformed, it was "${authHeader}" but should be of format "Bearer token"`
-      )
-      throw createHttpError(
-        401,
-        `Format should be "Authorization: Bearer [token]", received "Authorization: ${authHeader}" instead`,
-        {
-          type: 'WrongAuthFormat'
-        }
-      )
-    }
-    this.logger('Authorization header formed correctly')
-
-    const token = parts[1]
     this.logger('Verifying authorization token')
     try {
       jwt.verify(token, this.options.secretOrPublicKey, {
@@ -176,6 +138,75 @@ export class JWTAuthMiddleware<Payload> {
       event.auth = payload
     } else {
       event.auth = payload as any
+    }
+  }
+
+  /** Extracts a token from an authorization header. */
+  private getTokenFromAuthHeader (
+    event: IAuthorizedEvent<Payload>
+  ): string | undefined {
+    this.logger('Checking whether event contains authorization header')
+    if (!isAuthorizedEvent(event)) {
+      this.logger('No authorization header found')
+      return
+    }
+    this.logger(
+      'Checking whether event contains multiple authorization headers'
+    )
+    if (
+      isLowerCaseAuthorizedEvent(event) &&
+      isUpperCaseAuthorizedEvent(event)
+    ) {
+      this.logger(
+        'Both authorization and Authorization headers found, only one can be set'
+      )
+      throw createHttpError(
+        400,
+        'Both authorization and Authorization headers found, only one can be set',
+        {
+          type: 'MultipleAuthorizationHeadersSet'
+        }
+      )
+    }
+    this.logger('One authorization header found')
+
+    this.logger('Checking whether authorization header is formed correctly')
+    const normalizedAuth = isLowerCaseAuthorizedEvent(event)
+      ? event.headers.authorization
+      : event.headers.Authorization
+
+    const authHeader = Array.isArray(normalizedAuth)
+      ? normalizedAuth[0]
+      : normalizedAuth
+    const parts = authHeader.split(' ')
+    if (parts.length !== 2 || parts[0] !== 'Bearer') {
+      this.logger(
+        `Authorization header malformed, it was "${authHeader}" but should be of format "Bearer token"`
+      )
+      throw createHttpError(
+        401,
+        `Format should be "Authorization: Bearer [token]", received "Authorization: ${authHeader}" instead`,
+        {
+          type: 'WrongAuthFormat'
+        }
+      )
+    }
+    this.logger('Authorization header formed correctly')
+
+    return parts[1]
+  }
+
+  /** Extracts a token from a source defined in the options. */
+  private getTokenFromSource (
+    event: IAuthorizedEvent<Payload>
+  ): string | undefined {
+    this.logger(
+      'Checking whether event contains token based on given tokenSource'
+    )
+    try {
+      return this.options.tokenSource && this.options.tokenSource(event)
+    } catch (err) {
+      return undefined
     }
   }
 }

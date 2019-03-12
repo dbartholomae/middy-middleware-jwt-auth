@@ -429,5 +429,47 @@ describe('JWTAuthMiddleware', () => {
         )
       })
     })
+
+    describe('with custom tokenSources', () => {
+      it('resolves successfully if no token is found', async () => {
+        const next = jest.fn()
+        const options = {
+          algorithm: EncryptionAlgorithms.ES256,
+          secretOrPublicKey: 'secret',
+          tokenSource: (event: any) => event.queryStringParameters.token
+        }
+        await expect(
+          JWTAuthMiddleware(options).before({} as any, next)
+        ).resolves.toEqual(undefined)
+      })
+
+      it('saves token information to event.auth if token is valid', async () => {
+        const next = jest.fn()
+        const options = {
+          algorithm: EncryptionAlgorithms.HS256,
+          secretOrPublicKey: 'secret',
+          tokenSource: (e: any) => e.queryStringParameters.token
+        }
+        const data = { userId: 1 }
+        const token = JWT.sign(data, options.secretOrPublicKey, {
+          algorithm: options.algorithm
+        })
+        const event: any = {
+          httpMethod: 'GET',
+          queryStringParameters: { token }
+        }
+        await JWTAuthMiddleware(options).before(
+          {
+            callback: jest.fn(),
+            context: {} as any,
+            error: {} as Error,
+            event,
+            response: null
+          },
+          next
+        )
+        expect(event.auth).toEqual({ ...data, iat: expect.any(Number) })
+      })
+    })
   })
 })

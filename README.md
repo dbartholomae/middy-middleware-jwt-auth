@@ -68,6 +68,11 @@ export const handler = middy(helloWorld)
     /** An optional function that checks whether the token payload is formatted correctly */
     isPayload: isTokenPayload,
     /** A string or buffer containing either the secret for HMAC algorithms, or the PEM encoded public key for RSA and ECDSA */
-    secretOrPublicKey: 'secret'
+    secretOrPublicKey: 'secret',
+    /**
+     * An optional function used to search for a token e. g. in a query string. By default, and as a fall back,
+     * event.headers.authorization and event.headers.Authorization are used.
+     */
+    tokenSource: (event: any) => event.queryStringParameters.token
   }))
 ```
