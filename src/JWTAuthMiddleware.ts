@@ -72,29 +72,6 @@ export class JWTAuthMiddleware<Payload> {
     )
   }
 
-  /** Extracts a token from an authorization header. */
-  private getTokenFromAuthHeader (normalizedAuth: string | string[]): string {
-    const authHeader = Array.isArray(normalizedAuth)
-      ? normalizedAuth[0]
-      : normalizedAuth
-    const parts = authHeader.split(' ')
-    if (parts.length !== 2 || parts[0] !== 'Bearer') {
-      this.logger(
-        `Authorization header malformed, it was "${authHeader}" but should be of format "Bearer token"`
-      )
-      throw createHttpError(
-        401,
-        `Format should be "Authorization: Bearer [token]", received "Authorization: ${authHeader}" instead`,
-        {
-          type: 'WrongAuthFormat'
-        }
-      )
-    }
-    this.logger('Authorization header formed correctly')
-
-    return parts[1]
-  }
-
   /**
    * Checks for an authentication token, saves its content to event.auth and throws errors if anything fishy goes on.
    * It will pass if no authorization header is present, but will ensure that event.auth is undefined in those cases.
@@ -196,6 +173,29 @@ export class JWTAuthMiddleware<Payload> {
     } else {
       event.auth = payload as any
     }
+  }
+
+  /** Extracts a token from an authorization header. */
+  private getTokenFromAuthHeader (normalizedAuth: string | string[]): string {
+    const authHeader = Array.isArray(normalizedAuth)
+      ? normalizedAuth[0]
+      : normalizedAuth
+    const parts = authHeader.split(' ')
+    if (parts.length !== 2 || parts[0] !== 'Bearer') {
+      this.logger(
+        `Authorization header malformed, it was "${authHeader}" but should be of format "Bearer token"`
+      )
+      throw createHttpError(
+        401,
+        `Format should be "Authorization: Bearer [token]", received "Authorization: ${authHeader}" instead`,
+        {
+          type: 'WrongAuthFormat'
+        }
+      )
+    }
+    this.logger('Authorization header formed correctly')
+
+    return parts[1]
   }
 }
 
