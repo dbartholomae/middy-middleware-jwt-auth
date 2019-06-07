@@ -1,3 +1,10 @@
+# [2.3.0](https://github.com/dbartholomae/middy-middleware-jwt-auth/compare/2.2.0...2.3.0) (2019-06-07)
+
+
+### Features
+
+* build module to commonjs ([a548656](https://github.com/dbartholomae/middy-middleware-jwt-auth/commit/a548656))
+
 # [2.2.0](https://github.com/dbartholomae/middy-middleware-jwt-auth/compare/2.1.1...2.2.0) (2019-03-12)
 
 

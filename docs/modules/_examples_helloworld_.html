@@ -100,7 +100,7 @@
 					<div class="tsd-signature tsd-kind-icon">handler<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Middy</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ILowerCaseAuthorizedEvent</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_examples_helloworld_.itokenpayload.html" class="tsd-signature-type">ITokenPayload</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">IUpperCaseAuthorizedEvent</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_examples_helloworld_.itokenpayload.html" class="tsd-signature-type">ITokenPayload</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> =&nbsp;middy(helloWorld).use(httpHeaderNormalizer()) // Make sure authorization header is saved in lower case.use(httpErrorHandler()) // This middleware is needed do handle the errors thrown by the JWTAuthMiddleware.use(JWTAuthMiddleware({/** Algorithm to verify JSON web token signature */algorithm: EncryptionAlgorithms.HS256,/** An optional function that checks whether the token payload is formatted correctly */isPayload: isTokenPayload,/** A string or buffer containing either the secret for HMAC algorithms, or the PEM encoded public key for RSA and ECDSA */secretOrPublicKey: &#x27;secret&#x27;,/*** An optional function used to search for a token e. g. in a query string. By default, and as a fall back,* event.headers.authorization and event.headers.Authorization are used.*/tokenSource: (event: any) &#x3D;&gt; event.queryStringParameters.token}))</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/dbartholomae/middy-middleware-jwt-auth/blob/b318ece/examples/helloWorld.ts#L41">examples/helloWorld.ts:41</a></li>
+							<li>Defined in <a href="https://github.com/dbartholomae/middy-middleware-jwt-auth/blob/a548656/examples/helloWorld.ts#L41">examples/helloWorld.ts:41</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -117,7 +117,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/dbartholomae/middy-middleware-jwt-auth/blob/b318ece/examples/helloWorld.ts#L17">examples/helloWorld.ts:17</a></li>
+									<li>Defined in <a href="https://github.com/dbartholomae/middy-middleware-jwt-auth/blob/a548656/examples/helloWorld.ts#L17">examples/helloWorld.ts:17</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -140,7 +140,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/dbartholomae/middy-middleware-jwt-auth/blob/b318ece/examples/helloWorld.ts#L10">examples/helloWorld.ts:10</a></li>
+									<li>Defined in <a href="https://github.com/dbartholomae/middy-middleware-jwt-auth/blob/a548656/examples/helloWorld.ts#L10">examples/helloWorld.ts:10</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
