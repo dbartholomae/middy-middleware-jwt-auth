@@ -88,7 +88,7 @@
     "typedoc": "^0.14.2",
     "typescript": "^3.1.2",
     "wait-on": "^3.2.0",
-    "webpack": "^4.29.4"
+    "webpack": "^4.37.0"
   },
   "repository": "git@github.com:dbartholomae/middy-middleware-jwt-auth.git"
 }
