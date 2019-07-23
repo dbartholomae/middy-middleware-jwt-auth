@@ -60,7 +60,7 @@ jobs:
       - run:
           name: Run unit tests
           command: |
-            yarn test:unit --testResultsProcessor="jest-junit"
+            yarn test:unit --reporters=default --reporters=jest-junit
           environment:
             JEST_JUNIT_OUTPUT: "reports/junit/unit/test-results-unit.xml"
       - run:
