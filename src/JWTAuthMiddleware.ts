@@ -68,7 +68,7 @@ export class JWTAuthMiddleware<Payload> {
    * fallback.
    * @param event - The event to check
    */
-  public before: MiddlewareFunction<IAuthorizedEvent, any> = async ({
+  public before: MiddlewareFunction<any, any> = async ({
     event
   }: HandlerLambda<IAuthorizedEvent<Payload>>) => {
     this.logger('Checking whether event.auth already is populated')

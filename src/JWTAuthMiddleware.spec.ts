@@ -361,8 +361,6 @@ describe('JWTAuthMiddleware', () => {
               callback: jest.fn(),
               context: {} as any,
               error: {} as Error,
-              // is there a way to make the headers optional based on the options passed to JWTAuthMiddleware?
-              // @ts-ignore
               event: {
                 httpMethod: 'GET'
               },
