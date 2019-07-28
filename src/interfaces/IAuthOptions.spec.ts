@@ -98,11 +98,11 @@ describe('IAuthOptions', () => {
       ).toBe(true)
     })
 
-    it('accepts data that has algorithm, a string secretOrPublicKey and a boolean authorizationRequired', () => {
+    it('accepts data that has algorithm, a string secretOrPublicKey and a boolean credentialsRequired', () => {
       expect(
         isAuthOptions({
           algorithm: EncryptionAlgorithms.ES256,
-          authorizationRequired: true,
+          credentialsRequired: true,
           secretOrPublicKey: 'secret'
         })
       ).toBe(true)
@@ -166,11 +166,11 @@ describe('IAuthOptions', () => {
       ).toBe(false)
     })
 
-    it('rejects data with an authorizationRequired that is not a boolean', () => {
+    it('rejects data with an credentialsRequired that is not a boolean', () => {
       expect(
         isAuthOptions({
           algorithm: EncryptionAlgorithms.ES256,
-          authorizationRequired: '',
+          credentialsRequired: '',
           secretOrPublicKey: 'secret'
         })
       ).toBe(false)

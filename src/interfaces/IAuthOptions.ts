@@ -31,7 +31,7 @@ export interface IAuthOptions<P = any> {
   /** An optional function to get the authorization token from the event */
   tokenSource?: (event: any) => string
   /** An optional boolean that allows making authorization necessary */
-  authorizationRequired?: boolean
+  credentialsRequired?: boolean
 }
 
 export function isAuthOptions (options: any): options is IAuthOptions {
@@ -46,7 +46,7 @@ export function isAuthOptions (options: any): options is IAuthOptions {
       Buffer.isBuffer(options.secretOrPublicKey)) &&
     (options.tokenSource === undefined ||
       typeof options.tokenSource === 'function') &&
-    (options.authorizationRequired === undefined ||
-      typeof options.authorizationRequired === 'boolean')
+    (options.credentialsRequired === undefined ||
+      typeof options.credentialsRequired === 'boolean')
   )
 }

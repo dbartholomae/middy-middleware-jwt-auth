@@ -147,7 +147,7 @@ export class JWTAuthMiddleware<Payload> {
   ): string | undefined {
     this.logger('Checking whether event contains authorization header')
     if (!isAuthorizedEvent(event)) {
-      if (this.options.authorizationRequired) {
+      if (this.options.credentialsRequired) {
         throw createHttpError(
           401,
           'No valid bearer token was set in the authorization header',

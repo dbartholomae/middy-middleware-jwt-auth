@@ -352,7 +352,7 @@ describe('JWTAuthMiddleware', () => {
         const next = jest.fn()
         const options = {
           algorithm: EncryptionAlgorithms.HS256,
-          authorizationRequired: true,
+          credentialsRequired: true,
           secretOrPublicKey: 'secret'
         }
         await expect(
