@@ -348,6 +348,38 @@ describe('JWTAuthMiddleware', () => {
           })
         )
       })
+      it('rejects if authorization is required and no authorization header is set', async () => {
+        const next = jest.fn()
+        const options = {
+          algorithm: EncryptionAlgorithms.HS256,
+          authorizationRequired: true,
+          secretOrPublicKey: 'secret'
+        }
+        await expect(
+          JWTAuthMiddleware(options).before(
+            {
+              callback: jest.fn(),
+              context: {} as any,
+              error: {} as Error,
+              // is there a way to make the headers optional based on the options passed to JWTAuthMiddleware?
+              // @ts-ignore
+              event: {
+                httpMethod: 'GET'
+              },
+              response: null
+            },
+            next
+          )
+        ).rejects.toEqual(
+          createHttpError(
+            401,
+            'No valid bearer token was set in the authorization header',
+            {
+              type: 'AuthenticationRequired'
+            }
+          )
+        )
+      })
     })
 
     describe('with a payload type guard', () => {
