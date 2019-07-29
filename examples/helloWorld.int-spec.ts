@@ -79,4 +79,13 @@ describe('Handler with JWT Auth middleware', () => {
         expect(res.text).toEqual('Format should be "Authorization: Bearer [token]", received "Authorization: Malformed token" instead')
       })
   })
+
+  it('returns 401 and error message if token is missing', async () => {
+    return server
+      .get('/hello')
+      .expect(401)
+      .then((res: any) => {
+        expect(res.text).toEqual('No valid bearer token was set in the authorization header')
+      })
+  })
 })

@@ -16,17 +16,10 @@ function isTokenPayload (token: any): token is ITokenPayload {
 // This is your AWS handler
 const helloWorld = async (event: IAuthorizedEvent<ITokenPayload>) => {
   // The middleware adds auth information if a valid token was added
-  // If no auth was found, event.auth will remain undefined. You have to check
-  // that it exists and has the expected form.
-  if (event.auth == null) {
-    throw createHttpError(401, 'No valid bearer token was set in the authorization header', {
-      type: 'AuthenticationRequired'
-    })
-  }
-
-  // Check for authorization
-  if (event.auth.permissions.indexOf('helloWorld') === -1) {
-    throw createHttpError(403, `User not authorized for helloWorld, only found permissions [${event.auth.permissions.join(', ')}]`, {
+  // If no auth was found and credentialsRequired is set to true, a 401 will be thrown. If auth exists you
+  // have to check that it has the expected form.
+  if (event.auth!.permissions.indexOf('helloWorld') === -1) {
+    throw createHttpError(403, `User not authorized for helloWorld, only found permissions [${event.auth!.permissions.join(', ')}]`, {
       type: 'NotAuthorized'
     })
   }
@@ -44,6 +37,8 @@ export const handler = middy(helloWorld)
   .use(JWTAuthMiddleware({
     /** Algorithm to verify JSON web token signature */
     algorithm: EncryptionAlgorithms.HS256,
+    /** An optional boolean that enables making authorization mandatory */
+    credentialsRequired: true,
     /** An optional function that checks whether the token payload is formatted correctly */
     isPayload: isTokenPayload,
     /** A string or buffer containing either the secret for HMAC algorithms, or the PEM encoded public key for RSA and ECDSA */
