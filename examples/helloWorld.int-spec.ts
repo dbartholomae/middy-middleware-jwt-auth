@@ -49,7 +49,7 @@ describe('Handler with JWT Auth middleware', () => {
       })
   })
 
-  it('returns 401 and error message if not authenticated', async () => {
+  it('returns 400 and error message if not authenticated', async () => {
     const token = JWT.sign({ iat: 1, permission: 'helloWorld' }, 'secret')
     return server
       .get('/hello')
@@ -70,7 +70,7 @@ describe('Handler with JWT Auth middleware', () => {
       })
   )
 
-  it('returns 400 and error message if payload is malformed', async () => {
+  it('returns 401 and error message if payload is malformed', async () => {
     return server
       .get('/hello')
       .set('Authorization', `Malformed token`)
