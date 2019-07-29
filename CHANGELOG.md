@@ -1,3 +1,18 @@
+# [2.4.0](https://github.com/dbartholomae/middy-middleware-jwt-auth/compare/2.3.0...2.4.0) (2019-07-29)
+
+
+### Bug Fixes
+
+* fix typing of before method ([034b5a9](https://github.com/dbartholomae/middy-middleware-jwt-auth/commit/034b5a9))
+* log 'No authorization header found' in all cases ([be87d47](https://github.com/dbartholomae/middy-middleware-jwt-auth/commit/be87d47))
+
+
+### Features
+
+* add an option that allows making authorization mandatory ([cac01c1](https://github.com/dbartholomae/middy-middleware-jwt-auth/commit/cac01c1))
+* reject unauthorized events when authorizationRequired is set ([e292328](https://github.com/dbartholomae/middy-middleware-jwt-auth/commit/e292328))
+* update README.md ([c3acb83](https://github.com/dbartholomae/middy-middleware-jwt-auth/commit/c3acb83))
+
 # [2.3.0](https://github.com/dbartholomae/middy-middleware-jwt-auth/compare/2.2.0...2.3.0) (2019-06-07)
 
 
