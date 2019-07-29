@@ -147,6 +147,7 @@ export class JWTAuthMiddleware<Payload> {
   ): string | undefined {
     this.logger('Checking whether event contains authorization header')
     if (!isAuthorizedEvent(event)) {
+      this.logger('No authorization header found')
       if (this.options.credentialsRequired) {
         throw createHttpError(
           401,
@@ -156,7 +157,6 @@ export class JWTAuthMiddleware<Payload> {
           }
         )
       }
-      this.logger('No authorization header found')
       return
     }
     this.logger(
