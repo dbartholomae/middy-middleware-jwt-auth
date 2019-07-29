@@ -68,7 +68,7 @@ export class JWTAuthMiddleware<Payload> {
    * fallback.
    * @param event - The event to check
    */
-  public before: MiddlewareFunction<IAuthorizedEvent, any> = async ({
+  public before: MiddlewareFunction<any, any> = async ({
     event
   }: HandlerLambda<IAuthorizedEvent<Payload>>) => {
     this.logger('Checking whether event.auth already is populated')
@@ -148,6 +148,15 @@ export class JWTAuthMiddleware<Payload> {
     this.logger('Checking whether event contains authorization header')
     if (!isAuthorizedEvent(event)) {
       this.logger('No authorization header found')
+      if (this.options.credentialsRequired) {
+        throw createHttpError(
+          401,
+          'No valid bearer token was set in the authorization header',
+          {
+            type: 'AuthenticationRequired'
+          }
+        )
+      }
       return
     }
     this.logger(

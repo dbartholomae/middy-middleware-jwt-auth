@@ -49,7 +49,7 @@ describe('Handler with JWT Auth middleware', () => {
       })
   })
 
-  it('returns 401 and error message if not authenticated', async () => {
+  it('returns 400 and error message if not authenticated', async () => {
     const token = JWT.sign({ iat: 1, permission: 'helloWorld' }, 'secret')
     return server
       .get('/hello')
@@ -70,13 +70,22 @@ describe('Handler with JWT Auth middleware', () => {
       })
   )
 
-  it('returns 400 and error message if payload is malformed', async () => {
+  it('returns 401 and error message if payload is malformed', async () => {
     return server
       .get('/hello')
       .set('Authorization', `Malformed token`)
       .expect(401)
       .then((res: any) => {
         expect(res.text).toEqual('Format should be "Authorization: Bearer [token]", received "Authorization: Malformed token" instead')
+      })
+  })
+
+  it('returns 401 and error message if token is missing', async () => {
+    return server
+      .get('/hello')
+      .expect(401)
+      .then((res: any) => {
+        expect(res.text).toEqual('No valid bearer token was set in the authorization header')
       })
   })
 })
