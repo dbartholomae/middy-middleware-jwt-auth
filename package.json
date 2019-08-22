@@ -73,7 +73,7 @@
     "moment": "^2.24.0",
     "pkg-ok": "^2.3.1",
     "prettier-standard": "^9.1.1",
-    "rimraf": "^2.6.2",
+    "rimraf": "^3.0.0",
     "semantic-release": "^15.13.3",
     "serverless": "^1.37.1",
     "serverless-offline": "^5.0.0",
