@@ -4,7 +4,6 @@ describe('IAuthorizedEvent', () => {
   describe('interface', () => {
     it('accepts data that has an httpMethod and a string as an Authorization header', () => {
       const event: IAuthorizedEvent = {
-        auth: {},
         headers: {
           Authorization: 'Bearer TOKEN'
         },
@@ -15,7 +14,6 @@ describe('IAuthorizedEvent', () => {
 
     it('accepts data that has an httpMethod and an Array as an Authorization header', () => {
       const event: IAuthorizedEvent = {
-        auth: {},
         headers: {
           Authorization: ['Bearer TOKEN']
         },
@@ -26,7 +24,6 @@ describe('IAuthorizedEvent', () => {
 
     it('accepts data that has an httpMethod and a string as an authorization header with lower-case a', () => {
       const event: IAuthorizedEvent = {
-        auth: {},
         headers: {
           authorization: 'Bearer TOKEN'
         },
@@ -41,7 +38,10 @@ describe('IAuthorizedEvent', () => {
       }
       const event: IAuthorizedEvent<IToken> = {
         auth: {
-          foo: ''
+          payload: {
+            foo: ''
+          },
+          token: ''
         },
         headers: {
           authorization: 'Bearer TOKEN'
@@ -79,7 +79,10 @@ describe('IAuthorizedEvent', () => {
             isAuthorizedEvent(
               {
                 auth: {
-                  foo: 'bar'
+                  payload: {
+                    foo: 'bar'
+                  },
+                  token: ''
                 },
                 headers: {
                   [authHeader]: 'Bearer TOKEN'

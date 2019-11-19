@@ -11,7 +11,7 @@ import superagent from 'superagent'
 superagent.parse['application/json'] = superagent.parse.text
 
 describe('Handler with JWT Auth middleware', () => {
-  it('returns 200 and "Hello world!" if authorized', async () => {
+  it('returns 200 and "Hello world! Here\'s your token: {TOKEN}" with the token used if authorized', async () => {
     const token = JWT.sign({ permissions: ['helloWorld'] }, 'secret')
     return server
       .get('/hello')
@@ -21,7 +21,7 @@ describe('Handler with JWT Auth middleware', () => {
         // TODO: Use this code instead as soon as the error middleware sets the correct content-type
         // expect(res.body.data).toEqual('Hello world!')
         const body = JSON.parse(res.text)
-        expect(body.data).toEqual('Hello world!')
+        expect(body.data).toEqual(`Hello world! Here's your token: ${token}`)
       })
   })
 
@@ -34,7 +34,7 @@ describe('Handler with JWT Auth middleware', () => {
         // TODO: Use this code instead as soon as the error middleware sets the correct content-type
         // expect(res.body.data).toEqual('Hello world!')
         const body = JSON.parse(res.text)
-        expect(body.data).toEqual('Hello world!')
+        expect(body.data).toEqual(`Hello world! Here's your token: ${token}`)
       })
   })
 
