@@ -103,14 +103,14 @@
   <span class="hljs-comment">// The middleware adds auth information if a valid token was added</span>
   <span class="hljs-comment">// If no auth was found and credentialsRequired is set to true, a 401 will be thrown. If auth exists you</span>
   <span class="hljs-comment">// have to check that it has the expected form.</span>
-  <span class="hljs-keyword">if</span> (event.auth!.permissions.indexOf(<span class="hljs-string">'helloWorld'</span>) === <span class="hljs-number">-1</span>) {
-    <span class="hljs-keyword">throw</span> createHttpError(<span class="hljs-number">403</span>, <span class="hljs-string">`User not authorized for helloWorld, only found permissions [<span class="hljs-subst">${event.auth!.permissions.join(', ')}</span>]`</span>, {
+  <span class="hljs-keyword">if</span> (event.auth!.payload.permissions.indexOf(<span class="hljs-string">'helloWorld'</span>) === <span class="hljs-number">-1</span>) {
+    <span class="hljs-keyword">throw</span> createHttpError(<span class="hljs-number">403</span>, <span class="hljs-string">`User not authorized for helloWorld, only found permissions [<span class="hljs-subst">${event.auth!.permissions.join(<span class="hljs-string">', '</span>)}</span>]`</span>, {
       <span class="hljs-keyword">type</span>: <span class="hljs-string">'NotAuthorized'</span>
     })
   }
 
   <span class="hljs-keyword">return</span> {
-    body: <span class="hljs-built_in">JSON</span>.stringify({ data: <span class="hljs-string">'Hello world!'</span> }),
+    body: <span class="hljs-built_in">JSON</span>.stringify({ data: <span class="hljs-string">`Hello world! Here's your token: <span class="hljs-subst">${event.auth!.token}</span>`</span> }),
     statusCode: <span class="hljs-number">200</span>
   }
 }
@@ -143,22 +143,22 @@
 						<a href="globals.html"><em>Globals</em></a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_examples_helloworld_.html">"examples/hello<wbr>World"</a>
+						<a href="modules/_examples_helloworld_.html">&quot;examples/hello<wbr>World&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_examples_helloworld_int_spec_.html">"examples/hello<wbr>World.int-<wbr>spec"</a>
+						<a href="modules/_examples_helloworld_int_spec_.html">&quot;examples/hello<wbr>World.int-<wbr>spec&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_src_jwtauthmiddleware_.html">"src/JWTAuth<wbr>Middleware"</a>
+						<a href="modules/_src_jwtauthmiddleware_.html">&quot;src/JWTAuth<wbr>Middleware&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_src_interfaces_iauthoptions_.html">"src/interfaces/IAuth<wbr>Options"</a>
+						<a href="modules/_src_interfaces_iauthoptions_.html">&quot;src/interfaces/IAuth<wbr>Options&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_src_interfaces_iauthorizedevent_.html">"src/interfaces/IAuthorized<wbr>Event"</a>
+						<a href="modules/_src_interfaces_iauthorizedevent_.html">&quot;src/interfaces/IAuthorized<wbr>Event&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_test_handler_.html">"test/handler"</a>
+						<a href="modules/_test_handler_.html">&quot;test/handler&quot;</a>
 					</li>
 				</ul>
 			</nav>

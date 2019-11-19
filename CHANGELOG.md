@@ -1,3 +1,20 @@
+# [3.0.0](https://github.com/dbartholomae/middy-middleware-jwt-auth/compare/2.4.0...3.0.0) (2019-11-19)
+
+
+### Code Refactoring
+
+* move payload to event.auth.payload ([c48a741](https://github.com/dbartholomae/middy-middleware-jwt-auth/commit/c48a741737ea01d10a8579f54493ad87eeabd022))
+
+
+### Features
+
+* give access to token in event.auth ([4ed1ef5](https://github.com/dbartholomae/middy-middleware-jwt-auth/commit/4ed1ef5b9eca68e95584d4f3a86805e00f2b5157))
+
+
+### BREAKING CHANGES
+
+* Previously the payload was found directly in event.auth, now it is in event.auth.payload to be able to put additional information into event.auth
+
 # [2.4.0](https://github.com/dbartholomae/middy-middleware-jwt-auth/compare/2.3.0...2.4.0) (2019-07-29)
 
 
