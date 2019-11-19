@@ -1,6 +1,5 @@
 import { MiddlewareFunction } from 'middy';
 import { EncryptionAlgorithms, IAuthOptions, isAuthOptions } from './interfaces/IAuthOptions';
-import { IAuthorizedEvent } from './interfaces/IAuthorizedEvent';
 /** The actual middleware */
 export declare class JWTAuthMiddleware<Payload> {
     private options;
@@ -17,7 +16,7 @@ export declare class JWTAuthMiddleware<Payload> {
      * fallback.
      * @param event - The event to check
      */
-    before: MiddlewareFunction<IAuthorizedEvent, any>;
+    before: MiddlewareFunction<any, any>;
     /** Extracts a token from an authorization header. */
     private getTokenFromAuthHeader;
     /** Extracts a token from a source defined in the options. */

@@ -108,7 +108,7 @@ describe('JWTAuthMiddleware', () => {
         ).toEqual(undefined)
       })
 
-      it('saves token information to event.auth if token is valid', async () => {
+      it('saves token information to event.auth.payload if token is valid', async () => {
         const next = jest.fn()
         const options = {
           algorithm: EncryptionAlgorithms.HS256,
@@ -134,7 +134,10 @@ describe('JWTAuthMiddleware', () => {
           },
           next
         )
-        expect(event.auth).toEqual({ ...data, iat: expect.any(Number) })
+        expect(event.auth!.payload).toEqual({
+          ...data,
+          iat: expect.any(Number)
+        })
       })
 
       it('rejects if event.auth is already filled', async () => {
@@ -148,7 +151,7 @@ describe('JWTAuthMiddleware', () => {
           algorithm: options.algorithm
         })
         const event: IAuthorizedEvent = {
-          auth: {},
+          auth: {} as any,
           headers: {
             Authorization: `Bearer ${token}`
           },
@@ -389,7 +392,7 @@ describe('JWTAuthMiddleware', () => {
         return payload != null && typeof payload.userId === 'number'
       }
 
-      it('saves token information to event.auth if token is valid', async () => {
+      it('saves token information to event.auth.payload if token is valid', async () => {
         const next = jest.fn()
         const options = {
           algorithm: EncryptionAlgorithms.HS256,
@@ -416,7 +419,10 @@ describe('JWTAuthMiddleware', () => {
           },
           next
         )
-        expect(event.auth).toEqual({ ...data, iat: expect.any(Number) })
+        expect(event.auth!.payload).toEqual({
+          ...data,
+          iat: expect.any(Number)
+        })
       })
 
       it("rejects if payload doesn't pass the payload type guard", async () => {
@@ -473,7 +479,7 @@ describe('JWTAuthMiddleware', () => {
         ).resolves.toEqual(undefined)
       })
 
-      it('saves token information to event.auth if token is valid', async () => {
+      it('saves token information to event.auth.payload if token is valid', async () => {
         const next = jest.fn()
         const options = {
           algorithm: EncryptionAlgorithms.HS256,
@@ -498,7 +504,7 @@ describe('JWTAuthMiddleware', () => {
           },
           next
         )
-        expect(event.auth).toEqual({ ...data, iat: expect.any(Number) })
+        expect(event.auth.payload).toEqual({ ...data, iat: expect.any(Number) })
       })
     })
   })

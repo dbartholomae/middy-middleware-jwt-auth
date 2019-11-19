@@ -30,5 +30,7 @@ export interface IAuthOptions<P = any> {
     secretOrPublicKey: string | Buffer;
     /** An optional function to get the authorization token from the event */
     tokenSource?: (event: any) => string;
+    /** An optional boolean that allows making authorization necessary */
+    credentialsRequired?: boolean;
 }
 export declare function isAuthOptions(options: any): options is IAuthOptions;

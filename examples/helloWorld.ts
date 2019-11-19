@@ -18,8 +18,8 @@ const helloWorld = async (event: IAuthorizedEvent<ITokenPayload>) => {
   // The middleware adds auth information if a valid token was added
   // If no auth was found and credentialsRequired is set to true, a 401 will be thrown. If auth exists you
   // have to check that it has the expected form.
-  if (event.auth!.permissions.indexOf('helloWorld') === -1) {
-    throw createHttpError(403, `User not authorized for helloWorld, only found permissions [${event.auth!.permissions.join(', ')}]`, {
+  if (event.auth!.payload.permissions.indexOf('helloWorld') === -1) {
+    throw createHttpError(403, `User not authorized for helloWorld, only found permissions [${event.auth!.payload.permissions.join(', ')}]`, {
       type: 'NotAuthorized'
     })
   }
