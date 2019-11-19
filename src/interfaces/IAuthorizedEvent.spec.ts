@@ -40,7 +40,8 @@ describe('IAuthorizedEvent', () => {
         auth: {
           payload: {
             foo: ''
-          }
+          },
+          token: ''
         },
         headers: {
           authorization: 'Bearer TOKEN'
@@ -80,7 +81,8 @@ describe('IAuthorizedEvent', () => {
                 auth: {
                   payload: {
                     foo: 'bar'
-                  }
+                  },
+                  token: ''
                 },
                 headers: {
                   [authHeader]: 'Bearer TOKEN'

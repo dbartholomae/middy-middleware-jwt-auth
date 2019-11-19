@@ -25,7 +25,7 @@ const helloWorld = async (event: IAuthorizedEvent<ITokenPayload>) => {
   }
 
   return {
-    body: JSON.stringify({ data: 'Hello world!' }),
+    body: JSON.stringify({ data: `Hello world! Here's your token: ${event.auth!.token}` }),
     statusCode: 200
   }
 }

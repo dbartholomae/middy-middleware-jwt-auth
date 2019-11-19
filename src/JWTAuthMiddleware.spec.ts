@@ -140,6 +140,35 @@ describe('JWTAuthMiddleware', () => {
         })
       })
 
+      it('saves the token itself to event.auth.token if token is valid', async () => {
+        const next = jest.fn()
+        const options = {
+          algorithm: EncryptionAlgorithms.HS256,
+          secretOrPublicKey: 'secret'
+        }
+        const data = { userId: 1 }
+        const token = JWT.sign(data, options.secretOrPublicKey, {
+          algorithm: options.algorithm
+        })
+        const event: IAuthorizedEvent = {
+          headers: {
+            Authorization: `Bearer ${token}`
+          },
+          httpMethod: 'GET'
+        }
+        await JWTAuthMiddleware(options).before(
+          {
+            callback: jest.fn(),
+            context: {} as any,
+            error: {} as Error,
+            event,
+            response: null
+          },
+          next
+        )
+        expect(event.auth!.token).toEqual(token)
+      })
+
       it('rejects if event.auth is already filled', async () => {
         const next = jest.fn()
         const options = {

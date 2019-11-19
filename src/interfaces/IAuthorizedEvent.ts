@@ -7,6 +7,7 @@ export interface IAuthorizedEventBase<TokenPayload = any> {
   /** Authorization information added by this middleware from a JWT. Has to be undefined before hitting the middleware. */
   auth?: {
     payload: TokenPayload
+    token: string
   }
   /** An object containing event headers */
   headers: any
@@ -58,7 +59,9 @@ export function isAuthorizedEventBase<P> (
     event.headers != null &&
     (event.auth === undefined ||
       isTokenPayload == null ||
-      (event.auth && isTokenPayload(event.auth.payload)))
+      (event.auth &&
+        isTokenPayload(event.auth.payload) &&
+        typeof event.auth.token === 'string'))
   )
 }
 

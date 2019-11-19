@@ -135,9 +135,9 @@ export class JWTAuthMiddleware<Payload> {
         )
       }
       this.logger('Token payload valid')
-      event.auth = { payload }
+      event.auth = { payload, token }
     } else {
-      event.auth = { payload: payload as any }
+      event.auth = { payload: payload as any, token }
     }
   }
 
