@@ -87,7 +87,7 @@
     "tslint-consistent-codestyle": "^1.15.0",
     "typedoc": "^0.16.6",
     "typescript": "^3.1.2",
-    "wait-on": "^3.2.0",
+    "wait-on": "^4.0.0",
     "webpack": "^4.37.0"
   },
   "repository": "git@github.com:dbartholomae/middy-middleware-jwt-auth.git"
