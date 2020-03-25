@@ -1,6 +1,6 @@
 import JWT from 'jsonwebtoken'
 import request from 'supertest'
-const server = request('http://localhost:3000')
+const server = request('http://localhost:3000/dev')
 
 // Unfortunately the error middleware does not set correct content-type 'text', but instead 'application/json' is
 // used by default. This means we need to overwrite the parser as otherwise the error tests would fail as superagent
