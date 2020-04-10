@@ -6,6 +6,10 @@ patch:
   'npm:debug:20170905':
     - serverless > @serverless/components > @serverless/tencent-platform-client > serverless-tencent-tools > socket.io-stream > debug:
         patched: '2020-04-08T02:40:48.960Z'
+    - serverless > @serverless/components > @serverless/platform-client-china > @serverless/utils-china > socket.io-stream > debug:
+        patched: '2020-04-10T02:43:04.431Z'
   'npm:ms:20170412':
     - serverless > @serverless/components > @serverless/tencent-platform-client > serverless-tencent-tools > socket.io-stream > debug > ms:
         patched: '2020-04-08T02:40:48.960Z'
+    - serverless > @serverless/components > @serverless/platform-client-china > @serverless/utils-china > socket.io-stream > debug > ms:
+        patched: '2020-04-10T02:43:04.431Z'
