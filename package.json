@@ -30,8 +30,7 @@
     "@types/jsonwebtoken": "^8.3.0",
     "debug": "^4.1.0",
     "http-errors": "^1.7.1",
-    "jsonwebtoken": "^8.4.0",
-    "snyk": "^1.305.1"
+    "jsonwebtoken": "^8.4.0"
   },
   "peerDependencies": {
     "middy": "^0.22.0"
@@ -81,6 +80,7 @@
     "serverless": "^1.37.1",
     "serverless-offline": "^6.1.1",
     "serverless-webpack": "^5.2.0",
+    "snyk": "^1.305.1",
     "source-map-support": "^0.5.10",
     "supertest": "^4.0.2",
     "ts-jest": "^25.1.0",
