@@ -1,3 +1,10 @@
+## [3.0.3](https://github.com/dbartholomae/middy-middleware-jwt-auth/compare/3.0.2...3.0.3) (2020-04-16)
+
+
+### Bug Fixes
+
+* make snyk a dev dependency ([53d72e7](https://github.com/dbartholomae/middy-middleware-jwt-auth/commit/53d72e707e6033dd6e3f97dd15a6188971896907))
+
 ## [3.0.2](https://github.com/dbartholomae/middy-middleware-jwt-auth/compare/3.0.1...3.0.2) (2020-04-10)
 
 
