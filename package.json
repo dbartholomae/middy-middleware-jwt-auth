@@ -1,6 +1,6 @@
 {
   "name": "middy-middleware-jwt-auth",
-  "version": "4.0.0",
+  "version": "3.0.4",
   "description": "A middy JSON web token authorization middleware inspired by express-jwt.",
   "homepage": "",
   "license": "MIT",
@@ -25,9 +25,6 @@
   },
   "private": false,
   "dependencies": {
-    "@middy/http-error-handler": "^1.0.0",
-    "@middy/http-header-normalizer": "^1.0.0",
-    "@types/aws-lambda": "^8.10.51",
     "@types/debug": "^4.1.0",
     "@types/http-errors": "^1.6.1",
     "@types/jsonwebtoken": "^8.3.0",
@@ -36,10 +33,7 @@
     "jsonwebtoken": "^8.4.0"
   },
   "peerDependencies": {
-    "@middy/core": "^1.0.0",
-    "@middy/http-error-handler": "^1.0.0",
-    "@middy/http-header-normalizer": "^1.0.0",
-    "@types/aws-lambda": "^8.10.51"
+    "@middy/core": "^1.0.0"
   },
   "directories": {
     "docs": "docs",
@@ -64,11 +58,14 @@
     "@commitlint/cli": "^8.1.0",
     "@commitlint/config-conventional": "^8.1.0",
     "@middy/core": "^1.0.0",
+    "@middy/http-error-handler": "^1.0.0",
+    "@middy/http-header-normalizer": "^1.0.0",
     "@semantic-release/changelog": "^5.0.0",
     "@semantic-release/commit-analyzer": "^8.0.0",
     "@semantic-release/git": "^9.0.0",
     "@semantic-release/npm": "^7.0.0",
     "@semantic-release/release-notes-generator": "^9.0.0",
+    "@types/aws-lambda": "^8.10.51",
     "@types/jest": "^25.1.0",
     "@types/supertest": "^2.0.7",
     "codecov": "^3.2.0",

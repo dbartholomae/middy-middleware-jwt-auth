@@ -1,8 +1,3 @@
-## [4.0.0](https://github.com/dbartholomae/middy-middleware-jwt-auth/compare/3.0.4...4.0.0) (2020-04-30)
-
-
-### Upgrade middy from 0.36.0 to 1.0.0
-
 ## [3.0.4](https://github.com/dbartholomae/middy-middleware-jwt-auth/compare/3.0.3...3.0.4) (2020-04-18)
 
 
