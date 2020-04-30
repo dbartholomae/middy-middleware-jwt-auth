@@ -1,6 +1,7 @@
+import middy from '@middy/core'
+import httpErrorHandler from '@middy/http-error-handler'
+import httpHeaderNormalizer from '@middy/http-header-normalizer'
 import createHttpError from 'http-errors'
-import middy from 'middy'
-import { httpErrorHandler, httpHeaderNormalizer } from 'middy/middlewares'
 import JWTAuthMiddleware, { EncryptionAlgorithms, IAuthorizedEvent } from '../'
 
 interface ITokenPayload {
