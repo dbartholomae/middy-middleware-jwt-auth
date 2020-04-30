@@ -1,3 +1,15 @@
+# [4.0.0](https://github.com/dbartholomae/middy-middleware-jwt-auth/compare/3.0.4...4.0.0) (2020-04-30)
+
+
+### Bug Fixes
+
+* upgrade to middy@1.0.0 ([52f7e22](https://github.com/dbartholomae/middy-middleware-jwt-auth/commit/52f7e22eab64713ad930ec25e8576f53e4c41e21))
+
+
+### BREAKING CHANGES
+
+* As of this version this middleware only supports middy@1.0.0 and upwards. See https://github.com/middyjs/middy/blob/master/UPGRADE.md for middy upgrade instructions.
+
 ## [3.0.4](https://github.com/dbartholomae/middy-middleware-jwt-auth/compare/3.0.3...3.0.4) (2020-04-18)
 
 
