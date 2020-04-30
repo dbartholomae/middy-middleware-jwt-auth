@@ -1,5 +1,5 @@
 # middy-middleware-jwt-auth
- [![npm version](https://badge.fury.io/js/middy-middleware-jwt-auth.svg)](https://npmjs.org/package/middy-middleware-jwt-auth)  [![downloads](https://img.shields.io/npm/dw/middy-middleware-jwt-auth.svg)](https://npmjs.org/package/middy-middleware-jwt-auth)  [![open issues](https://img.shields.io/github/issues-raw/dbartholomae/middy-middleware-jwt-auth.svg)](https://github.com/dbartholomae/middy-middleware-jwt-auth/issues)  [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fdbartholomae%2Fmiddy-middleware-jwt-auth.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fdbartholomae%2Fmiddy-middleware-jwt-auth?ref=badge_shield) [![debug](https://img.shields.io/badge/debug-blue.svg)](https://github.com/visionmedia/debug#readme)  [![build status](https://img.shields.io/circleci/project/github/dbartholomae/middy-middleware-jwt-auth/master.svg?style=flat)](https://circleci.com/gh/dbartholomae/workflows/middy-middleware-jwt-auth/tree/master)  [![codecov](https://codecov.io/gh/dbartholomae/middy-middleware-jwt-auth/branch/master/graph/badge.svg)](https://codecov.io/gh/dbartholomae/middy-middleware-jwt-auth)  [![dependency status](https://david-dm.org/dbartholomae/middy-middleware-jwt-auth.svg?theme=shields.io)](https://david-dm.org/dbartholomae/middy-middleware-jwt-auth)  [![devDependency status](https://david-dm.org/dbartholomae/middy-middleware-jwt-auth/dev-status.svg)](https://david-dm.org/dbartholomae/middy-middleware-jwt-auth?type=dev)    [![semantic release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release#badge)  [![Gitter](https://badges.gitter.im/dbartholomae/middy-middleware-jwt-auth.svg)](https://gitter.im/middy-middleware-jwt-auth) 
+ [![npm version](https://badge.fury.io/js/middy-middleware-jwt-auth.svg)](https://npmjs.org/package/middy-middleware-jwt-auth)  [![downloads](https://img.shields.io/npm/dw/middy-middleware-jwt-auth.svg)](https://npmjs.org/package/middy-middleware-jwt-auth)  [![open issues](https://img.shields.io/github/issues-raw/dbartholomae/middy-middleware-jwt-auth.svg)](https://github.com/dbartholomae/middy-middleware-jwt-auth/issues)  [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fdbartholomae%2Fmiddy-middleware-jwt-auth.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fdbartholomae%2Fmiddy-middleware-jwt-auth?ref=badge_shield) [![debug](https://img.shields.io/badge/debug-blue.svg)](https://github.com/visionmedia/debug#readme)  [![build status](https://img.shields.io/circleci/project/github/dbartholomae/middy-middleware-jwt-auth/master.svg?style=flat)](https://circleci.com/gh/dbartholomae/workflows/middy-middleware-jwt-auth/tree/master)  [![codecov](https://codecov.io/gh/dbartholomae/middy-middleware-jwt-auth/branch/master/graph/badge.svg)](https://codecov.io/gh/dbartholomae/middy-middleware-jwt-auth)  [![dependency status](https://david-dm.org/dbartholomae/middy-middleware-jwt-auth.svg?theme=shields.io)](https://david-dm.org/dbartholomae/middy-middleware-jwt-auth)  [![devDependency status](https://david-dm.org/dbartholomae/middy-middleware-jwt-auth/dev-status.svg)](https://david-dm.org/dbartholomae/middy-middleware-jwt-auth?type=dev)    [![semantic release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release#badge)  [![Gitter](https://badges.gitter.im/dbartholomae/middy-middleware-jwt-auth.svg)](https://gitter.im/middy-middleware-jwt-auth)
 
 A [middy](https://github.com/middyjs/middy) JSON web token authorization middleware inspired by express-jwt.
 
@@ -12,14 +12,15 @@ npm install middy-middleware-jwt-auth --save
 
 ## Documentation
 
-There is [additional documentation](https://dbartholomae.github.com/middy-middleware-jwt-auth). 
+There is [additional documentation](https://dbartholomae.github.com/middy-middleware-jwt-auth).
 
 ## Usage
 
 ```typescript
 import createHttpError from 'http-errors'
-import middy from 'middy'
-import { httpErrorHandler, httpHeaderNormalizer } from 'middy/middlewares'
+import middy from '@middy/core'
+import httpErrorHandler from '@middy/http-error-handler'
+import httpHeaderNormalizer from '@middy/http-header-normalizer'
 import JWTAuthMiddleware, { EncryptionAlgorithms, IAuthorizedEvent } from 'middy-middleware-jwt-auth'
 
 // Optionally define the token payload you expect to receive
