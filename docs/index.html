@@ -82,8 +82,9 @@
 					<h2>Usage</h2>
 				</a>
 				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> createHttpError <span class="hljs-keyword">from</span> <span class="hljs-string">'http-errors'</span>
-<span class="hljs-keyword">import</span> middy <span class="hljs-keyword">from</span> <span class="hljs-string">'middy'</span>
-<span class="hljs-keyword">import</span> { httpErrorHandler, httpHeaderNormalizer } <span class="hljs-keyword">from</span> <span class="hljs-string">'middy/middlewares'</span>
+<span class="hljs-keyword">import</span> middy <span class="hljs-keyword">from</span> <span class="hljs-string">'@middy/core'</span>
+<span class="hljs-keyword">import</span> httpErrorHandler <span class="hljs-keyword">from</span> <span class="hljs-string">'@middy/http-error-handler'</span>
+<span class="hljs-keyword">import</span> httpHeaderNormalizer <span class="hljs-keyword">from</span> <span class="hljs-string">'@middy/http-header-normalizer'</span>
 <span class="hljs-keyword">import</span> JWTAuthMiddleware, { EncryptionAlgorithms, IAuthorizedEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">'middy-middleware-jwt-auth'</span>
 
 <span class="hljs-comment">// Optionally define the token payload you expect to receive</span>

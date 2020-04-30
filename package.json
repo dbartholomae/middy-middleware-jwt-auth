@@ -1,6 +1,6 @@
 {
   "name": "middy-middleware-jwt-auth",
-  "version": "3.0.4",
+  "version": "4.0.0",
   "description": "A middy JSON web token authorization middleware inspired by express-jwt.",
   "homepage": "",
   "license": "MIT",
@@ -25,6 +25,9 @@
   },
   "private": false,
   "dependencies": {
+    "@middy/http-error-handler": "^1.0.0",
+    "@middy/http-header-normalizer": "^1.0.0",
+    "@types/aws-lambda": "^8.10.51",
     "@types/debug": "^4.1.0",
     "@types/http-errors": "^1.6.1",
     "@types/jsonwebtoken": "^8.3.0",
@@ -33,7 +36,10 @@
     "jsonwebtoken": "^8.4.0"
   },
   "peerDependencies": {
-    "middy": "^0.22.0"
+    "@middy/core": "^1.0.0",
+    "@middy/http-error-handler": "^1.0.0",
+    "@middy/http-header-normalizer": "^1.0.0",
+    "@types/aws-lambda": "^8.10.51"
   },
   "directories": {
     "docs": "docs",
@@ -57,6 +63,7 @@
   "devDependencies": {
     "@commitlint/cli": "^8.1.0",
     "@commitlint/config-conventional": "^8.1.0",
+    "@middy/core": "^1.0.0",
     "@semantic-release/changelog": "^5.0.0",
     "@semantic-release/commit-analyzer": "^8.0.0",
     "@semantic-release/git": "^9.0.0",
@@ -71,7 +78,6 @@
     "jest": "^24.0.0",
     "jest-junit": "^10.0.0",
     "lint-staged": "^10.0.3",
-    "middy": "^0.36.0",
     "moment": "^2.24.0",
     "pkg-ok": "^2.3.1",
     "prettier-standard": "^16.0.0",
