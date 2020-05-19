@@ -13,3 +13,6 @@ patch:
         patched: '2020-04-08T02:40:48.960Z'
     - serverless > @serverless/components > @serverless/platform-client-china > @serverless/utils-china > socket.io-stream > debug > ms:
         patched: '2020-04-10T02:43:04.431Z'
+  SNYK-JS-LODASH-567746:
+    - serverless > @serverless/components > @serverless/platform-client-china > archiver > async > lodash:
+        patched: '2020-05-19T02:41:45.150Z'
