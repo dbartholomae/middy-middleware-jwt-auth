@@ -2,7 +2,7 @@
 #
 # Check https://circleci.com/docs/2.0/language-javascript/ for more details
 #
-version: 2
+version: 2.1
 jobs:
   install:
     docker:
@@ -67,6 +67,7 @@ jobs:
           name: Upload code coverage
           command: |
             npx codecov
+          when: always
       - run:
           name: Run integration tests
           command: |
@@ -75,6 +76,7 @@ jobs:
             JEST_JUNIT_OUTPUT: "reports/junit/integration/test-results-integration.xml"
       - store_test_results:
           path: reports/junit
+          when: always
 
   release:
     docker:
