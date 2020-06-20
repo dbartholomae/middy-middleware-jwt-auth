@@ -1,3 +1,12 @@
+## [4.0.2](https://github.com/dbartholomae/middy-middleware-jwt-auth/compare/4.0.1...4.0.2) (2020-06-20)
+
+
+### Bug Fixes
+
+* package.json & .snyk to reduce vulnerabilities ([8aeded9](https://github.com/dbartholomae/middy-middleware-jwt-auth/commit/8aeded9557c6499cbffe5d8829536d5258fd0cda))
+* package.json & .snyk to reduce vulnerabilities ([677802b](https://github.com/dbartholomae/middy-middleware-jwt-auth/commit/677802b5a8598d856e11e8ed62a401d0372cfc9d))
+* package.json to reduce vulnerabilities ([a384060](https://github.com/dbartholomae/middy-middleware-jwt-auth/commit/a38406017a054b57ae3fb0c4fc4474a6b91abc05))
+
 ## [4.0.1](https://github.com/dbartholomae/middy-middleware-jwt-auth/compare/4.0.0...4.0.1) (2020-06-20)
 
 
