@@ -60,22 +60,21 @@ jobs:
       - run:
           name: Run unit tests
           command: |
-            yarn test:unit --reporters=default --reporters=jest-junit
-          environment:
-            JEST_JUNIT_OUTPUT: "reports/junit/unit/test-results-unit.xml"
+            yarn test:unit
       - run:
           name: Upload code coverage
           command: |
             npx codecov
           when: always
+      - store_test_results:
+          path: reports/junit/unit
+          when: always
       - run:
           name: Run integration tests
           command: |
-            npx concurrently --kill-others --success first "cd test && serverless offline" "wait-on http://localhost:3000/dev/status && jest -c jest.integration.config.js --testResultsProcessor=\"jest-junit\""
-          environment:
-            JEST_JUNIT_OUTPUT: "reports/junit/integration/test-results-integration.xml"
+            npx concurrently --kill-others --success first "cd test && serverless offline" "wait-on http://localhost:3000/dev/status && jest -c jest.integration.config.js"
       - store_test_results:
-          path: reports/junit
+          path: reports/junit/integration
           when: always
 
   release:
