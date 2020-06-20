@@ -1,10 +1,27 @@
-import { EncryptionAlgorithms } from './interfaces/IAuthOptions'
-import JWTAuthMiddleware from './JWTAuthMiddleware'
+import JWTAuthMiddleware, {
+  EncryptionAlgorithms,
+  IAuthorizedEvent,
+  isAuthOptions,
+  isAuthorizedEvent
+} from './JWTAuthMiddleware'
 
 import createHttpError from 'http-errors'
 import JWT from 'jsonwebtoken'
 import moment from 'moment'
-import { IAuthorizedEvent } from './interfaces/IAuthorizedEvent'
+
+describe('exports', () => {
+  it('reexports EncryptionAlgorithms', () => {
+    expect(EncryptionAlgorithms).toBeDefined()
+  })
+
+  it('reexports isAuthOptions', () => {
+    expect(isAuthOptions).toBeDefined()
+  })
+
+  it('reexports isAuthorizedEvent', () => {
+    expect(isAuthorizedEvent).toBeDefined()
+  })
+})
 
 describe('JWTAuthMiddleware', () => {
   it('throws a type error when options are misformed', () => {
