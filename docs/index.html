@@ -81,11 +81,11 @@
 				<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
 					<h2>Usage</h2>
 				</a>
-				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> createHttpError <span class="hljs-keyword">from</span> <span class="hljs-string">'http-errors'</span>
-<span class="hljs-keyword">import</span> middy <span class="hljs-keyword">from</span> <span class="hljs-string">'@middy/core'</span>
-<span class="hljs-keyword">import</span> httpErrorHandler <span class="hljs-keyword">from</span> <span class="hljs-string">'@middy/http-error-handler'</span>
-<span class="hljs-keyword">import</span> httpHeaderNormalizer <span class="hljs-keyword">from</span> <span class="hljs-string">'@middy/http-header-normalizer'</span>
-<span class="hljs-keyword">import</span> JWTAuthMiddleware, { EncryptionAlgorithms, IAuthorizedEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">'middy-middleware-jwt-auth'</span>
+				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> createHttpError <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;http-errors&#x27;</span>
+<span class="hljs-keyword">import</span> middy <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@middy/core&#x27;</span>
+<span class="hljs-keyword">import</span> httpErrorHandler <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@middy/http-error-handler&#x27;</span>
+<span class="hljs-keyword">import</span> httpHeaderNormalizer <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@middy/http-header-normalizer&#x27;</span>
+<span class="hljs-keyword">import</span> JWTAuthMiddleware, { EncryptionAlgorithms, IAuthorizedEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;middy-middleware-jwt-auth&#x27;</span>
 
 <span class="hljs-comment">// Optionally define the token payload you expect to receive</span>
 <span class="hljs-keyword">interface</span> ITokenPayload {
@@ -96,7 +96,7 @@
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isTokenPayload</span> (<span class="hljs-params">token: <span class="hljs-built_in">any</span></span>): <span class="hljs-title">token</span> <span class="hljs-title">is</span> <span class="hljs-title">ITokenPayload</span> </span>{
   <span class="hljs-keyword">return</span> token != <span class="hljs-literal">null</span> &amp;&amp;
     <span class="hljs-built_in">Array</span>.isArray(token.permissions) &amp;&amp;
-    token.permissions.every(<span class="hljs-function">(<span class="hljs-params">permission: <span class="hljs-built_in">any</span></span>) =&gt;</span> <span class="hljs-keyword">typeof</span> permission === <span class="hljs-string">'string'</span>)
+    token.permissions.every(<span class="hljs-function">(<span class="hljs-params">permission: <span class="hljs-built_in">any</span></span>) =&gt;</span> <span class="hljs-keyword">typeof</span> permission === <span class="hljs-string">&#x27;string&#x27;</span>)
 }
 
 <span class="hljs-comment">// This is your AWS handler</span>
@@ -104,19 +104,19 @@
   <span class="hljs-comment">// The middleware adds auth information if a valid token was added</span>
   <span class="hljs-comment">// If no auth was found and credentialsRequired is set to true, a 401 will be thrown. If auth exists you</span>
   <span class="hljs-comment">// have to check that it has the expected form.</span>
-  <span class="hljs-keyword">if</span> (event.auth!.payload.permissions.indexOf(<span class="hljs-string">'helloWorld'</span>) === <span class="hljs-number">-1</span>) {
-    <span class="hljs-keyword">throw</span> createHttpError(<span class="hljs-number">403</span>, <span class="hljs-string">`User not authorized for helloWorld, only found permissions [<span class="hljs-subst">${event.auth!.permissions.join(<span class="hljs-string">', '</span>)}</span>]`</span>, {
-      <span class="hljs-keyword">type</span>: <span class="hljs-string">'NotAuthorized'</span>
+  <span class="hljs-keyword">if</span> (event.auth!.payload.permissions.indexOf(<span class="hljs-string">&#x27;helloWorld&#x27;</span>) === <span class="hljs-number">-1</span>) {
+    <span class="hljs-keyword">throw</span> createHttpError(<span class="hljs-number">403</span>, <span class="hljs-string">`User not authorized for helloWorld, only found permissions [<span class="hljs-subst">${event.auth!.permissions.join(<span class="hljs-string">&#x27;, &#x27;</span>)}</span>]`</span>, {
+      <span class="hljs-keyword">type</span>: <span class="hljs-string">&#x27;NotAuthorized&#x27;</span>
     })
   }
 
   <span class="hljs-keyword">return</span> {
-    body: <span class="hljs-built_in">JSON</span>.stringify({ data: <span class="hljs-string">`Hello world! Here's your token: <span class="hljs-subst">${event.auth!.token}</span>`</span> }),
+    body: <span class="hljs-built_in">JSON</span>.stringify({ data: <span class="hljs-string">`Hello world! Here&#x27;s your token: <span class="hljs-subst">${event.auth!.token}</span>`</span> }),
     statusCode: <span class="hljs-number">200</span>
   }
 }
 
-<span class="hljs-comment">// Let's "middyfy" our handler, then we will be able to attach middlewares to it</span>
+<span class="hljs-comment">// Let&#x27;s &quot;middyfy&quot; our handler, then we will be able to attach middlewares to it</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> handler = middy(helloWorld)
   .use(httpHeaderNormalizer()) <span class="hljs-comment">// Make sure authorization header is saved in lower case</span>
   .use(httpErrorHandler()) <span class="hljs-comment">// This middleware is needed do handle the errors thrown by the JWTAuthMiddleware</span>
@@ -128,7 +128,7 @@
     <span class="hljs-comment">/** An optional function that checks whether the token payload is formatted correctly */</span>
     isPayload: isTokenPayload,
     <span class="hljs-comment">/** A string or buffer containing either the secret for HMAC algorithms, or the PEM encoded public key for RSA and ECDSA */</span>
-    secretOrPublicKey: <span class="hljs-string">'secret'</span>,
+    secretOrPublicKey: <span class="hljs-string">&#x27;secret&#x27;</span>,
     <span class="hljs-comment">/**
      * An optional function used to search for a token e. g. in a query string. By default, and as a fall back,
      * event.headers.authorization and event.headers.Authorization are used.
