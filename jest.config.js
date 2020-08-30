@@ -10,13 +10,6 @@ module.exports = {
       'statements': 100
     }
   },
-  reporters: [
-    'default',
-    ['jest-junit', {
-      outputDirectory: 'reports/junit/unit/',
-      outputName: 'test-results.xml',
-    }]
-  ],
   'roots': [
     '<rootDir>/src'
   ],

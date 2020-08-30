@@ -25,7 +25,6 @@ devDependencies:
   cross-env: 7.0.2
   husky: 4.2.5
   jest: 26.4.2
-  jest-junit: 11.1.0
   lint-staged: 10.2.13
   moment: 2.27.0
   pkg-ok: 2.3.1
@@ -7031,17 +7030,6 @@ packages:
       node: '>= 10.14.2'
     resolution:
       integrity: sha512-z7H4EpCldHN1J8fNgsja58QftxBSL+JcwZmaXIvV9WKIM+x49F4GLHu/+BQh2kzRKHAgaN/E82od+8rTOBPyPA==
-  /jest-junit/11.1.0:
-    dependencies:
-      mkdirp: 1.0.4
-      strip-ansi: 5.2.0
-      uuid: 3.4.0
-      xml: 1.0.1
-    dev: true
-    engines:
-      node: '>=10.12.0'
-    resolution:
-      integrity: sha512-c2LFOyKY7+ZxL5zSu+WHmHfsJ2wqbOpeYJ4Uu26yMhFxny2J2NQj6AVS7M+Eaxji9Q/oIDDK5tQy0DGzDp9xOw==
   /jest-leak-detector/26.4.2:
     dependencies:
       jest-get-type: 26.3.0
@@ -12764,10 +12752,6 @@ packages:
     dev: true
     resolution:
       integrity: sha512-A5CUptxDsvxKJEU3yO6DuWBSJz/qizqzJKOMIfUJHETbBw/sFaDxgd6fxm1ewUaM0jZ444Fc5vC5ROYurg/4Pw==
-  /xml/1.0.1:
-    dev: true
-    resolution:
-      integrity: sha1-eLpyAgApxbyHuKgaPPzXS0ovweU=
   /xml2js/0.4.19:
     dependencies:
       sax: 1.2.1
@@ -12965,7 +12949,6 @@ specifiers:
   http-errors: ^1.8.0
   husky: ^4.2.5
   jest: ^26.4.2
-  jest-junit: ^11.1.0
   jsonwebtoken: ^8.5.1
   lint-staged: ^10.2.13
   moment: ^2.27.0

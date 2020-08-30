@@ -1,11 +1,4 @@
 module.exports = {
-  reporters: [
-    'default',
-    ['jest-junit', {
-      outputDirectory: 'reports/junit/integration/',
-      outputName: 'test-results.xml',
-    }]
-  ],
   'roots': [
     '<rootDir>/examples'
   ],
