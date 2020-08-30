@@ -1,3 +1,12 @@
+## [4.0.6](https://github.com/dbartholomae/middy-middleware-jwt-auth/compare/4.0.5...4.0.6) (2020-08-30)
+
+
+### Bug Fixes
+
+* add tslib dependency ([22c6bd5](https://github.com/dbartholomae/middy-middleware-jwt-auth/commit/22c6bd5f1c598a4fee1237aed39ec787b5d43539))
+* depend on stable middy packages for dev ([6233456](https://github.com/dbartholomae/middy-middleware-jwt-auth/commit/6233456b2b02f9b17154e2bb2e4a9af6bc3cc059))
+* update all dependencies and remove snyk ([bb6dbe5](https://github.com/dbartholomae/middy-middleware-jwt-auth/commit/bb6dbe59df13b64c17e98cd23a45549c22ae2c7a))
+
 ## [4.0.5](https://github.com/dbartholomae/middy-middleware-jwt-auth/compare/4.0.4...4.0.5) (2020-08-17)
 
 
