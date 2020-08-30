@@ -5,7 +5,7 @@ dependencies:
   tslib: 2.0.1
 devDependencies:
   '@commitlint/cli': 9.1.2
-  '@commitlint/config-conventional': 10.0.0
+  '@commitlint/config-conventional': 9.1.2
   '@middy/core': 1.2.0_@types+aws-lambda@8.10.61
   '@middy/http-error-handler': 1.2.0_@middy+core@1.2.0
   '@middy/http-header-normalizer': 1.2.0_@middy+core@1.2.0
@@ -377,14 +377,14 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-ctRrrPqjZ8r4Vc4FXpPaScEpkPwfvB0Us3NK2SD2AnLwXGMxOLFTabDmNySU1Xc40ud2CmJsaV8lpavvzs8ZZA==
-  /@commitlint/config-conventional/10.0.0:
+  /@commitlint/config-conventional/9.1.2:
     dependencies:
-      conventional-changelog-conventionalcommits: 4.4.0
+      conventional-changelog-conventionalcommits: 4.3.0
     dev: true
     engines:
-      node: '>=v10.22.0'
+      node: '>=v8.17.0'
     resolution:
-      integrity: sha512-M9l7hh2a1GB9nQ/Gm+aDLGPmzGdpgxqJoSmrbTxDlapJDyaL7FPe5aQf66F50Eq3j0bmaRaJihFCA6mIUBQAag==
+      integrity: sha512-2zfnsrBJuCNJEKMEmltYlCUEoQNE4anvEBI/SYEuiB1JYXYaELijobDBpqhUVjh5NEpprNTY16oMZat6ewnxOg==
   /@commitlint/ensure/9.1.2:
     dependencies:
       '@commitlint/types': 9.1.2
@@ -3517,6 +3517,13 @@ packages:
     dev: true
     resolution:
       integrity: sha1-3dgA2gxmEnOTzKWVDqloo6rxJTs=
+  /compare-func/1.3.4:
+    dependencies:
+      array-ify: 1.0.0
+      dot-prop: 3.0.0
+    dev: true
+    resolution:
+      integrity: sha512-sq2sWtrqKPkEXAC8tEJA1+BqAH9GbFkGBtUOqrUX57VSfwp8xyktctk+uLoRy5eccTdxzDcVIztlYDpKs3Jv1Q==
   /compare-func/2.0.0:
     dependencies:
       array-ify: 1.0.0
@@ -3656,16 +3663,16 @@ packages:
       node: '>=10'
     resolution:
       integrity: sha512-nSLypht/1yEflhuTogC03i7DX7sOrXGsRn14g131Potqi6cbGbGEE9PSDEHKldabB6N76HiSyw9Ph+kLmC04Qw==
-  /conventional-changelog-conventionalcommits/4.4.0:
+  /conventional-changelog-conventionalcommits/4.3.0:
     dependencies:
-      compare-func: 2.0.0
+      compare-func: 1.3.4
       lodash: 4.17.20
       q: 1.5.1
     dev: true
     engines:
       node: '>=10'
     resolution:
-      integrity: sha512-ybvx76jTh08tpaYrYn/yd0uJNLt5yMrb1BphDe4WBredMlvPisvMghfpnJb6RmRNcqXeuhR6LfGZGewbkRm9yA==
+      integrity: sha512-oYHydvZKU+bS8LnGqTMlNrrd7769EsuEHKy4fh1oMdvvDi7fem8U+nvfresJ1IDB8K00Mn4LpiA/lR+7Gs6rgg==
   /conventional-changelog-writer/4.0.17:
     dependencies:
       compare-func: 2.0.0
@@ -4296,6 +4303,14 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-yxJ2mFy/sibVQlu5qHjOkf9J3K6zgmCxgJ94u2EdvDOV09H+32LtRswEcUsmUWN72pVLOEnTSRaIVVzVQgS0dg==
+  /dot-prop/3.0.0:
+    dependencies:
+      is-obj: 1.0.1
+    dev: true
+    engines:
+      node: '>=0.10.0'
+    resolution:
+      integrity: sha1-G3CK8JSknJoOfbyteQq6U52sEXc=
   /dot-prop/4.2.1:
     dependencies:
       is-obj: 1.0.1
@@ -12928,15 +12943,15 @@ packages:
       integrity: sha512-r+JdDipt93ttDjsOVPU5zaq5bAyY+3H19bDrThkvuVxC0xMQzU1PJcS6D+KrP3u96gH9XLomcHPb+2skoDjulQ==
 specifiers:
   '@commitlint/cli': ^9.1.2
-  '@commitlint/config-conventional': ^10.0.0
-  '@middy/core': ^1.0.0
-  '@middy/http-error-handler': ^1.0.0
-  '@middy/http-header-normalizer': ^1.0.0
+  '@commitlint/config-conventional': ^9.1.2
+  '@middy/core': ^1.2.0
+  '@middy/http-error-handler': ^1.2.0
+  '@middy/http-header-normalizer': ^1.2.0
   '@semantic-release/changelog': ^5.0.1
   '@semantic-release/commit-analyzer': ^8.0.1
   '@semantic-release/git': ^9.0.0
-  '@semantic-release/npm': ^7.0.0
-  '@semantic-release/release-notes-generator': ^9.0.0
+  '@semantic-release/npm': ^7.0.5
+  '@semantic-release/release-notes-generator': ^9.0.1
   '@types/aws-lambda': ^8.10.61
   '@types/debug': ^4.1.5
   '@types/http-errors': ^1.8.0
