@@ -27,3 +27,6 @@ yarn.lock
 
 # Built library
 lib
+
+# Test reports
+reports
