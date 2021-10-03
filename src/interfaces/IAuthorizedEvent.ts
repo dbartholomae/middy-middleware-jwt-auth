@@ -3,7 +3,7 @@ export type IAuthorizedEvent<TokenPayload = any> =
   | ILowerCaseAuthorizedEvent<TokenPayload>
   | IUpperCaseAuthorizedEvent<TokenPayload>
 
-export interface IAuthorizedEventBase<TokenPayload = any> {
+export type IAuthorizedEventBase<TokenPayload = any> = {
   /** Authorization information added by this middleware from a JWT. Has to be undefined before hitting the middleware. */
   auth?: {
     payload: TokenPayload
@@ -11,13 +11,22 @@ export interface IAuthorizedEventBase<TokenPayload = any> {
   }
   /** An object containing event headers */
   headers: any
-  /** The http request method of this event */
-  httpMethod: string
-}
+} & (
+  | {
+      /** The http request method of this event (for REST APIs) */
+      httpMethod: string
+    }
+  | {
+      /** The metadata about this event (for HTTP APIs) */
+      requestContext: {
+        /** The http request metadata about this event */
+        http: object
+      }
+    }
+)
 
 /** An event with a lower case authorization header */
-export interface ILowerCaseAuthorizedEvent<TokenPayload = any>
-  extends IAuthorizedEventBase<TokenPayload> {
+export type ILowerCaseAuthorizedEvent<TokenPayload = any> = {
   headers: {
     /**
      * The authorization token to check. Can be a string or an array with exactly one string.
@@ -25,11 +34,10 @@ export interface ILowerCaseAuthorizedEvent<TokenPayload = any>
      */
     authorization: string | string[]
   }
-}
+} & IAuthorizedEventBase<TokenPayload>
 
 /** An event with an upper case authorization header */
-export interface IUpperCaseAuthorizedEvent<TokenPayload = any>
-  extends IAuthorizedEventBase<TokenPayload> {
+export type IUpperCaseAuthorizedEvent<TokenPayload = any> = {
   headers: {
     /**
      * The authorization token to check. Can be a string or an array with exactly one string.
@@ -37,7 +45,7 @@ export interface IUpperCaseAuthorizedEvent<TokenPayload = any>
      */
     Authorization: string | string[]
   }
-}
+} & IAuthorizedEventBase<TokenPayload>
 
 export function isAuthorizedEvent<P> (
   event: any,
@@ -55,7 +63,10 @@ export function isAuthorizedEventBase<P> (
 ): event is IAuthorizedEventBase {
   return (
     event != null &&
-    typeof event.httpMethod === 'string' &&
+    (typeof event.httpMethod === 'string' ||
+      (typeof event.requestContext === 'object' &&
+        event.requestContext !== null &&
+        typeof event.requestContext.http === 'object')) &&
     event.headers != null &&
     (event.auth === undefined ||
       isTokenPayload == null ||

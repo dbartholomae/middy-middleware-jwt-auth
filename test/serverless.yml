@@ -8,6 +8,8 @@ plugins:
 provider:
   name: aws
   runtime: nodejs8.10
+  httpApi:
+    payload: '2.0'
 
 functions:
   hello:
@@ -15,11 +17,14 @@ functions:
     events:
       - http:
           method: get
-          path: hello
+          path: /rest/hello
+      - httpApi:
+          method: get
+          path: /http/hello
 
   status:
     handler: handler.status
     events:
       - http:
           method: get
-          path: status
+          path: /status
