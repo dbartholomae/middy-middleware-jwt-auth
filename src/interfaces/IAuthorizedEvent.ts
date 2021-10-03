@@ -98,7 +98,7 @@ export function isAuthorizedHttpApiGatewayEvent<P> (
   isTokenPayload?: (payload: any) => payload is P
 ): event is IAuthorizedHttpApiGatewayEvent<P> {
   return (
-    isAuthorizedEvent<P>(event, isTokenPayload) &&
+    isAuthorizedEventBase<P>(event, isTokenPayload) &&
     typeof event.requestContext === 'object' &&
     event.requestContext !== null &&
     typeof event.requestContext.http === 'object'
@@ -110,9 +110,8 @@ export function isAuthorizedApiGatewayEvent<P> (
   isTokenPayload?: (payload: any) => payload is P
 ): event is IAuthorizedApiGatewayEvent<P> {
   return (
-    isAuthorizedEvent<P>(event, isTokenPayload) &&
-    (isAuthorizedRestApiGatewayEvent(event, isTokenPayload) ||
-      isAuthorizedHttpApiGatewayEvent(event, isTokenPayload))
+    isAuthorizedRestApiGatewayEvent(event, isTokenPayload) ||
+      isAuthorizedHttpApiGatewayEvent(event, isTokenPayload)
   )
 }
 
