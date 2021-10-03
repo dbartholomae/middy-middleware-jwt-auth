@@ -73,8 +73,7 @@ export function isAuthorizedEventBase<P> (
   return (
     event != null &&
     event.headers != null &&
-    event.httpMethod != null &&
-    event.requestContext != null &&
+    (event.httpMethod != null || event.requestContext != null) &&
     (event.auth === undefined ||
       isTokenPayload == null ||
       (event.auth &&
@@ -111,7 +110,7 @@ export function isAuthorizedApiGatewayEvent<P> (
 ): event is IAuthorizedApiGatewayEvent<P> {
   return (
     isAuthorizedRestApiGatewayEvent(event, isTokenPayload) ||
-      isAuthorizedHttpApiGatewayEvent(event, isTokenPayload)
+    isAuthorizedHttpApiGatewayEvent(event, isTokenPayload)
   )
 }
 
