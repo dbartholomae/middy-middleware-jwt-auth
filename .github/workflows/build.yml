@@ -21,7 +21,7 @@ jobs:
       with:
         node-version: 12.x
     - name: Setup pnpm
-      uses: pnpm/action-setup@v1.2.0
+      uses: pnpm/action-setup@v1.2.1
       with:
         version: ^5.5.4
     - name: Install
@@ -55,7 +55,7 @@ jobs:
       with:
         node-version: 12.x
     - name: Setup pnpm
-      uses: pnpm/action-setup@v1.2.0
+      uses: pnpm/action-setup@v1.2.1
       with:
         version: ^5.5.4
     - name: Install
