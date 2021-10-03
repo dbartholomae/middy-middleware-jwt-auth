@@ -1,6 +1,8 @@
 module.exports = {
-  extends: ['@commitlint/config-conventional'],
+  extends: ["@commitlint/config-conventional"],
   rules: {
-    'scope-enum': [2, 'always', ['build']]
-  }
-}
+    "body-max-line-length": [0, "always", Infinity],
+    "scope-case": [0, "always", []],
+    "subject-case": [0, "always", []],
+  },
+};
