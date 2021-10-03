@@ -10,7 +10,7 @@
 [![dependency status](https://david-dm.org/dbartholomae/middy-middleware-jwt-auth.svg?theme=shields.io)](https://david-dm.org/dbartholomae/middy-middleware-jwt-auth)
 [![devDependency status](https://david-dm.org/dbartholomae/middy-middleware-jwt-auth/dev-status.svg)](https://david-dm.org/dbartholomae/middy-middleware-jwt-auth?type=dev)
 [![semantic release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release#badge)
-[![CLA Assistant](https://cla-assistant.io/readme/badge/dbartholomae/jsx-readme)](https://cla-assistant.io/dbartholomae/jsx-readme)
+[![CLA Assistant](https://cla-assistant.io/readme/badge/dbartholomae/middy-middleware-jwt-auth)](https://cla-assistant.io/dbartholomae/middy-middleware-jwt-auth)
 
 A [middy](https://github.com/middyjs/middy) JSON web token authorization middleware inspired by express-jwt.
 
