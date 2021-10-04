@@ -25,7 +25,7 @@ jobs:
         with:
           version: ^5.5.4
       - name: Install
-        run: pnpm install
+        run: pnpm install --frozen-lockfile=false
       - name: Build
         run: pnpm run build
       - name: Build documentation
@@ -59,7 +59,7 @@ jobs:
         with:
           version: ^5.5.4
       - name: Install
-        run: pnpm install
+        run: pnpm install --frozen-lockfile=false
       - name: Build
         run: pnpm run build
       - name: Set git credentials
