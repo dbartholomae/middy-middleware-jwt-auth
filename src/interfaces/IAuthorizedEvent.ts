@@ -11,13 +11,31 @@ export interface IAuthorizedEventBase<TokenPayload = any> {
   }
   /** An object containing event headers */
   headers: any
-  /** The http request method of this event */
+  /** The http request method of this event (for REST APIs) */
+  httpMethod?: any
+  /** The metadata about this event (for HTTP APIs) */
+  requestContext?: any
+}
+
+export interface IAuthorizedRestApiGatewayEvent<TokenPayload = any>
+  extends IAuthorizedEventBase<TokenPayload> {
   httpMethod: string
 }
 
-/** An event with a lower case authorization header */
-export interface ILowerCaseAuthorizedEvent<TokenPayload = any>
+export interface IAuthorizedHttpApiGatewayEvent<TokenPayload = any>
   extends IAuthorizedEventBase<TokenPayload> {
+  requestContext: {
+    /** The http request metadata about this event */
+    http: object
+  }
+}
+
+export type IAuthorizedApiGatewayEvent<TokenPayload = any> =
+  | IAuthorizedRestApiGatewayEvent<TokenPayload>
+  | IAuthorizedHttpApiGatewayEvent<TokenPayload>
+
+/** An event with a lower case authorization header */
+export type ILowerCaseAuthorizedEvent<TokenPayload = any> = {
   headers: {
     /**
      * The authorization token to check. Can be a string or an array with exactly one string.
@@ -25,11 +43,10 @@ export interface ILowerCaseAuthorizedEvent<TokenPayload = any>
      */
     authorization: string | string[]
   }
-}
+} & IAuthorizedApiGatewayEvent<TokenPayload>
 
 /** An event with an upper case authorization header */
-export interface IUpperCaseAuthorizedEvent<TokenPayload = any>
-  extends IAuthorizedEventBase<TokenPayload> {
+export type IUpperCaseAuthorizedEvent<TokenPayload = any> = {
   headers: {
     /**
      * The authorization token to check. Can be a string or an array with exactly one string.
@@ -37,7 +54,7 @@ export interface IUpperCaseAuthorizedEvent<TokenPayload = any>
      */
     Authorization: string | string[]
   }
-}
+} & IAuthorizedApiGatewayEvent<TokenPayload>
 
 export function isAuthorizedEvent<P> (
   event: any,
@@ -55,8 +72,8 @@ export function isAuthorizedEventBase<P> (
 ): event is IAuthorizedEventBase {
   return (
     event != null &&
-    typeof event.httpMethod === 'string' &&
     event.headers != null &&
+    (event.httpMethod != null || event.requestContext != null) &&
     (event.auth === undefined ||
       isTokenPayload == null ||
       (event.auth &&
@@ -65,12 +82,44 @@ export function isAuthorizedEventBase<P> (
   )
 }
 
+export function isAuthorizedRestApiGatewayEvent<P> (
+  event: any,
+  isTokenPayload?: (payload: any) => payload is P
+): event is IAuthorizedRestApiGatewayEvent<P> {
+  return (
+    isAuthorizedEventBase<P>(event, isTokenPayload) &&
+    typeof event.httpMethod === 'string'
+  )
+}
+
+export function isAuthorizedHttpApiGatewayEvent<P> (
+  event: any,
+  isTokenPayload?: (payload: any) => payload is P
+): event is IAuthorizedHttpApiGatewayEvent<P> {
+  return (
+    isAuthorizedEventBase<P>(event, isTokenPayload) &&
+    typeof event.requestContext === 'object' &&
+    event.requestContext !== null &&
+    typeof event.requestContext.http === 'object'
+  )
+}
+
+export function isAuthorizedApiGatewayEvent<P> (
+  event: any,
+  isTokenPayload?: (payload: any) => payload is P
+): event is IAuthorizedApiGatewayEvent<P> {
+  return (
+    isAuthorizedRestApiGatewayEvent(event, isTokenPayload) ||
+    isAuthorizedHttpApiGatewayEvent(event, isTokenPayload)
+  )
+}
+
 export function isUpperCaseAuthorizedEvent<P> (
   event: any,
   isTokenPayload?: (payload: any) => payload is P
 ): event is IUpperCaseAuthorizedEvent<P> {
   return (
-    isAuthorizedEventBase<P>(event, isTokenPayload) &&
+    isAuthorizedApiGatewayEvent<P>(event, isTokenPayload) &&
     (typeof event.headers.Authorization === 'string' ||
       (Array.isArray(event.headers.Authorization) &&
         event.headers.Authorization.length === 1 &&
@@ -85,7 +134,7 @@ export function isLowerCaseAuthorizedEvent<P> (
   isTokenPayload?: (payload: any) => payload is P
 ): event is ILowerCaseAuthorizedEvent<P> {
   return (
-    isAuthorizedEventBase<P>(event, isTokenPayload) &&
+    isAuthorizedApiGatewayEvent<P>(event, isTokenPayload) &&
     (typeof event.headers.authorization === 'string' ||
       (Array.isArray(event.headers.authorization) &&
         event.headers.authorization.length === 1 &&
