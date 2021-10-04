@@ -1,3 +1,17 @@
+# [4.1.0](https://github.com/dbartholomae/middy-middleware-jwt-auth/compare/4.0.6...4.1.0) (2021-10-04)
+
+
+### Bug Fixes
+
+* Address review comments ([9e05a90](https://github.com/dbartholomae/middy-middleware-jwt-auth/commit/9e05a90a5dc0054673bdf592bd7ced73f5aad361))
+* remove circular dependency in type guards ([7c7b955](https://github.com/dbartholomae/middy-middleware-jwt-auth/commit/7c7b955b661be577774a793a53eca0cdb55519a2))
+* tests ([d53e26e](https://github.com/dbartholomae/middy-middleware-jwt-auth/commit/d53e26e3fbcfa5d0c90f7a33ad7529aa36d90007))
+
+
+### Features
+
+* support API Gateway HTTP APIs ([72fad79](https://github.com/dbartholomae/middy-middleware-jwt-auth/commit/72fad79093bb4fdf8a2b6b637d3d132c57956b7e))
+
 ## [4.0.6](https://github.com/dbartholomae/middy-middleware-jwt-auth/compare/4.0.5...4.0.6) (2020-08-30)
 
 
