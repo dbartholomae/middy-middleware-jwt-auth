@@ -53,7 +53,7 @@
   "devDependencies": {
     "@commitlint/cli": "^13.2.0",
     "@commitlint/config-conventional": "^13.2.0",
-    "@middy/core": "^1.2.0",
+    "@middy/core": "^2.5.1",
     "@middy/http-error-handler": "^1.2.0",
     "@middy/http-header-normalizer": "^1.2.0",
     "@semantic-release/changelog": "^5.0.1",
