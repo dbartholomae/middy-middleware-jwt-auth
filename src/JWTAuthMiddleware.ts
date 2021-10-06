@@ -66,9 +66,9 @@ export class JWTAuthMiddleware<Payload> {
    * fallback.
    * @param event - The event to check
    */
-  public before: middy.MiddlewareFunction<any, any> = async ({
+  public before: middy.MiddlewareFn<any, any> = async ({
     event
-  }: middy.HandlerLambda<IAuthorizedEvent<Payload>>) => {
+  }: middy.Request<IAuthorizedEvent<Payload>>) => {
     this.logger('Checking whether event.auth already is populated')
     if (event && event.auth !== undefined) {
       this.logger('event.auth already populated, has to be empty')
