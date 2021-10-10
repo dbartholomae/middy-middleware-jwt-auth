@@ -1,3 +1,16 @@
+# [5.0.0](https://github.com/dbartholomae/middy-middleware-jwt-auth/compare/4.1.0...5.0.0) (2021-10-10)
+
+
+* feat!: update for middy 2.x ([72cbfaa](https://github.com/dbartholomae/middy-middleware-jwt-auth/commit/72cbfaa0d91ca6436d435128550d54d97a0b6211))
+
+
+### BREAKING CHANGES
+
+* uses middy 2.x. This only updates the types and dependencies,
+so you likely don't need to do anything beyond updating your middy version.
+Follow [middy's upgrade guide](https://github.com/middyjs/middy/blob/2.0.0/docs/UPGRADE.md)
+to do this.
+
 # [4.1.0](https://github.com/dbartholomae/middy-middleware-jwt-auth/compare/4.0.6...4.1.0) (2021-10-04)
 
 
