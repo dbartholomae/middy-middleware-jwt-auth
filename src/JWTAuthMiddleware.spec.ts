@@ -31,18 +31,16 @@ describe('JWTAuthMiddleware', () => {
   describe('before hook', () => {
     describe('without a payload type guard', () => {
       it('resolves successfully if event is misformed', async () => {
-        const next = jest.fn()
         const options = {
           algorithm: EncryptionAlgorithms.ES256,
           secretOrPublicKey: 'secret'
         }
         await expect(
-          JWTAuthMiddleware(options).before({} as any, next)
+          JWTAuthMiddleware(options).before({} as any)
         ).resolves.toEqual(undefined)
       })
 
       it('resolves if token is valid', async () => {
-        const next = jest.fn()
         const options = {
           algorithm: EncryptionAlgorithms.HS256,
           secretOrPublicKey: 'secret'
@@ -51,26 +49,22 @@ describe('JWTAuthMiddleware', () => {
           algorithm: options.algorithm
         })
         expect(
-          await JWTAuthMiddleware(options).before(
-            {
-              callback: jest.fn(),
-              context: {} as any,
-              error: {} as Error,
-              event: {
-                headers: {
-                  Authorization: `Bearer ${token}`
-                },
-                httpMethod: 'GET'
+          await JWTAuthMiddleware(options).before({
+            context: {} as any,
+            error: {} as Error,
+            event: {
+              headers: {
+                Authorization: `Bearer ${token}`
               },
-              response: null
+              httpMethod: 'GET'
             },
-            next
-          )
+            response: null,
+            internal: {}
+          })
         ).toEqual(undefined)
       })
 
       it('resolves if token is given in lower case authorization header', async () => {
-        const next = jest.fn()
         const options = {
           algorithm: EncryptionAlgorithms.HS256,
           secretOrPublicKey: 'secret'
@@ -79,26 +73,22 @@ describe('JWTAuthMiddleware', () => {
           algorithm: options.algorithm
         })
         expect(
-          await JWTAuthMiddleware(options).before(
-            {
-              callback: jest.fn(),
-              context: {} as any,
-              error: {} as Error,
-              event: {
-                headers: {
-                  authorization: `Bearer ${token}`
-                },
-                httpMethod: 'GET'
+          await JWTAuthMiddleware(options).before({
+            context: {} as any,
+            error: {} as Error,
+            event: {
+              headers: {
+                authorization: `Bearer ${token}`
               },
-              response: null
+              httpMethod: 'GET'
             },
-            next
-          )
+            response: null,
+            internal: {}
+          })
         ).toEqual(undefined)
       })
 
       it('resolves if token is only entry in an array', async () => {
-        const next = jest.fn()
         const options = {
           algorithm: EncryptionAlgorithms.HS256,
           secretOrPublicKey: 'secret'
@@ -107,26 +97,22 @@ describe('JWTAuthMiddleware', () => {
           algorithm: options.algorithm
         })
         expect(
-          await JWTAuthMiddleware(options).before(
-            {
-              callback: jest.fn(),
-              context: {} as any,
-              error: {} as Error,
-              event: {
-                headers: {
-                  Authorization: [`Bearer ${token}`]
-                },
-                httpMethod: 'GET'
+          await JWTAuthMiddleware(options).before({
+            context: {} as any,
+            error: {} as Error,
+            event: {
+              headers: {
+                Authorization: [`Bearer ${token}`]
               },
-              response: null
+              httpMethod: 'GET'
             },
-            next
-          )
+            response: null,
+            internal: {}
+          })
         ).toEqual(undefined)
       })
 
       it('saves token information to event.auth.payload if token is valid', async () => {
-        const next = jest.fn()
         const options = {
           algorithm: EncryptionAlgorithms.HS256,
           secretOrPublicKey: 'secret'
@@ -141,16 +127,13 @@ describe('JWTAuthMiddleware', () => {
           },
           httpMethod: 'GET'
         }
-        await JWTAuthMiddleware(options).before(
-          {
-            callback: jest.fn(),
-            context: {} as any,
-            error: {} as Error,
-            event,
-            response: null
-          },
-          next
-        )
+        await JWTAuthMiddleware(options).before({
+          context: {} as any,
+          error: {} as Error,
+          event,
+          response: null,
+          internal: {}
+        })
         expect(event.auth!.payload).toEqual({
           ...data,
           iat: expect.any(Number)
@@ -158,7 +141,6 @@ describe('JWTAuthMiddleware', () => {
       })
 
       it('saves the token itself to event.auth.token if token is valid', async () => {
-        const next = jest.fn()
         const options = {
           algorithm: EncryptionAlgorithms.HS256,
           secretOrPublicKey: 'secret'
@@ -173,21 +155,17 @@ describe('JWTAuthMiddleware', () => {
           },
           httpMethod: 'GET'
         }
-        await JWTAuthMiddleware(options).before(
-          {
-            callback: jest.fn(),
-            context: {} as any,
-            error: {} as Error,
-            event,
-            response: null
-          },
-          next
-        )
+        await JWTAuthMiddleware(options).before({
+          context: {} as any,
+          error: {} as Error,
+          event,
+          response: null,
+          internal: {}
+        })
         expect(event.auth!.token).toEqual(token)
       })
 
       it('rejects if event.auth is already filled', async () => {
-        const next = jest.fn()
         const options = {
           algorithm: EncryptionAlgorithms.HS256,
           secretOrPublicKey: 'secret'
@@ -204,16 +182,13 @@ describe('JWTAuthMiddleware', () => {
           httpMethod: 'GET'
         }
         await expect(
-          JWTAuthMiddleware(options).before(
-            {
-              callback: jest.fn(),
-              context: {} as any,
-              error: {} as Error,
-              event,
-              response: null
-            },
-            next
-          )
+          JWTAuthMiddleware(options).before({
+            context: {} as any,
+            error: {} as Error,
+            event,
+            response: null,
+            internal: {}
+          })
         ).rejects.toEqual(
           createHttpError(400, 'The events auth property has to be empty', {
             type: 'EventAuthNotEmpty'
@@ -222,7 +197,6 @@ describe('JWTAuthMiddleware', () => {
       })
 
       it('rejects if both authorization and Authorization headers are set', async () => {
-        const next = jest.fn()
         const options = {
           algorithm: EncryptionAlgorithms.HS256,
           secretOrPublicKey: 'secret'
@@ -239,16 +213,13 @@ describe('JWTAuthMiddleware', () => {
           httpMethod: 'GET'
         }
         await expect(
-          JWTAuthMiddleware(options).before(
-            {
-              callback: jest.fn(),
-              context: {} as any,
-              error: {} as Error,
-              event,
-              response: null
-            },
-            next
-          )
+          JWTAuthMiddleware(options).before({
+            context: {} as any,
+            error: {} as Error,
+            event,
+            response: null,
+            internal: {}
+          })
         ).rejects.toEqual(
           createHttpError(
             400,
@@ -261,27 +232,23 @@ describe('JWTAuthMiddleware', () => {
       })
 
       it('rejects if Authorization header is malformed', async () => {
-        const next = jest.fn()
         const options = {
           algorithm: EncryptionAlgorithms.HS256,
           secretOrPublicKey: 'secret'
         }
         await expect(
-          JWTAuthMiddleware(options).before(
-            {
-              callback: jest.fn(),
-              context: {} as any,
-              error: {} as Error,
-              event: {
-                headers: {
-                  Authorization: 'Malformed header'
-                },
-                httpMethod: 'GET'
+          JWTAuthMiddleware(options).before({
+            context: {} as any,
+            error: {} as Error,
+            event: {
+              headers: {
+                Authorization: 'Malformed header'
               },
-              response: null
+              httpMethod: 'GET'
             },
-            next
-          )
+            response: null,
+            internal: {}
+          })
         ).rejects.toEqual(
           createHttpError(
             401,
@@ -294,7 +261,6 @@ describe('JWTAuthMiddleware', () => {
       })
 
       it('rejects if token is invalid', async () => {
-        const next = jest.fn()
         const options = {
           algorithm: EncryptionAlgorithms.HS256,
           secretOrPublicKey: 'secret'
@@ -303,21 +269,18 @@ describe('JWTAuthMiddleware', () => {
           algorithm: options.algorithm
         })
         await expect(
-          JWTAuthMiddleware(options).before(
-            {
-              callback: jest.fn(),
-              context: {} as any,
-              error: {} as Error,
-              event: {
-                headers: {
-                  Authorization: `Bearer ${token}`
-                },
-                httpMethod: 'GET'
+          JWTAuthMiddleware(options).before({
+            context: {} as any,
+            error: {} as Error,
+            event: {
+              headers: {
+                Authorization: `Bearer ${token}`
               },
-              response: null
+              httpMethod: 'GET'
             },
-            next
-          )
+            response: null,
+            internal: {}
+          })
         ).rejects.toEqual(
           createHttpError(401, 'Invalid token', {
             type: 'InvalidToken'
@@ -326,7 +289,6 @@ describe('JWTAuthMiddleware', () => {
       })
 
       it('rejects if token is expired', async () => {
-        const next = jest.fn()
         const options = {
           algorithm: EncryptionAlgorithms.HS256,
           secretOrPublicKey: 'secret'
@@ -335,21 +297,18 @@ describe('JWTAuthMiddleware', () => {
           algorithm: options.algorithm
         })
         await expect(
-          JWTAuthMiddleware(options).before(
-            {
-              callback: jest.fn(),
-              context: {} as any,
-              error: {} as Error,
-              event: {
-                headers: {
-                  Authorization: `Bearer ${token}`
-                },
-                httpMethod: 'GET'
+          JWTAuthMiddleware(options).before({
+            context: {} as any,
+            error: {} as Error,
+            event: {
+              headers: {
+                Authorization: `Bearer ${token}`
               },
-              response: null
+              httpMethod: 'GET'
             },
-            next
-          )
+            response: null,
+            internal: {}
+          })
         ).rejects.toEqual(
           createHttpError(
             401,
@@ -366,7 +325,6 @@ describe('JWTAuthMiddleware', () => {
 
       it("rejects if token isn't valid yet", async () => {
         const validDate = new Date('2100-01-01T00:00:00Z')
-        const next = jest.fn()
         const options = {
           algorithm: EncryptionAlgorithms.HS256,
           secretOrPublicKey: 'secret'
@@ -375,21 +333,18 @@ describe('JWTAuthMiddleware', () => {
           algorithm: options.algorithm
         })
         await expect(
-          JWTAuthMiddleware(options).before(
-            {
-              callback: jest.fn(),
-              context: {} as any,
-              error: {} as Error,
-              event: {
-                headers: {
-                  Authorization: `Bearer ${token}`
-                },
-                httpMethod: 'GET'
+          JWTAuthMiddleware(options).before({
+            context: {} as any,
+            error: {} as Error,
+            event: {
+              headers: {
+                Authorization: `Bearer ${token}`
               },
-              response: null
+              httpMethod: 'GET'
             },
-            next
-          )
+            response: null,
+            internal: {}
+          })
         ).rejects.toEqual(
           createHttpError(401, `Token not valid before ${validDate}`, {
             date: validDate,
@@ -398,25 +353,21 @@ describe('JWTAuthMiddleware', () => {
         )
       })
       it('rejects if authorization is required and no authorization header is set', async () => {
-        const next = jest.fn()
         const options = {
           algorithm: EncryptionAlgorithms.HS256,
           credentialsRequired: true,
           secretOrPublicKey: 'secret'
         }
         await expect(
-          JWTAuthMiddleware(options).before(
-            {
-              callback: jest.fn(),
-              context: {} as any,
-              error: {} as Error,
-              event: {
-                httpMethod: 'GET'
-              },
-              response: null
+          JWTAuthMiddleware(options).before({
+            context: {} as any,
+            error: {} as Error,
+            event: {
+              httpMethod: 'GET'
             },
-            next
-          )
+            response: null,
+            internal: {}
+          })
         ).rejects.toEqual(
           createHttpError(
             401,
@@ -439,7 +390,6 @@ describe('JWTAuthMiddleware', () => {
       }
 
       it('saves token information to event.auth.payload if token is valid', async () => {
-        const next = jest.fn()
         const options = {
           algorithm: EncryptionAlgorithms.HS256,
           isPayload,
@@ -455,16 +405,13 @@ describe('JWTAuthMiddleware', () => {
           },
           httpMethod: 'GET'
         }
-        await JWTAuthMiddleware(options).before(
-          {
-            callback: jest.fn(),
-            context: {} as any,
-            error: {} as Error,
-            event,
-            response: null
-          },
-          next
-        )
+        await JWTAuthMiddleware(options).before({
+          context: {} as any,
+          error: {} as Error,
+          event,
+          response: null,
+          internal: {}
+        })
         expect(event.auth!.payload).toEqual({
           ...data,
           iat: expect.any(Number)
@@ -472,7 +419,6 @@ describe('JWTAuthMiddleware', () => {
       })
 
       it("rejects if payload doesn't pass the payload type guard", async () => {
-        const next = jest.fn()
         const options = {
           algorithm: EncryptionAlgorithms.HS256,
           isPayload,
@@ -489,16 +435,13 @@ describe('JWTAuthMiddleware', () => {
           httpMethod: 'GET'
         }
         await expect(
-          JWTAuthMiddleware(options).before(
-            {
-              callback: jest.fn(),
-              context: {} as any,
-              error: {} as Error,
-              event,
-              response: null
-            },
-            next
-          )
+          JWTAuthMiddleware(options).before({
+            context: {} as any,
+            error: {} as Error,
+            event,
+            response: null,
+            internal: {}
+          })
         ).rejects.toEqual(
           createHttpError(
             400,
@@ -514,19 +457,17 @@ describe('JWTAuthMiddleware', () => {
 
     describe('with custom tokenSources', () => {
       it('resolves successfully if no token is found', async () => {
-        const next = jest.fn()
         const options = {
           algorithm: EncryptionAlgorithms.ES256,
           secretOrPublicKey: 'secret',
           tokenSource: (event: any) => event.queryStringParameters.token
         }
         await expect(
-          JWTAuthMiddleware(options).before({} as any, next)
+          JWTAuthMiddleware(options).before({} as any)
         ).resolves.toEqual(undefined)
       })
 
       it('saves token information to event.auth.payload if token is valid', async () => {
-        const next = jest.fn()
         const options = {
           algorithm: EncryptionAlgorithms.HS256,
           secretOrPublicKey: 'secret',
@@ -540,16 +481,13 @@ describe('JWTAuthMiddleware', () => {
           httpMethod: 'GET',
           queryStringParameters: { token }
         }
-        await JWTAuthMiddleware(options).before(
-          {
-            callback: jest.fn(),
-            context: {} as any,
-            error: {} as Error,
-            event,
-            response: null
-          },
-          next
-        )
+        await JWTAuthMiddleware(options).before({
+          context: {} as any,
+          error: {} as Error,
+          event,
+          response: null,
+          internal: {}
+        })
         expect(event.auth.payload).toEqual({ ...data, iat: expect.any(Number) })
       })
     })
