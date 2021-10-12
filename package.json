@@ -57,7 +57,7 @@
     "@middy/http-error-handler": "^2.5.1",
     "@middy/http-header-normalizer": "^2.5.1",
     "@semantic-release/changelog": "^6.0.0",
-    "@semantic-release/commit-analyzer": "^8.0.1",
+    "@semantic-release/commit-analyzer": "^9.0.1",
     "@semantic-release/git": "^10.0.0",
     "@semantic-release/npm": "^8.0.0",
     "@semantic-release/release-notes-generator": "^10.0.2",
