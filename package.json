@@ -51,7 +51,7 @@
     "precommit:lint:fix": "tslint --project tsconfig.json --fix"
   },
   "devDependencies": {
-    "@commitlint/cli": "^13.2.0",
+    "@commitlint/cli": "^15.0.0",
     "@commitlint/config-conventional": "^14.1.0",
     "@middy/core": "^2.5.1",
     "@middy/http-error-handler": "^2.5.1",
