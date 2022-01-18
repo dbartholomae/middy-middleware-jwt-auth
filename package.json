@@ -77,7 +77,7 @@
     "pkg-ok": "^2.3.1",
     "prettier-standard": "^16.4.1",
     "rimraf": "^3.0.2",
-    "semantic-release": "^18.0.0",
+    "semantic-release": "^19.0.2",
     "serverless": "^2.61.0",
     "serverless-offline": "^6.7.0",
     "serverless-webpack": "^5.3.4",
