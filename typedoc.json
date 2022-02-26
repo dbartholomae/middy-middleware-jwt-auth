@@ -1,6 +1,6 @@
 {
   "exclude": "**/*.spec.ts",
-  "module": "commonjs",
+  "entryPoints": ["./src/index.ts"],
   "out": "docs",
   "hideGenerator": true
 }
