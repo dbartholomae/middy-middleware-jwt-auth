@@ -1,199 +1,35 @@
-<!doctype html>
-<html class="default no-js">
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>middy-middleware-jwt-auth</title>
-	<meta name="description" content="Documentation for middy-middleware-jwt-auth">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="assets/css/main.css">
-</head>
-<body>
-<header>
-	<div class="tsd-page-toolbar">
-		<div class="container">
-			<div class="table-wrap">
-				<div class="table-cell" id="tsd-search" data-index="assets/js/search.json" data-base=".">
-					<div class="field">
-						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
-						<input id="tsd-search-field" type="text" />
-					</div>
-					<ul class="results">
-						<li class="state loading">Preparing search index...</li>
-						<li class="state failure">The search index is not available</li>
-					</ul>
-					<a href="index.html" class="title">middy-middleware-jwt-auth</a>
-				</div>
-				<div class="table-cell" id="tsd-widgets">
-					<div id="tsd-filter">
-						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
-						<div class="tsd-filter-group">
-							<div class="tsd-select" id="tsd-filter-visibility">
-								<span class="tsd-select-label">All</span>
-								<ul class="tsd-select-list">
-									<li data-value="public">Public</li>
-									<li data-value="protected">Public/Protected</li>
-									<li data-value="private" class="selected">All</li>
-								</ul>
-							</div>
-							<input type="checkbox" id="tsd-filter-inherited" checked />
-							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
-							<input type="checkbox" id="tsd-filter-externals" checked />
-							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
-							<input type="checkbox" id="tsd-filter-only-exported" />
-							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
-						</div>
-					</div>
-					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="tsd-page-title">
-		<div class="container">
-			<ul class="tsd-breadcrumb">
-				<li>
-					<a href="globals.html">Globals</a>
-				</li>
-			</ul>
-			<h1>middy-middleware-jwt-auth</h1>
-		</div>
-	</div>
-</header>
-<div class="container container-main">
-	<div class="row">
-		<div class="col-8 col-content">
-			<div class="tsd-panel tsd-typography">
-				<a href="#middy-middleware-jwt-auth" id="middy-middleware-jwt-auth" style="color: inherit; text-decoration: none;">
-					<h1>middy-middleware-jwt-auth</h1>
-				</a>
-				<p> <a href="https://npmjs.org/package/middy-middleware-jwt-auth"><img src="https://badge.fury.io/js/middy-middleware-jwt-auth.svg" alt="npm version"></a>  <a href="https://npmjs.org/package/middy-middleware-jwt-auth"><img src="https://img.shields.io/npm/dw/middy-middleware-jwt-auth.svg" alt="downloads"></a>  <a href="https://github.com/dbartholomae/middy-middleware-jwt-auth/issues"><img src="https://img.shields.io/github/issues-raw/dbartholomae/middy-middleware-jwt-auth.svg" alt="open issues"></a>  <a href="https://app.fossa.io/projects/git%2Bgithub.com%2Fdbartholomae%2Fmiddy-middleware-jwt-auth?ref=badge_shield"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2Fdbartholomae%2Fmiddy-middleware-jwt-auth.svg?type=shield" alt="FOSSA Status"></a> <a href="https://github.com/visionmedia/debug#readme"><img src="https://img.shields.io/badge/debug-blue.svg" alt="debug"></a>  <a href="https://circleci.com/gh/dbartholomae/workflows/middy-middleware-jwt-auth/tree/master"><img src="https://img.shields.io/circleci/project/github/dbartholomae/middy-middleware-jwt-auth/master.svg?style=flat" alt="build status"></a>  <a href="https://codecov.io/gh/dbartholomae/middy-middleware-jwt-auth"><img src="https://codecov.io/gh/dbartholomae/middy-middleware-jwt-auth/branch/master/graph/badge.svg" alt="codecov"></a>  <a href="https://david-dm.org/dbartholomae/middy-middleware-jwt-auth"><img src="https://david-dm.org/dbartholomae/middy-middleware-jwt-auth.svg?theme=shields.io" alt="dependency status"></a>  <a href="https://david-dm.org/dbartholomae/middy-middleware-jwt-auth?type=dev"><img src="https://david-dm.org/dbartholomae/middy-middleware-jwt-auth/dev-status.svg" alt="devDependency status"></a>    <a href="https://github.com/semantic-release/semantic-release#badge"><img src="https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg" alt="semantic release"></a>  <a href="https://gitter.im/middy-middleware-jwt-auth"><img src="https://badges.gitter.im/dbartholomae/middy-middleware-jwt-auth.svg" alt="Gitter"></a></p>
-				<p>A <a href="https://github.com/middyjs/middy">middy</a> JSON web token authorization middleware inspired by express-jwt.</p>
-				<a href="#installation" id="installation" style="color: inherit; text-decoration: none;">
-					<h2>Installation</h2>
-				</a>
-				<p>Download node at <a href="http://nodejs.org">nodejs.org</a> and install it, if you haven&#39;t already.</p>
-				<pre><code class="language-sh">npm install middy-middleware-jwt-auth --save</code></pre>
-				<a href="#documentation" id="documentation" style="color: inherit; text-decoration: none;">
-					<h2>Documentation</h2>
-				</a>
-				<p>There is <a href="https://dbartholomae.github.com/middy-middleware-jwt-auth">additional documentation</a>.</p>
-				<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
-					<h2>Usage</h2>
-				</a>
-				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> createHttpError <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;http-errors&#x27;</span>
-<span class="hljs-keyword">import</span> middy <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@middy/core&#x27;</span>
-<span class="hljs-keyword">import</span> httpErrorHandler <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@middy/http-error-handler&#x27;</span>
-<span class="hljs-keyword">import</span> httpHeaderNormalizer <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@middy/http-header-normalizer&#x27;</span>
-<span class="hljs-keyword">import</span> JWTAuthMiddleware, { EncryptionAlgorithms, IAuthorizedEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;middy-middleware-jwt-auth&#x27;</span>
+<!DOCTYPE html><html class="default"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>middy-middleware-jwt-auth</title><meta name="description" content="Documentation for middy-middleware-jwt-auth"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="assets/style.css"/><link rel="stylesheet" href="assets/highlight.css"/><script async src="assets/search.js" id="search-script"></script></head><body><script>document.body.classList.add(localStorage.getItem("tsd-theme") || "os")</script><header><div class="tsd-page-toolbar"><div class="container"><div class="table-wrap"><div class="table-cell" id="tsd-search" data-base="."><div class="field"><label for="tsd-search-field" class="tsd-widget search no-caption">Search</label><input type="text" id="tsd-search-field"/></div><ul class="results"><li class="state loading">Preparing search index...</li><li class="state failure">The search index is not available</li></ul><a href="index.html" class="title">middy-middleware-jwt-auth</a></div><div class="table-cell" id="tsd-widgets"><div id="tsd-filter"><a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a><div class="tsd-filter-group"><div class="tsd-select" id="tsd-filter-visibility"><span class="tsd-select-label">All</span><ul class="tsd-select-list"><li data-value="public">Public</li><li data-value="protected">Public/Protected</li><li data-value="private" class="selected">All</li></ul></div> <input type="checkbox" id="tsd-filter-inherited" checked/><label class="tsd-widget" for="tsd-filter-inherited">Inherited</label><input type="checkbox" id="tsd-filter-externals" checked/><label class="tsd-widget" for="tsd-filter-externals">Externals</label></div></div><a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a></div></div></div></div><div class="tsd-page-title"><div class="container"><h1>middy-middleware-jwt-auth</h1></div></div></header><div class="container container-main"><div class="row"><div class="col-8 col-content"><div class="tsd-panel tsd-typography">
+<a href="#middy-middleware-jwt-auth" id="middy-middleware-jwt-auth" style="color: inherit; text-decoration: none;">
+  <h1>middy-middleware-jwt-auth</h1>
+</a>
+<p><a href="https://npmjs.org/package/middy-middleware-jwt-auth"><img src="https://badge.fury.io/js/middy-middleware-jwt-auth.svg" alt="npm version"></a>
+<a href="https://npmjs.org/package/middy-middleware-jwt-auth"><img src="https://img.shields.io/npm/dw/middy-middleware-jwt-auth.svg" alt="downloads"></a>
+<a href="https://github.com/dbartholomae/middy-middleware-jwt-auth/issues"><img src="https://img.shields.io/github/issues-raw/dbartholomae/middy-middleware-jwt-auth.svg" alt="open issues"></a>
+<a href="https://app.fossa.io/projects/git%2Bgithub.com%2Fdbartholomae%2Fmiddy-middleware-jwt-auth?ref=badge_shield"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2Fdbartholomae%2Fmiddy-middleware-jwt-auth.svg?type=shield" alt="FOSSA Status"></a>
+<a href="https://github.com/visionmedia/debug#readme"><img src="https://img.shields.io/badge/debug-blue.svg" alt="debug"></a>
+<a href="https://github.com/dbartholomae/middy-middleware-jwt-auth/actions?query=workflow%3A%22Build+and+deploy%22"><img src="https://github.com/dbartholomae/middy-middleware-jwt-auth/workflows/Build%20and%20deploy/badge.svg?branch=main" alt="build status"></a>
+<a href="https://codecov.io/gh/dbartholomae/middy-middleware-jwt-auth"><img src="https://codecov.io/gh/dbartholomae/middy-middleware-jwt-auth/branch/master/graph/badge.svg" alt="codecov"></a>
+<a href="https://david-dm.org/dbartholomae/middy-middleware-jwt-auth"><img src="https://david-dm.org/dbartholomae/middy-middleware-jwt-auth.svg?theme=shields.io" alt="dependency status"></a>
+<a href="https://david-dm.org/dbartholomae/middy-middleware-jwt-auth?type=dev"><img src="https://david-dm.org/dbartholomae/middy-middleware-jwt-auth/dev-status.svg" alt="devDependency status"></a>
+<a href="https://github.com/semantic-release/semantic-release#badge"><img src="https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg" alt="semantic release"></a>
+<a href="https://cla-assistant.io/dbartholomae/middy-middleware-jwt-auth"><img src="https://cla-assistant.io/readme/badge/dbartholomae/middy-middleware-jwt-auth" alt="CLA Assistant"></a></p>
+<p>A <a href="https://github.com/middyjs/middy">middy</a> JSON web token authorization middleware inspired by express-jwt.</p>
 
-<span class="hljs-comment">// Optionally define the token payload you expect to receive</span>
-<span class="hljs-keyword">interface</span> ITokenPayload {
-  permissions: <span class="hljs-built_in">string</span>[]
-}
+<a href="#installation" id="installation" style="color: inherit; text-decoration: none;">
+  <h2>Installation</h2>
+</a>
+<p>Download node at <a href="http://nodejs.org">nodejs.org</a> and install it, if you haven&#39;t already.</p>
+<pre><code class="language-sh"><span class="hl-0">npm install middy-middleware-jwt-auth --save</span>
+</code></pre>
 
-<span class="hljs-comment">// Optionally define a type guard for the token payload</span>
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isTokenPayload</span> (<span class="hljs-params">token: <span class="hljs-built_in">any</span></span>): <span class="hljs-title">token</span> <span class="hljs-title">is</span> <span class="hljs-title">ITokenPayload</span> </span>{
-  <span class="hljs-keyword">return</span> token != <span class="hljs-literal">null</span> &amp;&amp;
-    <span class="hljs-built_in">Array</span>.isArray(token.permissions) &amp;&amp;
-    token.permissions.every(<span class="hljs-function">(<span class="hljs-params">permission: <span class="hljs-built_in">any</span></span>) =&gt;</span> <span class="hljs-keyword">typeof</span> permission === <span class="hljs-string">&#x27;string&#x27;</span>)
-}
+<a href="#documentation" id="documentation" style="color: inherit; text-decoration: none;">
+  <h2>Documentation</h2>
+</a>
+<p>There is <a href="https://dbartholomae.github.com/middy-middleware-jwt-auth">additional documentation</a>.</p>
 
-<span class="hljs-comment">// This is your AWS handler</span>
-<span class="hljs-keyword">const</span> helloWorld = <span class="hljs-keyword">async</span> (event: IAuthorizedEvent&lt;ITokenPayload&gt;) =&gt; {
-  <span class="hljs-comment">// The middleware adds auth information if a valid token was added</span>
-  <span class="hljs-comment">// If no auth was found and credentialsRequired is set to true, a 401 will be thrown. If auth exists you</span>
-  <span class="hljs-comment">// have to check that it has the expected form.</span>
-  <span class="hljs-keyword">if</span> (event.auth!.payload.permissions.indexOf(<span class="hljs-string">&#x27;helloWorld&#x27;</span>) === <span class="hljs-number">-1</span>) {
-    <span class="hljs-keyword">throw</span> createHttpError(<span class="hljs-number">403</span>, <span class="hljs-string">`User not authorized for helloWorld, only found permissions [<span class="hljs-subst">${event.auth!.permissions.join(<span class="hljs-string">&#x27;, &#x27;</span>)}</span>]`</span>, {
-      <span class="hljs-keyword">type</span>: <span class="hljs-string">&#x27;NotAuthorized&#x27;</span>
-    })
-  }
-
-  <span class="hljs-keyword">return</span> {
-    body: <span class="hljs-built_in">JSON</span>.stringify({ data: <span class="hljs-string">`Hello world! Here&#x27;s your token: <span class="hljs-subst">${event.auth!.token}</span>`</span> }),
-    statusCode: <span class="hljs-number">200</span>
-  }
-}
-
-<span class="hljs-comment">// Let&#x27;s &quot;middyfy&quot; our handler, then we will be able to attach middlewares to it</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> handler = middy(helloWorld)
-  .use(httpHeaderNormalizer()) <span class="hljs-comment">// Make sure authorization header is saved in lower case</span>
-  .use(httpErrorHandler()) <span class="hljs-comment">// This middleware is needed do handle the errors thrown by the JWTAuthMiddleware</span>
-  .use(JWTAuthMiddleware({
-    <span class="hljs-comment">/** Algorithm to verify JSON web token signature */</span>
-    algorithm: EncryptionAlgorithms.HS256,
-    <span class="hljs-comment">/** An optional boolean that enables making authorization mandatory */</span>
-    credentialsRequired: <span class="hljs-literal">true</span>,
-    <span class="hljs-comment">/** An optional function that checks whether the token payload is formatted correctly */</span>
-    isPayload: isTokenPayload,
-    <span class="hljs-comment">/** A string or buffer containing either the secret for HMAC algorithms, or the PEM encoded public key for RSA and ECDSA */</span>
-    secretOrPublicKey: <span class="hljs-string">&#x27;secret&#x27;</span>,
-    <span class="hljs-comment">/**
-     * An optional function used to search for a token e. g. in a query string. By default, and as a fall back,
-     * event.headers.authorization and event.headers.Authorization are used.
-     */</span>
-    tokenSource: <span class="hljs-function">(<span class="hljs-params">event: <span class="hljs-built_in">any</span></span>) =&gt;</span> event.queryStringParameters.token
-  }))</code></pre>
-			</div>
-		</div>
-		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
-			<nav class="tsd-navigation primary">
-				<ul>
-					<li class="globals  ">
-						<a href="globals.html"><em>Globals</em></a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_examples_helloworld_.html">&quot;examples/hello<wbr>World&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_examples_helloworld_int_spec_.html">&quot;examples/hello<wbr>World.int-<wbr>spec&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_src_jwtauthmiddleware_.html">&quot;src/JWTAuth<wbr>Middleware&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_src_interfaces_iauthoptions_.html">&quot;src/interfaces/IAuth<wbr>Options&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_src_interfaces_iauthorizedevent_.html">&quot;src/interfaces/IAuthorized<wbr>Event&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_test_handler_.html">&quot;test/handler&quot;</a>
-					</li>
-				</ul>
-			</nav>
-			<nav class="tsd-navigation secondary menu-sticky">
-				<ul class="before-current">
-				</ul>
-			</nav>
-		</div>
-	</div>
-</div>
-<footer>
-	<div class="container">
-		<h2>Legend</h2>
-		<div class="tsd-legend-group">
-			<ul class="tsd-legend">
-				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
-				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
-				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
-				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
-				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
-			</ul>
-		</div>
-	</div>
-</footer>
-<div class="overlay"></div>
-<script src="assets/js/main.js"></script>
-</body>
-</html>
+<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
+  <h2>Usage</h2>
+</a>
+<pre><code class="language-typescript"><span class="hl-1">import</span><span class="hl-0"> </span><span class="hl-2">createHttpError</span><span class="hl-0"> </span><span class="hl-1">from</span><span class="hl-0"> </span><span class="hl-3">&#39;http-errors&#39;</span><br/><span class="hl-1">import</span><span class="hl-0"> </span><span class="hl-2">middy</span><span class="hl-0"> </span><span class="hl-1">from</span><span class="hl-0"> </span><span class="hl-3">&#39;@middy/core&#39;</span><br/><span class="hl-1">import</span><span class="hl-0"> </span><span class="hl-2">httpErrorHandler</span><span class="hl-0"> </span><span class="hl-1">from</span><span class="hl-0"> </span><span class="hl-3">&#39;@middy/http-error-handler&#39;</span><br/><span class="hl-1">import</span><span class="hl-0"> </span><span class="hl-2">httpHeaderNormalizer</span><span class="hl-0"> </span><span class="hl-1">from</span><span class="hl-0"> </span><span class="hl-3">&#39;@middy/http-header-normalizer&#39;</span><br/><span class="hl-1">import</span><span class="hl-0"> </span><span class="hl-2">JWTAuthMiddleware</span><span class="hl-0">, { </span><span class="hl-2">EncryptionAlgorithms</span><span class="hl-0">, </span><span class="hl-2">IAuthorizedEvent</span><span class="hl-0"> } </span><span class="hl-1">from</span><span class="hl-0"> </span><span class="hl-3">&#39;middy-middleware-jwt-auth&#39;</span><br/><br/><span class="hl-4">// Optionally define the token payload you expect to receive</span><br/><span class="hl-5">interface</span><span class="hl-0"> </span><span class="hl-6">ITokenPayload</span><span class="hl-0"> {</span><br/><span class="hl-0">  </span><span class="hl-2">permissions</span><span class="hl-0">: </span><span class="hl-6">string</span><span class="hl-0">[]</span><br/><span class="hl-0">}</span><br/><br/><span class="hl-4">// Optionally define a type guard for the token payload</span><br/><span class="hl-5">function</span><span class="hl-0"> </span><span class="hl-7">isTokenPayload</span><span class="hl-0"> (</span><span class="hl-2">token</span><span class="hl-0">: </span><span class="hl-6">any</span><span class="hl-0">): </span><span class="hl-2">token</span><span class="hl-0"> </span><span class="hl-5">is</span><span class="hl-0"> </span><span class="hl-6">ITokenPayload</span><span class="hl-0"> {</span><br/><span class="hl-0">  </span><span class="hl-1">return</span><span class="hl-0"> </span><span class="hl-2">token</span><span class="hl-0"> != </span><span class="hl-5">null</span><span class="hl-0"> &amp;&amp;</span><br/><span class="hl-0">    </span><span class="hl-6">Array</span><span class="hl-0">.</span><span class="hl-7">isArray</span><span class="hl-0">(</span><span class="hl-2">token</span><span class="hl-0">.</span><span class="hl-2">permissions</span><span class="hl-0">) &amp;&amp;</span><br/><span class="hl-0">    </span><span class="hl-2">token</span><span class="hl-0">.</span><span class="hl-2">permissions</span><span class="hl-0">.</span><span class="hl-7">every</span><span class="hl-0">((</span><span class="hl-2">permission</span><span class="hl-0">: </span><span class="hl-6">any</span><span class="hl-0">) </span><span class="hl-5">=&gt;</span><span class="hl-0"> </span><span class="hl-5">typeof</span><span class="hl-0"> </span><span class="hl-2">permission</span><span class="hl-0"> === </span><span class="hl-3">&#39;string&#39;</span><span class="hl-0">)</span><br/><span class="hl-0">}</span><br/><br/><span class="hl-4">// This is your AWS handler</span><br/><span class="hl-5">const</span><span class="hl-0"> </span><span class="hl-7">helloWorld</span><span class="hl-0"> = </span><span class="hl-5">async</span><span class="hl-0"> (</span><span class="hl-2">event</span><span class="hl-0">: </span><span class="hl-6">IAuthorizedEvent</span><span class="hl-0">&lt;</span><span class="hl-6">ITokenPayload</span><span class="hl-0">&gt;) </span><span class="hl-5">=&gt;</span><span class="hl-0"> {</span><br/><span class="hl-0">  </span><span class="hl-4">// The middleware adds auth information if a valid token was added</span><br/><span class="hl-0">  </span><span class="hl-4">// If no auth was found and credentialsRequired is set to true, a 401 will be thrown. If auth exists you</span><br/><span class="hl-0">  </span><span class="hl-4">// have to check that it has the expected form.</span><br/><span class="hl-0">  </span><span class="hl-1">if</span><span class="hl-0"> (</span><span class="hl-2">event</span><span class="hl-0">.</span><span class="hl-2">auth</span><span class="hl-0">!.</span><span class="hl-2">payload</span><span class="hl-0">.</span><span class="hl-2">permissions</span><span class="hl-0">.</span><span class="hl-7">indexOf</span><span class="hl-0">(</span><span class="hl-3">&#39;helloWorld&#39;</span><span class="hl-0">) === -</span><span class="hl-8">1</span><span class="hl-0">) {</span><br/><span class="hl-0">    </span><span class="hl-1">throw</span><span class="hl-0"> </span><span class="hl-7">createHttpError</span><span class="hl-0">(</span><span class="hl-8">403</span><span class="hl-0">, </span><span class="hl-3">`User not authorized for helloWorld, only found permissions [</span><span class="hl-5">${</span><span class="hl-2">event</span><span class="hl-9">.</span><span class="hl-2">auth</span><span class="hl-0">!</span><span class="hl-9">.</span><span class="hl-2">permissions</span><span class="hl-9">.</span><span class="hl-7">join</span><span class="hl-9">(</span><span class="hl-3">&#39;, &#39;</span><span class="hl-9">)</span><span class="hl-5">}</span><span class="hl-3">]`</span><span class="hl-0">, {</span><br/><span class="hl-0">      </span><span class="hl-2">type:</span><span class="hl-0"> </span><span class="hl-3">&#39;NotAuthorized&#39;</span><br/><span class="hl-0">    })</span><br/><span class="hl-0">  }</span><br/><br/><span class="hl-0">  </span><span class="hl-1">return</span><span class="hl-0"> {</span><br/><span class="hl-0">    </span><span class="hl-2">body:</span><span class="hl-0"> </span><span class="hl-6">JSON</span><span class="hl-0">.</span><span class="hl-7">stringify</span><span class="hl-0">({ </span><span class="hl-2">data:</span><span class="hl-0"> </span><span class="hl-3">`Hello world! Here&#39;s your token: </span><span class="hl-5">${</span><span class="hl-2">event</span><span class="hl-9">.</span><span class="hl-2">auth</span><span class="hl-0">!</span><span class="hl-9">.</span><span class="hl-2">token</span><span class="hl-5">}</span><span class="hl-3">`</span><span class="hl-0"> }),</span><br/><span class="hl-0">    </span><span class="hl-2">statusCode:</span><span class="hl-0"> </span><span class="hl-8">200</span><br/><span class="hl-0">  }</span><br/><span class="hl-0">}</span><br/><br/><span class="hl-4">// Let&#39;s &quot;middyfy&quot; our handler, then we will be able to attach middlewares to it</span><br/><span class="hl-1">export</span><span class="hl-0"> </span><span class="hl-5">const</span><span class="hl-0"> </span><span class="hl-10">handler</span><span class="hl-0"> = </span><span class="hl-7">middy</span><span class="hl-0">(</span><span class="hl-2">helloWorld</span><span class="hl-0">)</span><br/><span class="hl-0">  .</span><span class="hl-7">use</span><span class="hl-0">(</span><span class="hl-7">httpHeaderNormalizer</span><span class="hl-0">()) </span><span class="hl-4">// Make sure authorization header is saved in lower case</span><br/><span class="hl-0">  .</span><span class="hl-7">use</span><span class="hl-0">(</span><span class="hl-7">httpErrorHandler</span><span class="hl-0">()) </span><span class="hl-4">// This middleware is needed do handle the errors thrown by the JWTAuthMiddleware</span><br/><span class="hl-0">  .</span><span class="hl-7">use</span><span class="hl-0">(</span><span class="hl-7">JWTAuthMiddleware</span><span class="hl-0">({</span><br/><span class="hl-0">    </span><span class="hl-4">/** Algorithm to verify JSON web token signature */</span><br/><span class="hl-0">    </span><span class="hl-2">algorithm:</span><span class="hl-0"> </span><span class="hl-2">EncryptionAlgorithms</span><span class="hl-0">.</span><span class="hl-10">HS256</span><span class="hl-0">,</span><br/><span class="hl-0">    </span><span class="hl-4">/** An optional boolean that enables making authorization mandatory */</span><br/><span class="hl-0">    </span><span class="hl-2">credentialsRequired:</span><span class="hl-0"> </span><span class="hl-5">true</span><span class="hl-0">,</span><br/><span class="hl-0">    </span><span class="hl-4">/** An optional function that checks whether the token payload is formatted correctly */</span><br/><span class="hl-0">    </span><span class="hl-2">isPayload:</span><span class="hl-0"> </span><span class="hl-2">isTokenPayload</span><span class="hl-0">,</span><br/><span class="hl-0">    </span><span class="hl-4">/** A string or buffer containing either the secret for HMAC algorithms, or the PEM encoded public key for RSA and ECDSA */</span><br/><span class="hl-0">    </span><span class="hl-2">secretOrPublicKey:</span><span class="hl-0"> </span><span class="hl-3">&#39;secret&#39;</span><span class="hl-0">,</span><br/><span class="hl-0">    </span><span class="hl-4">/**</span><br/><span class="hl-4">     * An optional function used to search for a token e. g. in a query string. By default, and as a fall back,</span><br/><span class="hl-4">     * event.headers.authorization and event.headers.Authorization are used.</span><br/><span class="hl-4">     */</span><br/><span class="hl-0">    </span><span class="hl-7">tokenSource</span><span class="hl-2">:</span><span class="hl-0"> (</span><span class="hl-2">event</span><span class="hl-0">: </span><span class="hl-6">any</span><span class="hl-0">) </span><span class="hl-5">=&gt;</span><span class="hl-0"> </span><span class="hl-2">event</span><span class="hl-0">.</span><span class="hl-2">queryStringParameters</span><span class="hl-0">.</span><span class="hl-2">token</span><br/><span class="hl-0">  }))</span>
+</code></pre>
+</div></div><div class="col-4 col-menu menu-sticky-wrap menu-highlight"><nav class="tsd-navigation primary"><ul><li class="current"><a href="modules.html">Exports</a></li></ul></nav><nav class="tsd-navigation secondary menu-sticky"><ul><li class="tsd-kind-reference"><a href="modules.html#default" class="tsd-kind-icon">default</a></li><li class="tsd-kind-enum"><a href="enums/EncryptionAlgorithms.html" class="tsd-kind-icon">Encryption<wbr/>Algorithms</a></li><li class="tsd-kind-class tsd-has-type-parameter"><a href="classes/JWTAuthMiddleware.html" class="tsd-kind-icon">JWTAuth<wbr/>Middleware</a></li><li class="tsd-kind-interface tsd-has-type-parameter"><a href="interfaces/IAuthOptions.html" class="tsd-kind-icon">IAuth<wbr/>Options</a></li><li class="tsd-kind-type-alias tsd-has-type-parameter"><a href="modules.html#IAuthorizedEvent" class="tsd-kind-icon">IAuthorized<wbr/>Event</a></li><li class="tsd-kind-function"><a href="modules.html#isAuthOptions" class="tsd-kind-icon">is<wbr/>Auth<wbr/>Options</a></li><li class="tsd-kind-function tsd-has-type-parameter"><a href="modules.html#isAuthorizedEvent" class="tsd-kind-icon">is<wbr/>Authorized<wbr/>Event</a></li></ul></nav></div></div></div><footer class=""><div class="container"><h2>Legend</h2><div class="tsd-legend-group"><ul class="tsd-legend"><li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li><li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li></ul><ul class="tsd-legend"><li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li><li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li></ul><ul class="tsd-legend"><li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li></ul></div><h2>Settings</h2><p>Theme <select id="theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></p></div></footer><div class="overlay"></div><script src="assets/main.js"></script></body></html>
