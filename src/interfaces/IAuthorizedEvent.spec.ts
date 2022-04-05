@@ -46,6 +46,19 @@ describe('IAuthorizedEvent', () => {
       expect(event).not.toBeNull()
     })
 
+    it("accepts data that has a requestContext.connectionId string and a string as an Authorization header", () => {
+      const event: IAuthorizedEvent = {
+        headers: {
+          Authorization: "Bearer TOKEN",
+        },
+        requestContext: {
+          connectionId: "CONNECTION_ID",
+          eventType: "CONNECT",
+        },
+      }
+      expect(event).not.toBeNull();
+    })
+
     it('accepts data with token information set in the generics', () => {
       interface IToken {
         foo: string
@@ -94,6 +107,20 @@ describe('IAuthorizedEvent', () => {
               }
             })
           ).toBe(true)
+        })
+
+        it(`accepts data that has a requestContext.connectionId string and a string as an ${authHeader} header`, () => {
+          expect(
+            isAuthorizedEvent({
+              headers: {
+                [authHeader]: "Bearer TOKEN",
+              },
+              requestContext: {
+                connectionId: "CONNECTION_ID",
+                eventType: "CONNECT",
+              },
+            })
+          ).toBe(true);
         })
 
         it(`accepts data that has an httpMethod, a string as an ${authHeader} header and a payload verified by the given type guard`, () => {
@@ -217,6 +244,20 @@ describe('IAuthorizedEvent', () => {
               },
               requestContext: {
                 http: 'GET'
+              }
+            })
+          ).toBe(false)
+        })
+
+        it('rejects data where requestContext.connectionId is a number', () => {
+          expect(
+            isAuthorizedEvent({
+              headers: {
+                [authHeader]: 'Bearer TOKEN'
+              },
+              requestContext: {
+                connectionId: 1,
+                eventType: 'CONNECT',
               }
             })
           ).toBe(false)

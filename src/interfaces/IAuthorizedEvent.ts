@@ -30,9 +30,20 @@ export interface IAuthorizedHttpApiGatewayEvent<TokenPayload = any>
   }
 }
 
+export interface IAuthorizedWebsocketApiGatewayEvent<TokenPayload = any>
+  extends IAuthorizedEventBase<TokenPayload> {
+  requestContext: {
+    /** The connectionId of the websocket connection */
+    connectionId: string
+    /** The eventType of the websocket message */
+    eventType: string
+  }
+}
+
 export type IAuthorizedApiGatewayEvent<TokenPayload = any> =
   | IAuthorizedRestApiGatewayEvent<TokenPayload>
   | IAuthorizedHttpApiGatewayEvent<TokenPayload>
+  | IAuthorizedWebsocketApiGatewayEvent<TokenPayload>
 
 /** An event with a lower case authorization header */
 export type ILowerCaseAuthorizedEvent<TokenPayload = any> = {
@@ -104,13 +115,27 @@ export function isAuthorizedHttpApiGatewayEvent<P> (
   )
 }
 
+export function isAuthorizedWebsocketApiGatewayEvent<P>(
+  event: any,
+  isTokenPayload?: (payload: any) => payload is P
+): event is IAuthorizedHttpApiGatewayEvent<P> {
+  return (
+    isAuthorizedEventBase<P>(event, isTokenPayload) &&
+    typeof event.requestContext === "object" &&
+    event.requestContext !== null &&
+    typeof event.requestContext.connectionId === "string" &&
+    typeof event.requestContext.eventType === "string"
+  );
+}
+
 export function isAuthorizedApiGatewayEvent<P> (
   event: any,
   isTokenPayload?: (payload: any) => payload is P
 ): event is IAuthorizedApiGatewayEvent<P> {
   return (
     isAuthorizedRestApiGatewayEvent(event, isTokenPayload) ||
-    isAuthorizedHttpApiGatewayEvent(event, isTokenPayload)
+    isAuthorizedHttpApiGatewayEvent(event, isTokenPayload) ||
+    isAuthorizedWebsocketApiGatewayEvent(event, isTokenPayload)
   )
 }
 
