@@ -1,3 +1,10 @@
+# [5.1.0](https://github.com/dbartholomae/middy-middleware-jwt-auth/compare/5.0.0...5.1.0) (2022-04-05)
+
+
+### Features
+
+* support Websocket API requests ([225a676](https://github.com/dbartholomae/middy-middleware-jwt-auth/commit/225a676542dbfc623c8e02917d8fb8f60cf7057f))
+
 # [5.0.0](https://github.com/dbartholomae/middy-middleware-jwt-auth/compare/4.1.0...5.0.0) (2021-10-10)
 
 
