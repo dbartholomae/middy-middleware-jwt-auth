@@ -54,7 +54,7 @@
     "@commitlint/cli": "^17.0.0",
     "@commitlint/config-conventional": "^17.0.0",
     "@middy/core": "^2.5.1",
-    "@middy/http-error-handler": "^2.5.1",
+    "@middy/http-error-handler": "^3.2.2",
     "@middy/http-header-normalizer": "^3.0.1",
     "@semantic-release/changelog": "^6.0.0",
     "@semantic-release/commit-analyzer": "^9.0.1",
