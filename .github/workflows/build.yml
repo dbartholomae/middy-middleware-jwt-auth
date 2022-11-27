@@ -9,6 +9,10 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        middyVersion: ["2.x","3.x"]
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
@@ -26,6 +30,11 @@ jobs:
           version: ^5.5.4
       - name: Install
         run: pnpm install --frozen-lockfile=false
+      - name: Install middy version ${{ matrix.middyVersion }}
+        run: |
+          pnpm add @middy/core@${{ matrix.middyVersion }}
+          pnpm add @middy/http-error-handler@${{ matrix.middyVersion }}
+          pnpm add @middy/http-header-normalizer@${{ matrix.middyVersion }}
       - name: Build
         run: pnpm run build
       - name: Build documentation
