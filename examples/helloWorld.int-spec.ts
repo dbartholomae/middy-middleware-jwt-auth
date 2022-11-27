@@ -2,14 +2,6 @@ import JWT from 'jsonwebtoken'
 import request from 'supertest'
 const server = request('http://localhost:3000')
 
-// Unfortunately the error middleware does not set correct content-type 'text', but instead 'application/json' is
-// used by default. This means we need to overwrite the parser as otherwise the error tests would fail as superagent
-// would try to parse them as JSON.
-//
-// TODO: Delete these two lines as soon as the error middleware sets the correct content-type
-import superagent from 'superagent'
-superagent.parse['application/json'] = superagent.parse.text
-
 describe('Handler with JWT Auth middleware', () => {
   describe.each(['dev/rest', 'http'])('with %s API', (apiType: string) => {
     it('returns 200 and "Hello world! Here\'s your token: {TOKEN}" with the token used if authorized', async () => {
