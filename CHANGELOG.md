@@ -1,3 +1,11 @@
+## [5.1.1](https://github.com/dbartholomae/middy-middleware-jwt-auth/compare/5.1.0...5.1.1) (2022-11-27)
+
+
+### Bug Fixes
+
+* allow middy 3 as peer dependency ([958486a](https://github.com/dbartholomae/middy-middleware-jwt-auth/commit/958486ad483a6ec2ff8d05f49f7da61c1b4f7eed))
+* allow middy 4 as peer dependency ([9633c77](https://github.com/dbartholomae/middy-middleware-jwt-auth/commit/9633c77430c99310da4bcec51c5b4b35f70425b9))
+
 # [5.1.0](https://github.com/dbartholomae/middy-middleware-jwt-auth/compare/5.0.0...5.1.0) (2022-04-05)
 
 
