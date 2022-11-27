@@ -82,7 +82,7 @@ describe('IAuthorizedEvent', () => {
   describe('type guard', () => {
     describe.each(['authorization', 'Authorization'])(
       'with %s header',
-      authHeader => {
+      (authHeader: string) => {
         it(`accepts data that has an httpMethod and a string as an ${authHeader} header`, () => {
           expect(
             isAuthorizedEvent({

@@ -11,7 +11,7 @@ import superagent from 'superagent'
 superagent.parse['application/json'] = superagent.parse.text
 
 describe('Handler with JWT Auth middleware', () => {
-  describe.each(['dev/rest', 'http'])('with %s API', apiType => {
+  describe.each(['dev/rest', 'http'])('with %s API', (apiType: string) => {
     it('returns 200 and "Hello world! Here\'s your token: {TOKEN}" with the token used if authorized', async () => {
       const token = JWT.sign({ permissions: ['helloWorld'] }, 'secret')
       return server
