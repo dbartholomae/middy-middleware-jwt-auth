@@ -47,8 +47,7 @@
     "test:integration": "concurrently --kill-others --success first \"cd test && serverless offline\" \"wait-on http://localhost:3000/dev/status && jest -c jest.integration.config.js\"",
     "test:unit": "jest",
     "lint": "tslint --project tsconfig.json",
-    "lint:fix": "tslint --project tsconfig.json --fix",
-    "precommit:lint:fix": "tslint --project tsconfig.json --fix"
+    "lint:fix": "tslint --project tsconfig.json --fix"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.0.0",
@@ -70,9 +69,7 @@
     "codecov": "^3.7.2",
     "concurrently": "^7.0.0",
     "cross-env": "^7.0.2",
-    "husky": "^8.0.1",
     "jest": "^27.5.1",
-    "lint-staged": "^13.0.0",
     "moment": "^2.27.0",
     "pkg-ok": "^3.0.0",
     "prettier-standard": "^16.4.1",
