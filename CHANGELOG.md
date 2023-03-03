@@ -1,3 +1,18 @@
+# [6.0.0](https://github.com/dbartholomae/middy-middleware-jwt-auth/compare/5.1.1...6.0.0) (2023-03-03)
+
+
+### Bug Fixes
+
+* release dependency update of jsonwebtoken to version 9 ([eede274](https://github.com/dbartholomae/middy-middleware-jwt-auth/commit/eede2741c1fe4df6d062be1558368ce790ec9512))
+
+
+### BREAKING CHANGES
+
+* middy-middleware-jwt-auth now relies on
+jsonwebtoken version 9. The breaking changes from that library apply.
+See https://github.com/auth0/node-jsonwebtoken/wiki/Migration-Notes:-v8-to-v9
+for migration notes.
+
 ## [5.1.1](https://github.com/dbartholomae/middy-middleware-jwt-auth/compare/5.1.0...5.1.1) (2022-11-27)
 
 
