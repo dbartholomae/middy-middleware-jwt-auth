@@ -41,7 +41,7 @@ devDependencies:
     version: 10.0.1(semantic-release@21.0.3)
   '@semantic-release/npm':
     specifier: ^10.0.2
-    version: 10.0.3(semantic-release@21.0.3)
+    version: 10.0.4(semantic-release@21.0.3)
   '@semantic-release/release-notes-generator':
     specifier: ^11.0.0
     version: 11.0.3(semantic-release@21.0.3)
@@ -2342,13 +2342,13 @@ packages:
       - supports-color
     dev: true
 
-  /@semantic-release/npm@10.0.3(semantic-release@21.0.3):
-    resolution: {integrity: sha512-Chbv3kX4o+y+r1X6hsqBVB8NFbSVfiNlYOqMG6o9Wc8r5Y4cjxfbaMCuJ++XAtw3YXYX/NVD05cPzBi4Orjusg==}
+  /@semantic-release/npm@10.0.4(semantic-release@21.0.3):
+    resolution: {integrity: sha512-6R3timIQ7VoL2QWRkc9DG8v74RQtRp7UOe/2KbNaqwJ815qOibAv65bH3RtTEhs4axEaHoZf7HDgFs5opaZ9Jw==}
     engines: {node: '>=18'}
     peerDependencies:
       semantic-release: '>=20.1.0'
     dependencies:
-      '@semantic-release/error': 3.0.0
+      '@semantic-release/error': 4.0.0
       aggregate-error: 4.0.1
       execa: 7.1.1
       fs-extra: 11.1.1
@@ -2360,7 +2360,7 @@ packages:
       read-pkg: 8.0.0
       registry-auth-token: 5.0.2
       semantic-release: 21.0.3
-      semver: 7.3.8
+      semver: 7.5.0
       tempy: 3.0.0
     dev: true
 
@@ -9240,7 +9240,7 @@ packages:
       '@semantic-release/commit-analyzer': 10.0.1(semantic-release@21.0.3)
       '@semantic-release/error': 3.0.0
       '@semantic-release/github': 9.0.3(semantic-release@21.0.3)
-      '@semantic-release/npm': 10.0.3(semantic-release@21.0.3)
+      '@semantic-release/npm': 10.0.4(semantic-release@21.0.3)
       '@semantic-release/release-notes-generator': 11.0.3(semantic-release@21.0.3)
       aggregate-error: 4.0.1
       cosmiconfig: 8.2.0
