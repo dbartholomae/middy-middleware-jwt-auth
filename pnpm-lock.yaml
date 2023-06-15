@@ -23,7 +23,7 @@ devDependencies:
     version: 17.6.5
   '@middy/core':
     specifier: ^4.0.0
-    version: 4.5.1
+    version: 4.5.2
   '@middy/http-error-handler':
     specifier: ^4.0.0
     version: 4.5.1
@@ -2063,8 +2063,8 @@ packages:
     resolution: {integrity: sha512-GaHYm+c0O9MjZRu0ongGBRbinu8gVAMd2UZjji6jVmqKtZluZnptXGWhz1E8j8D2HJ3f/yMxKAUC0b+57wncIw==}
     dev: true
 
-  /@middy/core@4.5.1:
-    resolution: {integrity: sha512-1UQHwZioXclzuF1AJuTnpback/orNmGEJDuflUYpX+CTUqixC8hRWnARN8M0acchwjLyFXcNKaCtyfWkI0oKqQ==}
+  /@middy/core@4.5.2:
+    resolution: {integrity: sha512-UPShFdYeXFFBpNQAjYtxyXIRZi7RLyyY09zA6jvH1NfuGhf4VvEyVluG3BcZj+HXOOO4dHevYxvM8XvQgivONQ==}
     engines: {node: '>=16'}
     dev: true
 
