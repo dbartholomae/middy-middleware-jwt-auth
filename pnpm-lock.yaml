@@ -30,7 +30,7 @@ devDependencies:
     version: 4.5.3
   '@middy/http-error-handler':
     specifier: ^4.0.0
-    version: 4.5.3
+    version: 4.5.5
   '@middy/http-header-normalizer':
     specifier: ^4.0.0
     version: 4.5.5
@@ -2072,11 +2072,11 @@ packages:
     engines: {node: '>=16'}
     dev: true
 
-  /@middy/http-error-handler@4.5.3:
-    resolution: {integrity: sha512-foQ3F2tbXcTxvGJ5hkvkP2GDdpHDh6PG1goAAwgA0pViUwnASWofBwRTr5F+gbuDr5CwE6uA71oNIFe1cN5/WA==}
+  /@middy/http-error-handler@4.5.5:
+    resolution: {integrity: sha512-l3H2HhKau6T6v5fRcXEg18CdYzxBIBfNAkhhT3EOSeeAHqRxzjljv+R/5fPVRIDKFSOOxajbIGwJI/x+w8t6uQ==}
     engines: {node: '>=16'}
     dependencies:
-      '@middy/util': 4.5.3
+      '@middy/util': 4.5.5
     dev: true
 
   /@middy/http-header-normalizer@4.5.5:
@@ -2084,8 +2084,8 @@ packages:
     engines: {node: '>=16'}
     dev: true
 
-  /@middy/util@4.5.3:
-    resolution: {integrity: sha512-IyMcXcrzztWzppc9rCYle3e5FR5hICiia0JfPPxM0CtS8eiqr/Wkf18IHjXh2XscmlrmBECfxp7JwfAzZtGxiQ==}
+  /@middy/util@4.5.5:
+    resolution: {integrity: sha512-Dx4L/8cAvKqHKo7VA2oS3fv5nvGsDgGsgFfsvMZ/1p7+WkPCCyS2tWD0o/aioZiuLy0DTq8u1W6U0+8k8nQgpQ==}
     engines: {node: '>=16'}
     dev: true
 
