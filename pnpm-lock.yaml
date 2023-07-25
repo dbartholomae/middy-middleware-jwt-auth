@@ -105,7 +105,7 @@ devDependencies:
     version: 12.0.4(serverless@3.33.0)
   serverless-webpack:
     specifier: ^5.11.0
-    version: 5.11.0(@types/node@20.4.5)(serverless@3.33.0)(typescript@4.9.3)(webpack@5.88.2)
+    version: 5.12.0(@types/node@20.4.5)(serverless@3.33.0)(typescript@4.9.3)(webpack@5.88.2)
   source-map-support:
     specifier: ^0.5.21
     version: 0.5.21
@@ -6113,8 +6113,8 @@ packages:
     engines: {node: '>=4'}
     dev: true
 
-  /is-builtin-module@3.2.0:
-    resolution: {integrity: sha512-phDA4oSGt7vl1n5tJvTWooWWAsXLY+2xCnxNqvKhGEzujg+A43wPlPOyDg3C8XQHN+6k/JTQWJ/j0dQh/qr+Hw==}
+  /is-builtin-module@3.2.1:
+    resolution: {integrity: sha512-BSLE3HnV2syZ0FK0iMA/yUGplUeMmNz4AW5fnTunbCIqZi4vG3WjJT9FHMy5D69xmAYBHXQhJdALdpwVxV501A==}
     engines: {node: '>=6'}
     dependencies:
       builtin-modules: 3.3.0
@@ -9317,14 +9317,6 @@ packages:
     hasBin: true
     dev: true
 
-  /semver@7.3.8:
-    resolution: {integrity: sha512-NB1ctGL5rlHrPJtFDVIVzTyQylMLu9N9VICA6HSFJo8MCGVTMW6gfpicwKmmK/dAjTOrqu5l63JJOpDSrAis3A==}
-    engines: {node: '>=10'}
-    hasBin: true
-    dependencies:
-      lru-cache: 6.0.0
-    dev: true
-
   /semver@7.5.0:
     resolution: {integrity: sha512-+XC0AD/R7Q2mPSRuy2Id0+CGTZ98+8f+KvwirxOKIEyid+XSx6HbC63p+O4IndTHuX5Z+JxQ0TghCkO5Cg/2HA==}
     engines: {node: '>=10'}
@@ -9395,8 +9387,8 @@ packages:
       - utf-8-validate
     dev: true
 
-  /serverless-webpack@5.11.0(@types/node@20.4.5)(serverless@3.33.0)(typescript@4.9.3)(webpack@5.88.2):
-    resolution: {integrity: sha512-0OjwSAMrf1OZZfbFwWUGuqz9eiMJIinTRWz2XNkKD3TY5EifvwU7oAF7mEXKPZTgtVhusSzz408C3FWgcIHizg==}
+  /serverless-webpack@5.12.0(@types/node@20.4.5)(serverless@3.33.0)(typescript@4.9.3)(webpack@5.88.2):
+    resolution: {integrity: sha512-krXmz20rT4X9WkiT6nnH/o+gOVof+SFXKTsCTOY2eDF+9PS4UKtGlzZkjNyDV62lCQgD7nmXPbdY2hYoGmyeYg==}
     engines: {node: '>= 10.12.0'}
     peerDependencies:
       '@types/node': '*'
@@ -9415,9 +9407,9 @@ packages:
       find-yarn-workspace-root: 2.0.0
       fs-extra: 9.1.0
       glob: 7.2.3
-      is-builtin-module: 3.2.0
+      is-builtin-module: 3.2.1
       lodash: 4.17.21
-      semver: 7.3.8
+      semver: 7.5.3
       serverless: 3.33.0(debug@4.3.4)
       typescript: 4.9.3
       webpack: 5.88.2
