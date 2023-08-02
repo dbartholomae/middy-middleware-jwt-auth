@@ -3460,8 +3460,8 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /bl@1.2.2:
-    resolution: {integrity: sha512-e8tQYnZodmebYDWGH7KMRvtzKXaJHx3BbilrgZCfvyLUYdKpK1t5PSPmpkny/SgiTSCnjfLW7v5rlONXVFkQEA==}
+  /bl@1.2.3:
+    resolution: {integrity: sha512-pvcNpa0UU69UT341rO6AYy4FVAIkUHuZXRIWbq+zHnsVcRzDDjIAhGuuYoi0d//cwIwtt4pkpKycWEfjdV+vww==}
     dependencies:
       readable-stream: 2.3.7
       safe-buffer: 5.2.1
@@ -10139,7 +10139,7 @@ packages:
     resolution: {integrity: sha512-rzS0heiNf8Xn7/mpdSVVSMAWAoy9bfb1WOTYC78Z0UQKeKa/CWS8FOq0lKGNa8DWKAn9gxjCvMLYc5PGXYlK2A==}
     engines: {node: '>= 0.8.0'}
     dependencies:
-      bl: 1.2.2
+      bl: 1.2.3
       buffer-alloc: 1.2.0
       end-of-stream: 1.4.4
       fs-constants: 1.0.0
