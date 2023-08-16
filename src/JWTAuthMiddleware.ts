@@ -178,7 +178,7 @@ export class JWTAuthMiddleware<Payload> {
     this.logger('One authorization header found')
 
     this.logger('Checking whether authorization header is formed correctly')
-    const normalizedAuth = isLowerCaseAuthorizedEvent(event)
+    const normalizedAuth = typeof event.headers.authorization === 'string'
       ? event.headers.authorization
       : event.headers.Authorization
 
