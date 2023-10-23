@@ -99,13 +99,13 @@ devDependencies:
     version: 22.0.0(typescript@5.2.2)
   serverless:
     specifier: ^3.25.0
-    version: 3.35.2(debug@4.3.4)
+    version: 3.36.0(debug@4.3.4)
   serverless-offline:
     specifier: ^12.0.0
-    version: 12.0.4(serverless@3.35.2)
+    version: 12.0.4(serverless@3.36.0)
   serverless-webpack:
     specifier: ^5.11.0
-    version: 5.13.0(@types/node@20.4.7)(serverless@3.35.2)(typescript@5.2.2)(webpack@5.89.0)
+    version: 5.13.0(@types/node@20.4.7)(serverless@3.36.0)(typescript@5.2.2)(webpack@5.89.0)
   source-map-support:
     specifier: ^0.5.21
     version: 0.5.21
@@ -2793,15 +2793,15 @@ packages:
       - supports-color
     dev: true
 
-  /@serverless/dashboard-plugin@7.0.2(debug@4.3.4)(supports-color@8.1.1):
-    resolution: {integrity: sha512-VdS+VJO68whLggpe6SCExolOE8oGgrCtbSzot9USq7vpc0AQFn3AekLvcnuSsRLCzQqFfwJ/c6GA7dY/5bxSpQ==}
+  /@serverless/dashboard-plugin@7.1.0(debug@4.3.4)(supports-color@8.1.1):
+    resolution: {integrity: sha512-mAiTU2ERsDHdCrXJa/tihh/r+8ZwSuYYBqln3SkwuBD/49ct9QrK7S00cpiqFoY/geMFlHpOkriGzCPz6UP/rw==}
     engines: {node: '>=12.0'}
     dependencies:
       '@aws-sdk/client-cloudformation': 3.414.0
       '@aws-sdk/client-sts': 3.414.0
       '@serverless/event-mocks': 1.1.1
       '@serverless/platform-client': 4.4.0(debug@4.3.4)(supports-color@8.1.1)
-      '@serverless/utils': 6.13.1
+      '@serverless/utils': 6.15.0
       child-process-ext: 3.0.2
       chokidar: 3.5.3
       flat: 5.0.2
@@ -2862,8 +2862,8 @@ packages:
       - utf-8-validate
     dev: true
 
-  /@serverless/utils@6.13.1:
-    resolution: {integrity: sha512-yokWzlsIaAd3TWzNgIDz6l8HZmtYZs9caaLuheZ0IiZ/bDWSCLBWn84HKkdWZOmFnYxejyPNJEOwE59mtSR3Ow==}
+  /@serverless/utils@6.15.0:
+    resolution: {integrity: sha512-7eDbqKv/OBd11jjdZjUwFGN8sHWkeUqLeHXHQxQ1azja2IM7WIH+z/aLgzR6LhB3/MINNwtjesDpjGqTMj2JKQ==}
     engines: {node: '>=12.0'}
     dependencies:
       archive-type: 4.0.0
@@ -10303,7 +10303,7 @@ packages:
       randombytes: 2.1.0
     dev: true
 
-  /serverless-offline@12.0.4(serverless@3.35.2):
+  /serverless-offline@12.0.4(serverless@3.36.0):
     resolution: {integrity: sha512-G256wDHI12vE0CJ0uTJMBlfnaN7o7td4GgClvQtuedt/n7vKoUfN0och+LybD6YVGsR5h1xpYjPPPLy2QFqWaA==}
     engines: {node: '>=14.18.0'}
     peerDependencies:
@@ -10333,7 +10333,7 @@ packages:
       object.hasown: 1.1.2
       p-memoize: 7.1.1
       p-retry: 5.1.2
-      serverless: 3.35.2(debug@4.3.4)
+      serverless: 3.36.0(debug@4.3.4)
       velocityjs: 2.0.6
       ws: 8.13.0
     transitivePeerDependencies:
@@ -10344,7 +10344,7 @@ packages:
       - utf-8-validate
     dev: true
 
-  /serverless-webpack@5.13.0(@types/node@20.4.7)(serverless@3.35.2)(typescript@5.2.2)(webpack@5.89.0):
+  /serverless-webpack@5.13.0(@types/node@20.4.7)(serverless@3.36.0)(typescript@5.2.2)(webpack@5.89.0):
     resolution: {integrity: sha512-isMEbXbAK1F8YZJfeKgYA5uNuXPFzdHwZyRA9SuMGXVY2L8t1JIzPvRDLZiT4F3uQm16woyal+uaoDyxQo13vg==}
     engines: {node: '>= 14'}
     peerDependencies:
@@ -10367,7 +10367,7 @@ packages:
       is-builtin-module: 3.2.1
       lodash: 4.17.21
       semver: 7.5.3
-      serverless: 3.35.2(debug@4.3.4)
+      serverless: 3.36.0(debug@4.3.4)
       typescript: 5.2.2
       webpack: 5.89.0
     optionalDependencies:
@@ -10377,15 +10377,15 @@ packages:
       - '@swc/wasm'
     dev: true
 
-  /serverless@3.35.2(debug@4.3.4):
-    resolution: {integrity: sha512-1RZ4eHl2OaGG2Rzw0l0ZD3byCk2JMCL9/+btzGQGQruuQWu9HwRZGJI7l4A2ghW3Mu6DVwLYLfceNpmEWBZoag==}
+  /serverless@3.36.0(debug@4.3.4):
+    resolution: {integrity: sha512-VY7UzP4u1/yuTNpF2Wssrru16qhhReLCjgL2oeHCvhujxPyTFv9TQGSlLhaT0ZUCXhRBphwVwITTRopo6NSUgA==}
     engines: {node: '>=12.0'}
     hasBin: true
     requiresBuild: true
     dependencies:
-      '@serverless/dashboard-plugin': 7.0.2(debug@4.3.4)(supports-color@8.1.1)
+      '@serverless/dashboard-plugin': 7.1.0(debug@4.3.4)(supports-color@8.1.1)
       '@serverless/platform-client': 4.4.0(debug@4.3.4)(supports-color@8.1.1)
-      '@serverless/utils': 6.13.1
+      '@serverless/utils': 6.15.0
       abort-controller: 3.0.0
       ajv: 8.12.0
       ajv-formats: 2.1.1(ajv@8.12.0)
