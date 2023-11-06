@@ -48,7 +48,7 @@ devDependencies:
     version: 11.0.1(semantic-release@22.0.0)
   '@semantic-release/release-notes-generator':
     specifier: ^12.0.0
-    version: 12.0.0(semantic-release@22.0.0)
+    version: 12.1.0(semantic-release@22.0.0)
   '@types/aws-lambda':
     specifier: ^8.10.109
     version: 8.10.121
@@ -2772,8 +2772,8 @@ packages:
       tempy: 3.1.0
     dev: true
 
-  /@semantic-release/release-notes-generator@12.0.0(semantic-release@22.0.0):
-    resolution: {integrity: sha512-m7Ds8ComP1KJgA2Lke2xMwE1TOOU40U7AzP4lT8hJ2tUAeicziPz/1GeDFmRkTOkMFlfHvE6kuvMkvU+mIzIDQ==}
+  /@semantic-release/release-notes-generator@12.1.0(semantic-release@22.0.0):
+    resolution: {integrity: sha512-g6M9AjUKAZUZnxaJZnouNBeDNTCUrJ5Ltj+VJ60gJeDaRRahcHsry9HW8yKrnKkKNkx5lbWiEP1FPMqVNQz8Kg==}
     engines: {node: ^18.17 || >=20.6.1}
     peerDependencies:
       semantic-release: '>=20.1.0'
@@ -2784,10 +2784,10 @@ packages:
       conventional-commits-parser: 5.0.0
       debug: 4.3.4(supports-color@8.1.1)
       get-stream: 7.0.1
-      import-from: 4.0.0
+      import-from-esm: 1.0.3
       into-stream: 7.0.0
       lodash-es: 4.17.21
-      read-pkg-up: 10.1.0
+      read-pkg-up: 11.0.0
       semantic-release: 22.0.0(typescript@5.2.2)
     transitivePeerDependencies:
       - supports-color
@@ -6044,6 +6044,11 @@ packages:
       esniff: 1.1.0
     dev: true
 
+  /find-up-simple@1.0.0:
+    resolution: {integrity: sha512-q7Us7kcjj2VMePAa02hDAF6d+MzsdsAWEwYyOpwUtlerRBkOEPBCRZrAV4XfcSN8fHAgaD0hP7miwoay6DCprw==}
+    engines: {node: '>=18'}
+    dev: true
+
   /find-up@2.1.0:
     resolution: {integrity: sha512-NWzkk0jSJtTt08+FBFMvXoeZnOJD+jTtsRmBYbAIzJdX6l7dLgR7CTubCM5/eDdPUBvLCeVasP1brfVR/9/EZQ==}
     engines: {node: '>=4'}
@@ -6793,6 +6798,11 @@ packages:
     dependencies:
       parent-module: 1.0.1
       resolve-from: 4.0.0
+    dev: true
+
+  /import-from-esm@1.0.3:
+    resolution: {integrity: sha512-bncoEU7L4Vi5OoeygZuBUP9IC1AxavLR4UMCwZ9FtujOhDG1PDEo7IpCdfeOxKfrMCGwoK6UXpF9q/cXTA/ejg==}
+    engines: {node: '>=16.20'}
     dev: true
 
   /import-from@4.0.0:
@@ -9836,6 +9846,16 @@ packages:
       type-fest: 4.6.0
     dev: true
 
+  /read-pkg-up@11.0.0:
+    resolution: {integrity: sha512-LOVbvF1Q0SZdjClSefZ0Nz5z8u+tIE7mV5NibzmE9VYmDe9CaBbAVtz1veOSZbofrdsilxuDAYnFenukZVp8/Q==}
+    engines: {node: '>=18'}
+    deprecated: Renamed to read-package-up
+    dependencies:
+      find-up-simple: 1.0.0
+      read-pkg: 9.0.0
+      type-fest: 4.6.0
+    dev: true
+
   /read-pkg-up@7.0.1:
     resolution: {integrity: sha512-zK0TB7Xd6JpCLmlLmufqykGE+/TlOePD6qKClNW7hHDKFh/J7/7gCWGR7joEQEW1bKq3a3yUZSObOoWLFQ4ohg==}
     engines: {node: '>=8'}
@@ -10238,7 +10258,7 @@ packages:
       '@semantic-release/error': 4.0.0
       '@semantic-release/github': 9.0.6(semantic-release@22.0.0)
       '@semantic-release/npm': 11.0.1(semantic-release@22.0.0)
-      '@semantic-release/release-notes-generator': 12.0.0(semantic-release@22.0.0)
+      '@semantic-release/release-notes-generator': 12.1.0(semantic-release@22.0.0)
       aggregate-error: 5.0.0
       cosmiconfig: 8.3.6(typescript@5.2.2)
       debug: 4.3.4(supports-color@8.1.1)
