@@ -33,7 +33,7 @@ devDependencies:
     version: 4.7.0
   '@middy/http-header-normalizer':
     specifier: ^4.0.0
-    version: 4.6.5
+    version: 4.7.0
   '@semantic-release/changelog':
     specifier: ^6.0.1
     version: 6.0.3(semantic-release@22.0.0)
@@ -2487,8 +2487,8 @@ packages:
       '@middy/util': 4.7.0
     dev: true
 
-  /@middy/http-header-normalizer@4.6.5:
-    resolution: {integrity: sha512-aL+CielrSXIQmVyUNTxg5jiIc3NJA5c1keHziBfcGOFSX1iufrHTZwcgTlB8+orqujEkbz02IQ6lTcpgBvxmBA==}
+  /@middy/http-header-normalizer@4.7.0:
+    resolution: {integrity: sha512-ZGQYXuN7Gt83J6zkaBqns/ko+Hf3t3xnqCxTtqtI3+htGuDHF8OHc5T2jy2gJHo6xzVoPWMtSEfAJ6nh4rPsgQ==}
     engines: {node: '>=16'}
     dev: true
 
