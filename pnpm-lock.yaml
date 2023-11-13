@@ -27,7 +27,7 @@ devDependencies:
     version: 18.0.0
   '@middy/core':
     specifier: ^4.0.0
-    version: 4.6.5
+    version: 4.7.0
   '@middy/http-error-handler':
     specifier: ^4.0.0
     version: 4.6.5
@@ -2475,8 +2475,8 @@ packages:
     resolution: {integrity: sha512-GaHYm+c0O9MjZRu0ongGBRbinu8gVAMd2UZjji6jVmqKtZluZnptXGWhz1E8j8D2HJ3f/yMxKAUC0b+57wncIw==}
     dev: true
 
-  /@middy/core@4.6.5:
-    resolution: {integrity: sha512-nsAmIcafn2GGHz7yOJecEZjQ0UVARC+Wem2wzGELolXKM2TskcyDcvwqDSlas4pwh7gzHTdfwP+pUmQVRGWJPQ==}
+  /@middy/core@4.7.0:
+    resolution: {integrity: sha512-yI++DmhDQ8+ugvY7+GrEnb2PF0M/6Wzbgu4Tf7QhOlhwKGDd4j6or+Ab7qYPWx+jnKf8F0tqlmh0gV4JLi0yHw==}
     engines: {node: '>=16'}
     dev: true
 
@@ -6803,11 +6803,6 @@ packages:
   /import-from-esm@1.0.3:
     resolution: {integrity: sha512-bncoEU7L4Vi5OoeygZuBUP9IC1AxavLR4UMCwZ9FtujOhDG1PDEo7IpCdfeOxKfrMCGwoK6UXpF9q/cXTA/ejg==}
     engines: {node: '>=16.20'}
-    dev: true
-
-  /import-from@4.0.0:
-    resolution: {integrity: sha512-P9J71vT5nLlDeV8FHs5nNxaLbrpfAV5cF5srvbZfpwpcJoM/xZR3hiv+q+SAnuSmuGbXMWud063iIMx/V/EWZQ==}
-    engines: {node: '>=12.2'}
     dev: true
 
   /import-local@3.1.0:
