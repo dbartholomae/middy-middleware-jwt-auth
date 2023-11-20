@@ -99,13 +99,13 @@ devDependencies:
     version: 22.0.0(typescript@5.2.2)
   serverless:
     specifier: ^3.25.0
-    version: 3.36.0(debug@4.3.4)
+    version: 3.37.0(debug@4.3.4)
   serverless-offline:
     specifier: ^12.0.0
-    version: 12.0.4(serverless@3.36.0)
+    version: 12.0.4(serverless@3.37.0)
   serverless-webpack:
     specifier: ^5.11.0
-    version: 5.13.0(@types/node@20.4.7)(serverless@3.36.0)(typescript@5.2.2)(webpack@5.89.0)
+    version: 5.13.0(@types/node@20.4.7)(serverless@3.37.0)(typescript@5.2.2)(webpack@5.89.0)
   source-map-support:
     specifier: ^0.5.21
     version: 0.5.21
@@ -2793,14 +2793,14 @@ packages:
       - supports-color
     dev: true
 
-  /@serverless/dashboard-plugin@7.1.0(debug@4.3.4)(supports-color@8.1.1):
-    resolution: {integrity: sha512-mAiTU2ERsDHdCrXJa/tihh/r+8ZwSuYYBqln3SkwuBD/49ct9QrK7S00cpiqFoY/geMFlHpOkriGzCPz6UP/rw==}
+  /@serverless/dashboard-plugin@7.2.0(debug@4.3.4)(supports-color@8.1.1):
+    resolution: {integrity: sha512-Gqzgef+KmrX1OxJW9aubrIN6AvPrtDARMv+NegMNEe+pfkZA/IMuZiSyYUaHgARokdw2/IALOysTLgdFJIrXvA==}
     engines: {node: '>=12.0'}
     dependencies:
       '@aws-sdk/client-cloudformation': 3.414.0
       '@aws-sdk/client-sts': 3.414.0
       '@serverless/event-mocks': 1.1.1
-      '@serverless/platform-client': 4.4.0(debug@4.3.4)(supports-color@8.1.1)
+      '@serverless/platform-client': 4.5.1(debug@4.3.4)(supports-color@8.1.1)
       '@serverless/utils': 6.15.0
       child-process-ext: 3.0.2
       chokidar: 3.5.3
@@ -2836,13 +2836,13 @@ packages:
       lodash: 4.17.21
     dev: true
 
-  /@serverless/platform-client@4.4.0(debug@4.3.4)(supports-color@8.1.1):
-    resolution: {integrity: sha512-urL7SNefRqC2EOFDcpvm8fyn/06B5yXWneKpyGw7ylGt0Qr9JHZCB9TiUeTkIpPUNz0jTvKUaJ2+M/JNEiaVIA==}
+  /@serverless/platform-client@4.5.1(debug@4.3.4)(supports-color@8.1.1):
+    resolution: {integrity: sha512-XltmO/029X76zi0LUFmhsnanhE2wnqH1xf+WBt5K8gumQA9LnrfwLgPxj+VA+mm6wQhy+PCp7H5SS0ZPu7F2Cw==}
     engines: {node: '>=10.0'}
     dependencies:
       adm-zip: 0.5.10
       archiver: 5.3.2
-      axios: 0.21.4(debug@4.3.4)
+      axios: 1.6.2(debug@4.3.4)
       fast-glob: 3.3.1
       https-proxy-agent: 5.0.1(supports-color@8.1.1)
       ignore: 5.2.4
@@ -4155,19 +4155,21 @@ packages:
       xml2js: 0.5.0
     dev: true
 
-  /axios@0.21.4(debug@4.3.4):
-    resolution: {integrity: sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==}
-    dependencies:
-      follow-redirects: 1.15.2(debug@4.3.4)
-    transitivePeerDependencies:
-      - debug
-    dev: true
-
   /axios@0.27.2(debug@4.3.4):
     resolution: {integrity: sha512-t+yRIyySRTp/wua5xEr+z1q60QmLq8ABsS5O9Me1AsE5dfKqgnCFzwiCZZ/cGNd1lq4/7akDWMxdhVlucjmnOQ==}
     dependencies:
       follow-redirects: 1.15.2(debug@4.3.4)
       form-data: 4.0.0
+    transitivePeerDependencies:
+      - debug
+    dev: true
+
+  /axios@1.6.2(debug@4.3.4):
+    resolution: {integrity: sha512-7i24Ri4pmDRfJTR7LDBhsOTtcm+9kjX5WiY1X3wIisx6G9So3pfMkEiU7emUBe46oceVImccTEM3k6C5dbVW8A==}
+    dependencies:
+      follow-redirects: 1.15.2(debug@4.3.4)
+      form-data: 4.0.0
+      proxy-from-env: 1.1.0
     transitivePeerDependencies:
       - debug
     dev: true
@@ -9751,6 +9753,10 @@ packages:
     resolution: {integrity: sha512-vtK/94akxsTMhe0/cbfpR+syPuszcuwhqVjJq26CuNDgFGj682oRBXOP5MJpv2r7JtE8MsiepGIqvvOTBwn2vA==}
     dev: true
 
+  /proxy-from-env@1.1.0:
+    resolution: {integrity: sha512-D+zkORCbA9f1tdWRK0RaCR3GPv50cMxcrz4X8k5LTSUD1Dkw47mKJEZQNunItRTkWwgtaUSo1RVFRIG9ZXiFYg==}
+    dev: true
+
   /pseudomap@1.0.2:
     resolution: {integrity: sha1-8FKijacOYYkX7wqKw0wa5aaChrM=}
     dev: true
@@ -10339,7 +10345,7 @@ packages:
       randombytes: 2.1.0
     dev: true
 
-  /serverless-offline@12.0.4(serverless@3.36.0):
+  /serverless-offline@12.0.4(serverless@3.37.0):
     resolution: {integrity: sha512-G256wDHI12vE0CJ0uTJMBlfnaN7o7td4GgClvQtuedt/n7vKoUfN0och+LybD6YVGsR5h1xpYjPPPLy2QFqWaA==}
     engines: {node: '>=14.18.0'}
     peerDependencies:
@@ -10369,7 +10375,7 @@ packages:
       object.hasown: 1.1.2
       p-memoize: 7.1.1
       p-retry: 5.1.2
-      serverless: 3.36.0(debug@4.3.4)
+      serverless: 3.37.0(debug@4.3.4)
       velocityjs: 2.0.6
       ws: 8.13.0
     transitivePeerDependencies:
@@ -10380,7 +10386,7 @@ packages:
       - utf-8-validate
     dev: true
 
-  /serverless-webpack@5.13.0(@types/node@20.4.7)(serverless@3.36.0)(typescript@5.2.2)(webpack@5.89.0):
+  /serverless-webpack@5.13.0(@types/node@20.4.7)(serverless@3.37.0)(typescript@5.2.2)(webpack@5.89.0):
     resolution: {integrity: sha512-isMEbXbAK1F8YZJfeKgYA5uNuXPFzdHwZyRA9SuMGXVY2L8t1JIzPvRDLZiT4F3uQm16woyal+uaoDyxQo13vg==}
     engines: {node: '>= 14'}
     peerDependencies:
@@ -10403,7 +10409,7 @@ packages:
       is-builtin-module: 3.2.1
       lodash: 4.17.21
       semver: 7.5.3
-      serverless: 3.36.0(debug@4.3.4)
+      serverless: 3.37.0(debug@4.3.4)
       typescript: 5.2.2
       webpack: 5.89.0
     optionalDependencies:
@@ -10413,14 +10419,14 @@ packages:
       - '@swc/wasm'
     dev: true
 
-  /serverless@3.36.0(debug@4.3.4):
-    resolution: {integrity: sha512-VY7UzP4u1/yuTNpF2Wssrru16qhhReLCjgL2oeHCvhujxPyTFv9TQGSlLhaT0ZUCXhRBphwVwITTRopo6NSUgA==}
+  /serverless@3.37.0(debug@4.3.4):
+    resolution: {integrity: sha512-HRYzduFrJTMRVknmoqdmdfZJ0c945h5jhrUf8rTzdBdCoQ2ETMFd6xlHnrAPqsEreR1apAVb0zFSZLwgO7Tigg==}
     engines: {node: '>=12.0'}
     hasBin: true
     requiresBuild: true
     dependencies:
-      '@serverless/dashboard-plugin': 7.1.0(debug@4.3.4)(supports-color@8.1.1)
-      '@serverless/platform-client': 4.4.0(debug@4.3.4)(supports-color@8.1.1)
+      '@serverless/dashboard-plugin': 7.2.0(debug@4.3.4)(supports-color@8.1.1)
+      '@serverless/platform-client': 4.5.1(debug@4.3.4)(supports-color@8.1.1)
       '@serverless/utils': 6.15.0
       abort-controller: 3.0.0
       ajv: 8.12.0
