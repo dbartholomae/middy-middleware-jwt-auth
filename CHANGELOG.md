@@ -1,3 +1,10 @@
+# [6.1.0](https://github.com/dbartholomae/middy-middleware-jwt-auth/compare/6.0.0...6.1.0) (2024-01-27)
+
+
+### Features
+
+* allow usage with middy v5 ([5e136ab](https://github.com/dbartholomae/middy-middleware-jwt-auth/commit/5e136ab8abf566bde86a6198fb62f8622e6d7520)), closes [#430](https://github.com/dbartholomae/middy-middleware-jwt-auth/issues/430)
+
 # [6.0.0](https://github.com/dbartholomae/middy-middleware-jwt-auth/compare/5.1.1...6.0.0) (2023-03-03)
 
 ### Bug Fixes
