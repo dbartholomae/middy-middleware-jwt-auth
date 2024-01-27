@@ -31,7 +31,7 @@
     "tslib": "^2.0.1"
   },
   "peerDependencies": {
-    "@middy/core": ">=2.0.0 < 5.0.0"
+    "@middy/core": ">=2.0.0 < 6.0.0"
   },
   "directories": {
     "docs": "docs",
@@ -52,9 +52,9 @@
   "devDependencies": {
     "@commitlint/cli": "^17.3.0",
     "@commitlint/config-conventional": "^18.0.0",
-    "@middy/core": "^4.0.0",
-    "@middy/http-error-handler": "^4.0.0",
-    "@middy/http-header-normalizer": "^4.0.0",
+    "@middy/core": "^5.2.3",
+    "@middy/http-error-handler": "^5.2.3",
+    "@middy/http-header-normalizer": "^5.2.3",
     "@semantic-release/changelog": "^6.0.1",
     "@semantic-release/commit-analyzer": "^11.0.0",
     "@semantic-release/git": "^10.0.1",
