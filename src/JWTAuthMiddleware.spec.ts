@@ -386,8 +386,13 @@ describe("JWTAuthMiddleware", () => {
         userId: number;
       }
 
-      function isPayload(payload: any): payload is IPayload {
-        return payload != null && typeof payload.userId === "number";
+      function isPayload(payload: unknown): payload is IPayload {
+        return (
+          typeof payload === "object" &&
+          payload != null &&
+          "userId" in payload &&
+          typeof payload.userId === "number"
+        );
       }
 
       it("saves token information to event.auth.payload if token is valid", async () => {
