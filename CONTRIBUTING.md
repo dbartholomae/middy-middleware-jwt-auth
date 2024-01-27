@@ -27,8 +27,9 @@ instead. This reduces the risk of criminals getting aware and exploiting the
 vulnerability before we got a chance to fix it.
 
 In order to determine whether you are dealing with a security issue, ask yourself these two questions:
-* Can I access something that's not mine, or something I shouldn't have access to?
-* Can I disable something for other people?
+
+- Can I access something that's not mine, or something I shouldn't have access to?
+- Can I disable something for other people?
 
 If the answer to either of those two questions are "yes", then you're probably dealing with a security issue.
 Note that even if you answer "no" to both questions, you may still be dealing with a security issue, so if you're
@@ -63,19 +64,20 @@ discussion (e. g. fixing a typo in documentation).
 We expect every contributor to adhere to our
 [Code of Conduct](./CODE_OF_CONDUCT.md). Additionally, please note that we can
 only merge a PR if:
-* Commit messages follow [Conventional Commits guidelines](https://www.conventionalcommits.org/en/v1.0.0/)
+
+- Commit messages follow [Conventional Commits guidelines](https://www.conventionalcommits.org/en/v1.0.0/)
   with scopes being limited to the names of the individual packages
   (e. g. `feat(compose): add typing for more than 6 parameters`)
-* The code is following our linting guidelines as defined via ESLint rules in
+- The code is following our linting guidelines as defined via ESLint rules in
   each project (run `npm lint` to check)
-* All tests pass, and the code has 100% test coverage (run `npm test` to check).
+- All tests pass, and the code has 100% test coverage (run `npm test` to check).
   If it does not make sense to cover a certain line of code, you can use
   a `/* istanbul ignore next */` comment.
-* Bigger changes and new features are covered by an integration test.
-* All relevant documentation is updated. Usually this means updating the JSDoc of the code you work on.
+- Bigger changes and new features are covered by an integration test.
+- All relevant documentation is updated. Usually this means updating the JSDoc of the code you work on.
   README and docs/ folder will be automatically built.
-* Additional dependencies are only added with a good reason.
-* Code was reviewed by one of our regular contributors, taking into
+- Additional dependencies are only added with a good reason.
+- Code was reviewed by one of our regular contributors, taking into
   consideration code readability, security and whether the addition aligns with
   the long-term roadmap.
 
@@ -86,7 +88,7 @@ to be able to contribute any changes.
 
 The code in this codebase is managed by [Git](https://git-scm.com/) for version
 control [NodeJS](https://nodejs.org/en/) for running scripts, and [pnpm](https://pnpm.js.org/)
-as package manager. Everything *has* to be installed globally to work with the
+as package manager. Everything _has_ to be installed globally to work with the
 repository.
 
 We recommend to read up on tools you are unfamiliar with.

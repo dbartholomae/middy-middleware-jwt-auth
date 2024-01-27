@@ -10,9 +10,7 @@
     "moduleResolution": "node",
     "rootDir": ".",
     "importHelpers": true,
-    "strict": true
+    "strict": true,
   },
-  "include": [
-    "**/*"
-  ]
+  "include": ["**/*"],
 }

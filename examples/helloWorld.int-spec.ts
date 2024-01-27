@@ -1,85 +1,94 @@
-import JWT from 'jsonwebtoken'
-import request from 'supertest'
-const server = request('http://localhost:3000')
+import JWT from "jsonwebtoken";
+import request from "supertest";
+const server = request("http://localhost:3000");
 
-describe('Handler with JWT Auth middleware', () => {
-  describe.each(['dev/rest', 'http'])('with %s API', (apiType: string) => {
+describe("Handler with JWT Auth middleware", () => {
+  describe.each(["dev/rest", "http"])("with %s API", (apiType: string) => {
     it('returns 200 and "Hello world! Here\'s your token: {TOKEN}" with the token used if authorized', async () => {
-      const token = JWT.sign({ permissions: ['helloWorld'] }, 'secret')
+      const token = JWT.sign({ permissions: ["helloWorld"] }, "secret");
       return server
         .get(`/${apiType}/hello`)
-        .set('Authorization', `Bearer ${token}`)
+        .set("Authorization", `Bearer ${token}`)
         .expect(200)
         .then((res: any) => {
           // TODO: Use this code instead as soon as the error middleware sets the correct content-type
           // expect(res.body.data).toEqual('Hello world!')
-          const body = JSON.parse(res.text)
-          expect(body.data).toEqual(`Hello world! Here's your token: ${token}`)
-        })
-    })
+          const body = JSON.parse(res.text);
+          expect(body.data).toEqual(`Hello world! Here's your token: ${token}`);
+        });
+    });
 
     it('returns 200 and "Hello world!" if authorized via query parameter', async () => {
-      const token = JWT.sign({ permissions: ['helloWorld'] }, 'secret')
+      const token = JWT.sign({ permissions: ["helloWorld"] }, "secret");
       return server
         .get(`/${apiType}/hello?token=${token}`)
         .expect(200)
         .then((res: any) => {
           // TODO: Use this code instead as soon as the error middleware sets the correct content-type
           // expect(res.body.data).toEqual('Hello world!')
-          const body = JSON.parse(res.text)
-          expect(body.data).toEqual(`Hello world! Here's your token: ${token}`)
-        })
-    })
+          const body = JSON.parse(res.text);
+          expect(body.data).toEqual(`Hello world! Here's your token: ${token}`);
+        });
+    });
 
-    it('returns 403 and error message if not authorized', async () => {
-      const token = JWT.sign({ permissions: [] }, 'secret')
+    it("returns 403 and error message if not authorized", async () => {
+      const token = JWT.sign({ permissions: [] }, "secret");
       return server
         .get(`/${apiType}/hello`)
-        .set('Authorization', `Bearer ${token}`)
+        .set("Authorization", `Bearer ${token}`)
         .expect(403)
         .then((res: any) => {
-          expect(res.text).toEqual('User not authorized for helloWorld, only found permissions []')
-        })
-    })
+          expect(res.text).toEqual(
+            "User not authorized for helloWorld, only found permissions []",
+          );
+        });
+    });
 
-    it('returns 400 and error message if not authenticated', async () => {
-      const token = JWT.sign({ iat: 1, permission: 'helloWorld' }, 'secret')
+    it("returns 400 and error message if not authenticated", async () => {
+      const token = JWT.sign({ iat: 1, permission: "helloWorld" }, "secret");
       return server
         .get(`/${apiType}/hello`)
-        .set('Authorization', `Bearer ${token}`)
+        .set("Authorization", `Bearer ${token}`)
         .expect(400)
         .then((res: any) => {
-          expect(res.text).toEqual('Token payload malformed, was {"iat":1,\"permission\":\"helloWorld\"}')
-        })
-    })
+          expect(res.text).toEqual(
+            'Token payload malformed, was {"iat":1,"permission":"helloWorld"}',
+          );
+        });
+    });
 
-    it('returns 401 and error message if token is malformed', async () =>
+    it("returns 401 and error message if token is malformed", async () =>
       server
         .get(`/${apiType}/hello`)
-        .set('Authorization', `Malformed token`)
+        .set("Authorization", `Malformed token`)
         .expect(401)
         .then((res: any) => {
-          expect(res.text).toEqual('Format should be "Authorization: Bearer [token]", received "Authorization: Malformed token" instead')
-        })
-    )
+          expect(res.text).toEqual(
+            'Format should be "Authorization: Bearer [token]", received "Authorization: Malformed token" instead',
+          );
+        }));
 
-    it('returns 401 and error message if payload is malformed', async () => {
+    it("returns 401 and error message if payload is malformed", async () => {
       return server
         .get(`/${apiType}/hello`)
-        .set('Authorization', `Malformed token`)
+        .set("Authorization", `Malformed token`)
         .expect(401)
         .then((res: any) => {
-          expect(res.text).toEqual('Format should be "Authorization: Bearer [token]", received "Authorization: Malformed token" instead')
-        })
-    })
+          expect(res.text).toEqual(
+            'Format should be "Authorization: Bearer [token]", received "Authorization: Malformed token" instead',
+          );
+        });
+    });
 
-    it('returns 401 and error message if token is missing', async () => {
+    it("returns 401 and error message if token is missing", async () => {
       return server
         .get(`/${apiType}/hello`)
         .expect(401)
         .then((res: any) => {
-          expect(res.text).toEqual('No valid bearer token was set in the authorization header')
-        })
-    })
-  })
-})
+          expect(res.text).toEqual(
+            "No valid bearer token was set in the authorization header",
+          );
+        });
+    });
+  });
+});
