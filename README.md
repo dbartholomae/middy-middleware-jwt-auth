@@ -4,11 +4,11 @@
 [![downloads](https://img.shields.io/npm/dw/middy-middleware-jwt-auth.svg)](https://npmjs.org/package/middy-middleware-jwt-auth)
 [![open issues](https://img.shields.io/github/issues-raw/dbartholomae/middy-middleware-jwt-auth.svg)](https://github.com/dbartholomae/middy-middleware-jwt-auth/issues)
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fdbartholomae%2Fmiddy-middleware-jwt-auth.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fdbartholomae%2Fmiddy-middleware-jwt-auth?ref=badge_shield)
+![npm bundle size](https://img.shields.io/bundlephobia/min/middy-middleware-jwt-auth)
 [![debug](https://img.shields.io/badge/debug-blue.svg)](https://github.com/visionmedia/debug#readme)
 [![build status](https://github.com/dbartholomae/middy-middleware-jwt-auth/workflows/Build%20and%20deploy/badge.svg?branch=main)](https://github.com/dbartholomae/middy-middleware-jwt-auth/actions?query=workflow%3A"Build+and+deploy")
 [![codecov](https://codecov.io/gh/dbartholomae/middy-middleware-jwt-auth/branch/master/graph/badge.svg)](https://codecov.io/gh/dbartholomae/middy-middleware-jwt-auth)
-[![dependency status](https://david-dm.org/dbartholomae/middy-middleware-jwt-auth.svg?theme=shields.io)](https://david-dm.org/dbartholomae/middy-middleware-jwt-auth)
-[![devDependency status](https://david-dm.org/dbartholomae/middy-middleware-jwt-auth/dev-status.svg)](https://david-dm.org/dbartholomae/middy-middleware-jwt-auth?type=dev)
+![Libraries.io dependency status for latest release](https://img.shields.io/librariesio/release/npm/middy-middleware-jwt-auth)
 [![semantic release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release#badge)
 [![CLA Assistant](https://cla-assistant.io/readme/badge/dbartholomae/middy-middleware-jwt-auth)](https://cla-assistant.io/dbartholomae/middy-middleware-jwt-auth)
 
