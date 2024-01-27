@@ -26,7 +26,7 @@ describe("exports", () => {
 
 describe("JWTAuthMiddleware", () => {
   it("throws a type error when options are misformed", () => {
-    expect(() => JWTAuthMiddleware({} as any)).toThrowError(TypeError);
+    expect(() => JWTAuthMiddleware({} as never)).toThrowError(TypeError);
   });
 
   describe("before hook", () => {
@@ -37,7 +37,7 @@ describe("JWTAuthMiddleware", () => {
           secretOrPublicKey: "secret",
         };
         await expect(
-          JWTAuthMiddleware(options).before({} as any),
+          JWTAuthMiddleware(options).before({} as never),
         ).resolves.toEqual(undefined);
       });
 
@@ -471,7 +471,7 @@ describe("JWTAuthMiddleware", () => {
             event.queryStringParameters.token,
         };
         await expect(
-          JWTAuthMiddleware(options).before({} as any),
+          JWTAuthMiddleware(options).before({} as never),
         ).resolves.toEqual(undefined);
       });
 
