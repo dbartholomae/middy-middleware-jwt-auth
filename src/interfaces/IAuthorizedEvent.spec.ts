@@ -127,8 +127,13 @@ describe("IAuthorizedEvent", () => {
           interface IToken {
             foo: string;
           }
-          function isToken(token: any): token is IToken {
-            return token != null && typeof token.foo === "string";
+          function isToken(token: unknown): token is IToken {
+            return (
+              typeof token === "object" &&
+              token != null &&
+              "foo" in token &&
+              typeof token.foo === "string"
+            );
           }
 
           expect(
@@ -154,8 +159,13 @@ describe("IAuthorizedEvent", () => {
           interface IToken {
             foo: string;
           }
-          function isToken(token: any): token is IToken {
-            return token != null && typeof token.foo === "string";
+          function isToken(token: unknown): token is IToken {
+            return (
+              typeof token === "object" &&
+              token != null &&
+              "foo" in token &&
+              typeof token.foo === "string"
+            );
           }
 
           expect(
@@ -312,8 +322,13 @@ describe("IAuthorizedEvent", () => {
       interface IToken {
         foo: string;
       }
-      function isToken(token: any): token is IToken {
-        return token != null && typeof token.foo === "string";
+      function isToken(token: unknown): token is IToken {
+        return (
+          typeof token === "object" &&
+          token != null &&
+          "foo" in token &&
+          typeof token.foo === "string"
+        );
       }
 
       expect(

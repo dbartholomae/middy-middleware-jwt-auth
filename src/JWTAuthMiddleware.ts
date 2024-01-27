@@ -36,7 +36,7 @@ import {
 
 /** The actual middleware */
 export class JWTAuthMiddleware<Payload> {
-  public static create<Payload = any>(
+  public static create<Payload = unknown>(
     options: IAuthOptions<Payload>,
   ): JWTAuthMiddleware<Payload> {
     if (!isAuthOptions(options)) {
@@ -66,7 +66,7 @@ export class JWTAuthMiddleware<Payload> {
    * fallback.
    * @param event - The event to check
    */
-  public before: middy.MiddlewareFn<any, any> = async ({
+  public before: middy.MiddlewareFn = async ({
     event,
   }: middy.Request<IAuthorizedEvent<Payload>>) => {
     this.logger("Checking whether event.auth already is populated");
@@ -137,7 +137,7 @@ export class JWTAuthMiddleware<Payload> {
       this.logger("Token payload valid");
       event.auth = { payload, token };
     } else {
-      event.auth = { payload: payload as any, token };
+      event.auth = { payload: payload as Payload, token };
     }
   };
 
