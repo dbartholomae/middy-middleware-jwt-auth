@@ -111,6 +111,7 @@ export function isAuthorizedHttpApiGatewayEvent<P>(
     isAuthorizedEventBase<P>(event, isTokenPayload) &&
     typeof event.requestContext === "object" &&
     event.requestContext !== null &&
+    "http" in event.requestContext &&
     typeof event.requestContext.http === "object"
   );
 }
@@ -123,7 +124,9 @@ export function isAuthorizedWebsocketApiGatewayEvent<P>(
     isAuthorizedEventBase<P>(event, isTokenPayload) &&
     typeof event.requestContext === "object" &&
     event.requestContext !== null &&
+    "connectionId" in event.requestContext &&
     typeof event.requestContext.connectionId === "string" &&
+    "eventType" in event.requestContext &&
     typeof event.requestContext.eventType === "string"
   );
 }

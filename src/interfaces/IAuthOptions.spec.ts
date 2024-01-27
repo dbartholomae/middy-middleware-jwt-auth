@@ -26,8 +26,13 @@ describe("IAuthOptions", () => {
       interface IPayload {
         foo: string;
       }
-      function isPayload(payload: any): payload is IPayload {
-        return payload != null && typeof payload.foo === "string";
+      function isPayload(payload: unknown): payload is IPayload {
+        return (
+          typeof payload === "object" &&
+          payload != null &&
+          "foo" in payload &&
+          typeof payload.foo === "string"
+        );
       }
       const options: IAuthOptions<IPayload> = {
         algorithm: EncryptionAlgorithms.ES256,
@@ -38,7 +43,7 @@ describe("IAuthOptions", () => {
     });
 
     it("accepts data that has algorithm, a string secretOrPublicKey and a tokenSource", () => {
-      function tokenSource(event: any): string {
+      function tokenSource(): string {
         return "";
       }
       const options: IAuthOptions = {
@@ -73,8 +78,13 @@ describe("IAuthOptions", () => {
       interface IPayload {
         foo: string;
       }
-      function isPayload(payload: any): payload is IPayload {
-        return payload != null && typeof payload.foo === "string";
+      function isPayload(payload: unknown): payload is IPayload {
+        return (
+          typeof payload === "object" &&
+          payload != null &&
+          "foo" in payload &&
+          typeof payload.foo === "string"
+        );
       }
       expect(
         isAuthOptions({
@@ -86,7 +96,7 @@ describe("IAuthOptions", () => {
     });
 
     it("accepts data that has algorithm, a string secretOrPublicKey and an array of tokenSources", () => {
-      function tokenSource(event: any): string {
+      function tokenSource(): string {
         return "";
       }
       expect(
@@ -150,7 +160,7 @@ describe("IAuthOptions", () => {
       expect(
         isAuthOptions({
           algorithm: EncryptionAlgorithms.ES256,
-          isPayload: {} as any,
+          isPayload: {} as never,
           secretOrPublicKey: "secret",
         }),
       ).toBe(false);
