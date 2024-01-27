@@ -8,6 +8,7 @@ import JWTAuthMiddleware, {
 import createHttpError from "http-errors";
 import JWT from "jsonwebtoken";
 import moment from "moment";
+import { fakeLambdaContext } from "./fakeLambdaContext";
 
 describe("exports", () => {
   it("reexports EncryptionAlgorithms", () => {
@@ -50,7 +51,7 @@ describe("JWTAuthMiddleware", () => {
         });
         expect(
           await JWTAuthMiddleware(options).before({
-            context: {} as any,
+            context: fakeLambdaContext,
             error: {} as Error,
             event: {
               headers: {
@@ -74,7 +75,7 @@ describe("JWTAuthMiddleware", () => {
         });
         expect(
           await JWTAuthMiddleware(options).before({
-            context: {} as any,
+            context: fakeLambdaContext,
             error: {} as Error,
             event: {
               headers: {
@@ -98,7 +99,7 @@ describe("JWTAuthMiddleware", () => {
         });
         expect(
           await JWTAuthMiddleware(options).before({
-            context: {} as any,
+            context: fakeLambdaContext,
             error: {} as Error,
             event: {
               headers: {
@@ -128,7 +129,7 @@ describe("JWTAuthMiddleware", () => {
           httpMethod: "GET",
         };
         await JWTAuthMiddleware(options).before({
-          context: {} as any,
+          context: fakeLambdaContext,
           error: {} as Error,
           event,
           response: null,
@@ -156,7 +157,7 @@ describe("JWTAuthMiddleware", () => {
           httpMethod: "GET",
         };
         await JWTAuthMiddleware(options).before({
-          context: {} as any,
+          context: fakeLambdaContext,
           error: {} as Error,
           event,
           response: null,
@@ -183,7 +184,7 @@ describe("JWTAuthMiddleware", () => {
         };
         await expect(
           JWTAuthMiddleware(options).before({
-            context: {} as any,
+            context: fakeLambdaContext,
             error: {} as Error,
             event,
             response: null,
@@ -214,7 +215,7 @@ describe("JWTAuthMiddleware", () => {
         };
         await expect(
           JWTAuthMiddleware(options).before({
-            context: {} as any,
+            context: fakeLambdaContext,
             error: {} as Error,
             event,
             response: null,
@@ -238,7 +239,7 @@ describe("JWTAuthMiddleware", () => {
         };
         await expect(
           JWTAuthMiddleware(options).before({
-            context: {} as any,
+            context: fakeLambdaContext,
             error: {} as Error,
             event: {
               headers: {
@@ -270,7 +271,7 @@ describe("JWTAuthMiddleware", () => {
         });
         await expect(
           JWTAuthMiddleware(options).before({
-            context: {} as any,
+            context: fakeLambdaContext,
             error: {} as Error,
             event: {
               headers: {
@@ -298,7 +299,7 @@ describe("JWTAuthMiddleware", () => {
         });
         await expect(
           JWTAuthMiddleware(options).before({
-            context: {} as any,
+            context: fakeLambdaContext,
             error: {} as Error,
             event: {
               headers: {
@@ -334,7 +335,7 @@ describe("JWTAuthMiddleware", () => {
         });
         await expect(
           JWTAuthMiddleware(options).before({
-            context: {} as any,
+            context: fakeLambdaContext,
             error: {} as Error,
             event: {
               headers: {
@@ -360,7 +361,7 @@ describe("JWTAuthMiddleware", () => {
         };
         await expect(
           JWTAuthMiddleware(options).before({
-            context: {} as any,
+            context: fakeLambdaContext,
             error: {} as Error,
             event: {
               httpMethod: "GET",
@@ -406,7 +407,7 @@ describe("JWTAuthMiddleware", () => {
           httpMethod: "GET",
         };
         await JWTAuthMiddleware(options).before({
-          context: {} as any,
+          context: fakeLambdaContext,
           error: {} as Error,
           event,
           response: null,
@@ -436,7 +437,7 @@ describe("JWTAuthMiddleware", () => {
         };
         await expect(
           JWTAuthMiddleware(options).before({
-            context: {} as any,
+            context: fakeLambdaContext,
             error: {} as Error,
             event,
             response: null,
@@ -482,7 +483,7 @@ describe("JWTAuthMiddleware", () => {
           queryStringParameters: { token },
         };
         await JWTAuthMiddleware(options).before({
-          context: {} as any,
+          context: fakeLambdaContext,
           error: {} as Error,
           event,
           response: null,
