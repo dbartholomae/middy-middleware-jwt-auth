@@ -457,11 +457,18 @@ describe("JWTAuthMiddleware", () => {
     });
 
     describe("with custom tokenSources", () => {
+      interface CustomEvent {
+        httpMethod: string;
+        queryStringParameters: { token: string };
+        auth?: { payload: unknown };
+      }
+
       it("resolves successfully if no token is found", async () => {
         const options = {
           algorithm: EncryptionAlgorithms.ES256,
           secretOrPublicKey: "secret",
-          tokenSource: (event: any) => event.queryStringParameters.token,
+          tokenSource: (event: CustomEvent) =>
+            event.queryStringParameters.token,
         };
         await expect(
           JWTAuthMiddleware(options).before({} as any),
@@ -472,13 +479,13 @@ describe("JWTAuthMiddleware", () => {
         const options = {
           algorithm: EncryptionAlgorithms.HS256,
           secretOrPublicKey: "secret",
-          tokenSource: (e: any) => e.queryStringParameters.token,
+          tokenSource: (e: CustomEvent) => e.queryStringParameters.token,
         };
         const data = { userId: 1 };
         const token = JWT.sign(data, options.secretOrPublicKey, {
           algorithm: options.algorithm,
         });
-        const event: any = {
+        const event: CustomEvent = {
           httpMethod: "GET",
           queryStringParameters: { token },
         };
@@ -489,7 +496,7 @@ describe("JWTAuthMiddleware", () => {
           response: null,
           internal: {},
         });
-        expect(event.auth.payload).toEqual({
+        expect(event.auth?.payload).toEqual({
           ...data,
           iat: expect.any(Number),
         });
