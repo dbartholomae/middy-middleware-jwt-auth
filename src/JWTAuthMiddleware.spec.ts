@@ -176,7 +176,7 @@ describe("JWTAuthMiddleware", () => {
           algorithm: options.algorithm,
         });
         const event: IAuthorizedEvent = {
-          auth: {} as any,
+          auth: { payload: "", token: "" },
           headers: {
             Authorization: `Bearer ${token}`,
           },
