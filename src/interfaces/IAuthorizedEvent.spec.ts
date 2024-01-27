@@ -1,50 +1,50 @@
-import { IAuthorizedEvent, isAuthorizedEvent } from './IAuthorizedEvent'
+import { IAuthorizedEvent, isAuthorizedEvent } from "./IAuthorizedEvent";
 
-describe('IAuthorizedEvent', () => {
-  describe('interface', () => {
-    it('accepts data that has an httpMethod and a string as an Authorization header', () => {
+describe("IAuthorizedEvent", () => {
+  describe("interface", () => {
+    it("accepts data that has an httpMethod and a string as an Authorization header", () => {
       const event: IAuthorizedEvent = {
         headers: {
-          Authorization: 'Bearer TOKEN'
+          Authorization: "Bearer TOKEN",
         },
-        httpMethod: 'GET'
-      }
-      expect(event).not.toBeNull()
-    })
+        httpMethod: "GET",
+      };
+      expect(event).not.toBeNull();
+    });
 
-    it('accepts data that has a requestContext.http object and a string as an Authorization header', () => {
+    it("accepts data that has a requestContext.http object and a string as an Authorization header", () => {
       const event: IAuthorizedEvent = {
         headers: {
-          Authorization: 'Bearer TOKEN'
+          Authorization: "Bearer TOKEN",
         },
         requestContext: {
           http: {
-            method: 'GET'
-          }
-        }
-      }
-      expect(event).not.toBeNull()
-    })
+            method: "GET",
+          },
+        },
+      };
+      expect(event).not.toBeNull();
+    });
 
-    it('accepts data that has an httpMethod and an Array as an Authorization header', () => {
+    it("accepts data that has an httpMethod and an Array as an Authorization header", () => {
       const event: IAuthorizedEvent = {
         headers: {
-          Authorization: ['Bearer TOKEN']
+          Authorization: ["Bearer TOKEN"],
         },
-        httpMethod: 'GET'
-      }
-      expect(event).not.toBeNull()
-    })
+        httpMethod: "GET",
+      };
+      expect(event).not.toBeNull();
+    });
 
-    it('accepts data that has an httpMethod and a string as an authorization header with lower-case a', () => {
+    it("accepts data that has an httpMethod and a string as an authorization header with lower-case a", () => {
       const event: IAuthorizedEvent = {
         headers: {
-          authorization: 'Bearer TOKEN'
+          authorization: "Bearer TOKEN",
         },
-        httpMethod: 'GET'
-      }
-      expect(event).not.toBeNull()
-    })
+        httpMethod: "GET",
+      };
+      expect(event).not.toBeNull();
+    });
 
     it("accepts data that has a requestContext.connectionId string and a string as an Authorization header", () => {
       const event: IAuthorizedEvent = {
@@ -55,59 +55,59 @@ describe('IAuthorizedEvent', () => {
           connectionId: "CONNECTION_ID",
           eventType: "CONNECT",
         },
-      }
+      };
       expect(event).not.toBeNull();
-    })
+    });
 
-    it('accepts data with token information set in the generics', () => {
+    it("accepts data with token information set in the generics", () => {
       interface IToken {
-        foo: string
+        foo: string;
       }
       const event: IAuthorizedEvent<IToken> = {
         auth: {
           payload: {
-            foo: ''
+            foo: "",
           },
-          token: ''
+          token: "",
         },
         headers: {
-          authorization: 'Bearer TOKEN'
+          authorization: "Bearer TOKEN",
         },
-        httpMethod: 'GET'
-      }
-      expect(event).not.toBeNull()
-    })
-  })
+        httpMethod: "GET",
+      };
+      expect(event).not.toBeNull();
+    });
+  });
 
-  describe('type guard', () => {
-    describe.each(['authorization', 'Authorization'])(
-      'with %s header',
+  describe("type guard", () => {
+    describe.each(["authorization", "Authorization"])(
+      "with %s header",
       (authHeader: string) => {
         it(`accepts data that has an httpMethod and a string as an ${authHeader} header`, () => {
           expect(
             isAuthorizedEvent({
               headers: {
-                [authHeader]: 'Bearer TOKEN'
+                [authHeader]: "Bearer TOKEN",
               },
-              httpMethod: 'GET'
-            })
-          ).toBe(true)
-        })
+              httpMethod: "GET",
+            }),
+          ).toBe(true);
+        });
 
         it(`accepts data that has a requestContext.http object and a string as an ${authHeader} header`, () => {
           expect(
             isAuthorizedEvent({
               headers: {
-                [authHeader]: 'Bearer TOKEN'
+                [authHeader]: "Bearer TOKEN",
               },
               requestContext: {
                 http: {
-                  method: 'GET'
-                }
-              }
-            })
-          ).toBe(true)
-        })
+                  method: "GET",
+                },
+              },
+            }),
+          ).toBe(true);
+        });
 
         it(`accepts data that has a requestContext.connectionId string and a string as an ${authHeader} header`, () => {
           expect(
@@ -119,16 +119,16 @@ describe('IAuthorizedEvent', () => {
                 connectionId: "CONNECTION_ID",
                 eventType: "CONNECT",
               },
-            })
+            }),
           ).toBe(true);
-        })
+        });
 
         it(`accepts data that has an httpMethod, a string as an ${authHeader} header and a payload verified by the given type guard`, () => {
           interface IToken {
-            foo: string
+            foo: string;
           }
-          function isToken (token: any): token is IToken {
-            return token != null && typeof token.foo === 'string'
+          function isToken(token: any): token is IToken {
+            return token != null && typeof token.foo === "string";
           }
 
           expect(
@@ -136,184 +136,184 @@ describe('IAuthorizedEvent', () => {
               {
                 auth: {
                   payload: {
-                    foo: 'bar'
+                    foo: "bar",
                   },
-                  token: ''
+                  token: "",
                 },
                 headers: {
-                  [authHeader]: 'Bearer TOKEN'
+                  [authHeader]: "Bearer TOKEN",
                 },
-                httpMethod: 'GET'
+                httpMethod: "GET",
               },
-              isToken
-            )
-          ).toBe(true)
-        })
+              isToken,
+            ),
+          ).toBe(true);
+        });
 
         it(`accepts data that has an httpMethod, a string as an ${authHeader} header, no auth and a type guard`, () => {
           interface IToken {
-            foo: string
+            foo: string;
           }
-          function isToken (token: any): token is IToken {
-            return token != null && typeof token.foo === 'string'
+          function isToken(token: any): token is IToken {
+            return token != null && typeof token.foo === "string";
           }
 
           expect(
             isAuthorizedEvent(
               {
                 headers: {
-                  [authHeader]: 'Bearer TOKEN'
+                  [authHeader]: "Bearer TOKEN",
                 },
-                httpMethod: 'GET'
+                httpMethod: "GET",
               },
-              isToken
-            )
-          ).toBe(true)
-        })
+              isToken,
+            ),
+          ).toBe(true);
+        });
 
         it(`accepts data that has an httpMethod and an array of strings as an ${authHeader} header`, () => {
           expect(
             isAuthorizedEvent({
               headers: {
-                [authHeader]: ['Bearer TOKEN']
+                [authHeader]: ["Bearer TOKEN"],
               },
-              httpMethod: 'GET'
-            })
-          ).toBe(true)
-        })
+              httpMethod: "GET",
+            }),
+          ).toBe(true);
+        });
 
-        it('rejects data without an httpMethod', () => {
+        it("rejects data without an httpMethod", () => {
           expect(
             isAuthorizedEvent({
               headers: {
-                [authHeader]: 'Bearer TOKEN'
-              }
-            })
-          ).toBe(false)
-        })
-
-        it('rejects data where httpMethod is an object', () => {
-          expect(
-            isAuthorizedEvent({
-              headers: {
-                [authHeader]: 'Bearer TOKEN'
+                [authHeader]: "Bearer TOKEN",
               },
-              httpMethod: { name: 'GET' }
-            })
-          ).toBe(false)
-        })
+            }),
+          ).toBe(false);
+        });
 
-        it('rejects data where httpMethod is a number', () => {
+        it("rejects data where httpMethod is an object", () => {
           expect(
             isAuthorizedEvent({
               headers: {
-                [authHeader]: 'Bearer TOKEN'
+                [authHeader]: "Bearer TOKEN",
               },
-              httpMethod: 1
-            })
-          ).toBe(false)
-        })
+              httpMethod: { name: "GET" },
+            }),
+          ).toBe(false);
+        });
 
-        it('rejects data where requestContext is a string', () => {
+        it("rejects data where httpMethod is a number", () => {
           expect(
             isAuthorizedEvent({
               headers: {
-                [authHeader]: 'Bearer TOKEN'
+                [authHeader]: "Bearer TOKEN",
               },
-              requestContext: 'GET'
-            })
-          ).toBe(false)
-        })
+              httpMethod: 1,
+            }),
+          ).toBe(false);
+        });
 
-        it('rejects data where requestContext is null', () => {
+        it("rejects data where requestContext is a string", () => {
           expect(
             isAuthorizedEvent({
               headers: {
-                [authHeader]: 'Bearer TOKEN'
+                [authHeader]: "Bearer TOKEN",
               },
-              requestContext: null
-            })
-          ).toBe(false)
-        })
+              requestContext: "GET",
+            }),
+          ).toBe(false);
+        });
 
-        it('rejects data where requestContext.http is a string', () => {
+        it("rejects data where requestContext is null", () => {
           expect(
             isAuthorizedEvent({
               headers: {
-                [authHeader]: 'Bearer TOKEN'
+                [authHeader]: "Bearer TOKEN",
+              },
+              requestContext: null,
+            }),
+          ).toBe(false);
+        });
+
+        it("rejects data where requestContext.http is a string", () => {
+          expect(
+            isAuthorizedEvent({
+              headers: {
+                [authHeader]: "Bearer TOKEN",
               },
               requestContext: {
-                http: 'GET'
-              }
-            })
-          ).toBe(false)
-        })
+                http: "GET",
+              },
+            }),
+          ).toBe(false);
+        });
 
-        it('rejects data where requestContext.connectionId is a number', () => {
+        it("rejects data where requestContext.connectionId is a number", () => {
           expect(
             isAuthorizedEvent({
               headers: {
-                [authHeader]: 'Bearer TOKEN'
+                [authHeader]: "Bearer TOKEN",
               },
               requestContext: {
                 connectionId: 1,
-                eventType: 'CONNECT',
-              }
-            })
-          ).toBe(false)
-        })
+                eventType: "CONNECT",
+              },
+            }),
+          ).toBe(false);
+        });
 
-        it('rejects data where authorization is an array with non-string members', () => {
+        it("rejects data where authorization is an array with non-string members", () => {
           expect(
             isAuthorizedEvent({
               headers: {
-                [authHeader]: [{}]
+                [authHeader]: [{}],
               },
-              httpMethod: 'GET'
-            })
-          ).toBe(false)
-        })
+              httpMethod: "GET",
+            }),
+          ).toBe(false);
+        });
 
-        it('rejects data where authorization is an empty array', () => {
+        it("rejects data where authorization is an empty array", () => {
           expect(
             isAuthorizedEvent({
               headers: {
-                [authHeader]: []
+                [authHeader]: [],
               },
-              httpMethod: 'GET'
-            })
-          ).toBe(false)
-        })
-      }
-    )
+              httpMethod: "GET",
+            }),
+          ).toBe(false);
+        });
+      },
+    );
 
-    it('rejects data that is null', () => {
-      expect(isAuthorizedEvent(null)).toBe(false)
-    })
+    it("rejects data that is null", () => {
+      expect(isAuthorizedEvent(null)).toBe(false);
+    });
 
-    it('rejects data without a header', () => {
+    it("rejects data without a header", () => {
       expect(
         isAuthorizedEvent({
-          httpMethod: 'GET'
-        })
-      ).toBe(false)
-    })
+          httpMethod: "GET",
+        }),
+      ).toBe(false);
+    });
 
-    it('rejects data without authorization', () => {
+    it("rejects data without authorization", () => {
       expect(
         isAuthorizedEvent({
           headers: {},
-          httpMethod: 'GET'
-        })
-      ).toBe(false)
-    })
+          httpMethod: "GET",
+        }),
+      ).toBe(false);
+    });
 
-    it('rejects data where the payload is rejected by a given type guard', () => {
+    it("rejects data where the payload is rejected by a given type guard", () => {
       interface IToken {
-        foo: string
+        foo: string;
       }
-      function isToken (token: any): token is IToken {
-        return token != null && typeof token.foo === 'string'
+      function isToken(token: any): token is IToken {
+        return token != null && typeof token.foo === "string";
       }
 
       expect(
@@ -321,11 +321,11 @@ describe('IAuthorizedEvent', () => {
           {
             auth: {},
             headers: {},
-            httpMethod: 'GET'
+            httpMethod: "GET",
           },
-          isToken
-        )
-      ).toBe(false)
-    })
-  })
-})
+          isToken,
+        ),
+      ).toBe(false);
+    });
+  });
+});

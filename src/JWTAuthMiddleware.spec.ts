@@ -2,494 +2,497 @@ import JWTAuthMiddleware, {
   EncryptionAlgorithms,
   IAuthorizedEvent,
   isAuthOptions,
-  isAuthorizedEvent
-} from './JWTAuthMiddleware'
+  isAuthorizedEvent,
+} from "./JWTAuthMiddleware";
 
-import createHttpError from 'http-errors'
-import JWT from 'jsonwebtoken'
-import moment from 'moment'
+import createHttpError from "http-errors";
+import JWT from "jsonwebtoken";
+import moment from "moment";
 
-describe('exports', () => {
-  it('reexports EncryptionAlgorithms', () => {
-    expect(EncryptionAlgorithms).toBeDefined()
-  })
+describe("exports", () => {
+  it("reexports EncryptionAlgorithms", () => {
+    expect(EncryptionAlgorithms).toBeDefined();
+  });
 
-  it('reexports isAuthOptions', () => {
-    expect(isAuthOptions).toBeDefined()
-  })
+  it("reexports isAuthOptions", () => {
+    expect(isAuthOptions).toBeDefined();
+  });
 
-  it('reexports isAuthorizedEvent', () => {
-    expect(isAuthorizedEvent).toBeDefined()
-  })
-})
+  it("reexports isAuthorizedEvent", () => {
+    expect(isAuthorizedEvent).toBeDefined();
+  });
+});
 
-describe('JWTAuthMiddleware', () => {
-  it('throws a type error when options are misformed', () => {
-    expect(() => JWTAuthMiddleware({} as any)).toThrowError(TypeError)
-  })
+describe("JWTAuthMiddleware", () => {
+  it("throws a type error when options are misformed", () => {
+    expect(() => JWTAuthMiddleware({} as any)).toThrowError(TypeError);
+  });
 
-  describe('before hook', () => {
-    describe('without a payload type guard', () => {
-      it('resolves successfully if event is misformed', async () => {
+  describe("before hook", () => {
+    describe("without a payload type guard", () => {
+      it("resolves successfully if event is misformed", async () => {
         const options = {
           algorithm: EncryptionAlgorithms.ES256,
-          secretOrPublicKey: 'secret'
-        }
+          secretOrPublicKey: "secret",
+        };
         await expect(
-          JWTAuthMiddleware(options).before({} as any)
-        ).resolves.toEqual(undefined)
-      })
+          JWTAuthMiddleware(options).before({} as any),
+        ).resolves.toEqual(undefined);
+      });
 
-      it('resolves if token is valid', async () => {
+      it("resolves if token is valid", async () => {
         const options = {
           algorithm: EncryptionAlgorithms.HS256,
-          secretOrPublicKey: 'secret'
-        }
+          secretOrPublicKey: "secret",
+        };
         const token = JWT.sign({}, options.secretOrPublicKey, {
-          algorithm: options.algorithm
-        })
+          algorithm: options.algorithm,
+        });
         expect(
           await JWTAuthMiddleware(options).before({
             context: {} as any,
             error: {} as Error,
             event: {
               headers: {
-                Authorization: `Bearer ${token}`
+                Authorization: `Bearer ${token}`,
               },
-              httpMethod: 'GET'
+              httpMethod: "GET",
             },
             response: null,
-            internal: {}
-          })
-        ).toEqual(undefined)
-      })
+            internal: {},
+          }),
+        ).toEqual(undefined);
+      });
 
-      it('resolves if token is given in lower case authorization header', async () => {
+      it("resolves if token is given in lower case authorization header", async () => {
         const options = {
           algorithm: EncryptionAlgorithms.HS256,
-          secretOrPublicKey: 'secret'
-        }
+          secretOrPublicKey: "secret",
+        };
         const token = JWT.sign({}, options.secretOrPublicKey, {
-          algorithm: options.algorithm
-        })
+          algorithm: options.algorithm,
+        });
         expect(
           await JWTAuthMiddleware(options).before({
             context: {} as any,
             error: {} as Error,
             event: {
               headers: {
-                authorization: `Bearer ${token}`
+                authorization: `Bearer ${token}`,
               },
-              httpMethod: 'GET'
+              httpMethod: "GET",
             },
             response: null,
-            internal: {}
-          })
-        ).toEqual(undefined)
-      })
+            internal: {},
+          }),
+        ).toEqual(undefined);
+      });
 
-      it('resolves if token is only entry in an array', async () => {
+      it("resolves if token is only entry in an array", async () => {
         const options = {
           algorithm: EncryptionAlgorithms.HS256,
-          secretOrPublicKey: 'secret'
-        }
+          secretOrPublicKey: "secret",
+        };
         const token = JWT.sign({}, options.secretOrPublicKey, {
-          algorithm: options.algorithm
-        })
+          algorithm: options.algorithm,
+        });
         expect(
           await JWTAuthMiddleware(options).before({
             context: {} as any,
             error: {} as Error,
             event: {
               headers: {
-                Authorization: [`Bearer ${token}`]
+                Authorization: [`Bearer ${token}`],
               },
-              httpMethod: 'GET'
+              httpMethod: "GET",
             },
             response: null,
-            internal: {}
-          })
-        ).toEqual(undefined)
-      })
+            internal: {},
+          }),
+        ).toEqual(undefined);
+      });
 
-      it('saves token information to event.auth.payload if token is valid', async () => {
+      it("saves token information to event.auth.payload if token is valid", async () => {
         const options = {
           algorithm: EncryptionAlgorithms.HS256,
-          secretOrPublicKey: 'secret'
-        }
-        const data = { userId: 1 }
+          secretOrPublicKey: "secret",
+        };
+        const data = { userId: 1 };
         const token = JWT.sign(data, options.secretOrPublicKey, {
-          algorithm: options.algorithm
-        })
-        const event: IAuthorizedEvent = {
-          headers: {
-            Authorization: `Bearer ${token}`
-          },
-          httpMethod: 'GET'
-        }
-        await JWTAuthMiddleware(options).before({
-          context: {} as any,
-          error: {} as Error,
-          event,
-          response: null,
-          internal: {}
-        })
-        expect(event.auth!.payload).toEqual({
-          ...data,
-          iat: expect.any(Number)
-        })
-      })
-
-      it('saves the token itself to event.auth.token if token is valid', async () => {
-        const options = {
-          algorithm: EncryptionAlgorithms.HS256,
-          secretOrPublicKey: 'secret'
-        }
-        const data = { userId: 1 }
-        const token = JWT.sign(data, options.secretOrPublicKey, {
-          algorithm: options.algorithm
-        })
-        const event: IAuthorizedEvent = {
-          headers: {
-            Authorization: `Bearer ${token}`
-          },
-          httpMethod: 'GET'
-        }
-        await JWTAuthMiddleware(options).before({
-          context: {} as any,
-          error: {} as Error,
-          event,
-          response: null,
-          internal: {}
-        })
-        expect(event.auth!.token).toEqual(token)
-      })
-
-      it('rejects if event.auth is already filled', async () => {
-        const options = {
-          algorithm: EncryptionAlgorithms.HS256,
-          secretOrPublicKey: 'secret'
-        }
-        const data = { userId: 1 }
-        const token = JWT.sign(data, options.secretOrPublicKey, {
-          algorithm: options.algorithm
-        })
-        const event: IAuthorizedEvent = {
-          auth: {} as any,
-          headers: {
-            Authorization: `Bearer ${token}`
-          },
-          httpMethod: 'GET'
-        }
-        await expect(
-          JWTAuthMiddleware(options).before({
-            context: {} as any,
-            error: {} as Error,
-            event,
-            response: null,
-            internal: {}
-          })
-        ).rejects.toEqual(
-          createHttpError(400, 'The events auth property has to be empty', {
-            type: 'EventAuthNotEmpty'
-          })
-        )
-      })
-
-      it('rejects if both authorization and Authorization headers are set', async () => {
-        const options = {
-          algorithm: EncryptionAlgorithms.HS256,
-          secretOrPublicKey: 'secret'
-        }
-        const data = { userId: 1 }
-        const token = JWT.sign(data, options.secretOrPublicKey, {
-          algorithm: options.algorithm
-        })
+          algorithm: options.algorithm,
+        });
         const event: IAuthorizedEvent = {
           headers: {
             Authorization: `Bearer ${token}`,
-            authorization: `Bearer ${token}`
           },
-          httpMethod: 'GET'
-        }
+          httpMethod: "GET",
+        };
+        await JWTAuthMiddleware(options).before({
+          context: {} as any,
+          error: {} as Error,
+          event,
+          response: null,
+          internal: {},
+        });
+        expect(event.auth!.payload).toEqual({
+          ...data,
+          iat: expect.any(Number),
+        });
+      });
+
+      it("saves the token itself to event.auth.token if token is valid", async () => {
+        const options = {
+          algorithm: EncryptionAlgorithms.HS256,
+          secretOrPublicKey: "secret",
+        };
+        const data = { userId: 1 };
+        const token = JWT.sign(data, options.secretOrPublicKey, {
+          algorithm: options.algorithm,
+        });
+        const event: IAuthorizedEvent = {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          httpMethod: "GET",
+        };
+        await JWTAuthMiddleware(options).before({
+          context: {} as any,
+          error: {} as Error,
+          event,
+          response: null,
+          internal: {},
+        });
+        expect(event.auth!.token).toEqual(token);
+      });
+
+      it("rejects if event.auth is already filled", async () => {
+        const options = {
+          algorithm: EncryptionAlgorithms.HS256,
+          secretOrPublicKey: "secret",
+        };
+        const data = { userId: 1 };
+        const token = JWT.sign(data, options.secretOrPublicKey, {
+          algorithm: options.algorithm,
+        });
+        const event: IAuthorizedEvent = {
+          auth: {} as any,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          httpMethod: "GET",
+        };
         await expect(
           JWTAuthMiddleware(options).before({
             context: {} as any,
             error: {} as Error,
             event,
             response: null,
-            internal: {}
-          })
+            internal: {},
+          }),
+        ).rejects.toEqual(
+          createHttpError(400, "The events auth property has to be empty", {
+            type: "EventAuthNotEmpty",
+          }),
+        );
+      });
+
+      it("rejects if both authorization and Authorization headers are set", async () => {
+        const options = {
+          algorithm: EncryptionAlgorithms.HS256,
+          secretOrPublicKey: "secret",
+        };
+        const data = { userId: 1 };
+        const token = JWT.sign(data, options.secretOrPublicKey, {
+          algorithm: options.algorithm,
+        });
+        const event: IAuthorizedEvent = {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            authorization: `Bearer ${token}`,
+          },
+          httpMethod: "GET",
+        };
+        await expect(
+          JWTAuthMiddleware(options).before({
+            context: {} as any,
+            error: {} as Error,
+            event,
+            response: null,
+            internal: {},
+          }),
         ).rejects.toEqual(
           createHttpError(
             400,
-            'Both authorization and Authorization headers found, only one can be set',
+            "Both authorization and Authorization headers found, only one can be set",
             {
-              type: 'MultipleAuthorizationHeadersSet'
-            }
-          )
-        )
-      })
+              type: "MultipleAuthorizationHeadersSet",
+            },
+          ),
+        );
+      });
 
-      it('rejects if Authorization header is malformed', async () => {
+      it("rejects if Authorization header is malformed", async () => {
         const options = {
           algorithm: EncryptionAlgorithms.HS256,
-          secretOrPublicKey: 'secret'
-        }
+          secretOrPublicKey: "secret",
+        };
         await expect(
           JWTAuthMiddleware(options).before({
             context: {} as any,
             error: {} as Error,
             event: {
               headers: {
-                Authorization: 'Malformed header'
+                Authorization: "Malformed header",
               },
-              httpMethod: 'GET'
+              httpMethod: "GET",
             },
             response: null,
-            internal: {}
-          })
+            internal: {},
+          }),
         ).rejects.toEqual(
           createHttpError(
             401,
             'Format should be "Authorization: Bearer [token]", received "Authorization: Malformed header" instead',
             {
-              type: 'WrongAuthFormat'
-            }
-          )
-        )
-      })
+              type: "WrongAuthFormat",
+            },
+          ),
+        );
+      });
 
-      it('rejects if token is invalid', async () => {
+      it("rejects if token is invalid", async () => {
         const options = {
           algorithm: EncryptionAlgorithms.HS256,
-          secretOrPublicKey: 'secret'
-        }
-        const token = JWT.sign({}, 'wrong secret', {
-          algorithm: options.algorithm
-        })
+          secretOrPublicKey: "secret",
+        };
+        const token = JWT.sign({}, "wrong secret", {
+          algorithm: options.algorithm,
+        });
         await expect(
           JWTAuthMiddleware(options).before({
             context: {} as any,
             error: {} as Error,
             event: {
               headers: {
-                Authorization: `Bearer ${token}`
+                Authorization: `Bearer ${token}`,
               },
-              httpMethod: 'GET'
+              httpMethod: "GET",
             },
             response: null,
-            internal: {}
-          })
+            internal: {},
+          }),
         ).rejects.toEqual(
-          createHttpError(401, 'Invalid token', {
-            type: 'InvalidToken'
-          })
-        )
-      })
+          createHttpError(401, "Invalid token", {
+            type: "InvalidToken",
+          }),
+        );
+      });
 
-      it('rejects if token is expired', async () => {
+      it("rejects if token is expired", async () => {
         const options = {
           algorithm: EncryptionAlgorithms.HS256,
-          secretOrPublicKey: 'secret'
-        }
-        const token = JWT.sign({ exp: 1 }, 'secret', {
-          algorithm: options.algorithm
-        })
+          secretOrPublicKey: "secret",
+        };
+        const token = JWT.sign({ exp: 1 }, "secret", {
+          algorithm: options.algorithm,
+        });
         await expect(
           JWTAuthMiddleware(options).before({
             context: {} as any,
             error: {} as Error,
             event: {
               headers: {
-                Authorization: `Bearer ${token}`
+                Authorization: `Bearer ${token}`,
               },
-              httpMethod: 'GET'
+              httpMethod: "GET",
             },
             response: null,
-            internal: {}
-          })
+            internal: {},
+          }),
         ).rejects.toEqual(
           createHttpError(
             401,
-            'Token expired at Thu, 01 Jan 1970 00:00:01 GMT',
+            "Token expired at Thu, 01 Jan 1970 00:00:01 GMT",
             {
               expiredAt: new Date(
-                'Thu Jan 01 1970 01:00:01 GMT+0100 (GMT+01:00)'
+                "Thu Jan 01 1970 01:00:01 GMT+0100 (GMT+01:00)",
               ),
-              type: 'TokenExpiredError'
-            }
-          )
-        )
-      })
+              type: "TokenExpiredError",
+            },
+          ),
+        );
+      });
 
       it("rejects if token isn't valid yet", async () => {
-        const validDate = new Date('2100-01-01T00:00:00Z')
+        const validDate = new Date("2100-01-01T00:00:00Z");
         const options = {
           algorithm: EncryptionAlgorithms.HS256,
-          secretOrPublicKey: 'secret'
-        }
-        const token = JWT.sign({ nbf: moment(validDate).unix() }, 'secret', {
-          algorithm: options.algorithm
-        })
+          secretOrPublicKey: "secret",
+        };
+        const token = JWT.sign({ nbf: moment(validDate).unix() }, "secret", {
+          algorithm: options.algorithm,
+        });
         await expect(
           JWTAuthMiddleware(options).before({
             context: {} as any,
             error: {} as Error,
             event: {
               headers: {
-                Authorization: `Bearer ${token}`
+                Authorization: `Bearer ${token}`,
               },
-              httpMethod: 'GET'
+              httpMethod: "GET",
             },
             response: null,
-            internal: {}
-          })
+            internal: {},
+          }),
         ).rejects.toEqual(
           createHttpError(401, `Token not valid before ${validDate}`, {
             date: validDate,
-            type: 'NotBeforeError'
-          })
-        )
-      })
-      it('rejects if authorization is required and no authorization header is set', async () => {
+            type: "NotBeforeError",
+          }),
+        );
+      });
+      it("rejects if authorization is required and no authorization header is set", async () => {
         const options = {
           algorithm: EncryptionAlgorithms.HS256,
           credentialsRequired: true,
-          secretOrPublicKey: 'secret'
-        }
+          secretOrPublicKey: "secret",
+        };
         await expect(
           JWTAuthMiddleware(options).before({
             context: {} as any,
             error: {} as Error,
             event: {
-              httpMethod: 'GET'
+              httpMethod: "GET",
             },
             response: null,
-            internal: {}
-          })
+            internal: {},
+          }),
         ).rejects.toEqual(
           createHttpError(
             401,
-            'No valid bearer token was set in the authorization header',
+            "No valid bearer token was set in the authorization header",
             {
-              type: 'AuthenticationRequired'
-            }
-          )
-        )
-      })
-    })
+              type: "AuthenticationRequired",
+            },
+          ),
+        );
+      });
+    });
 
-    describe('with a payload type guard', () => {
+    describe("with a payload type guard", () => {
       interface IPayload {
-        userId: number
+        userId: number;
       }
 
-      function isPayload (payload: any): payload is IPayload {
-        return payload != null && typeof payload.userId === 'number'
+      function isPayload(payload: any): payload is IPayload {
+        return payload != null && typeof payload.userId === "number";
       }
 
-      it('saves token information to event.auth.payload if token is valid', async () => {
+      it("saves token information to event.auth.payload if token is valid", async () => {
         const options = {
           algorithm: EncryptionAlgorithms.HS256,
           isPayload,
-          secretOrPublicKey: 'secret'
-        }
-        const data = { userId: 1 }
+          secretOrPublicKey: "secret",
+        };
+        const data = { userId: 1 };
         const token = JWT.sign(data, options.secretOrPublicKey, {
-          algorithm: options.algorithm
-        })
+          algorithm: options.algorithm,
+        });
         const event: IAuthorizedEvent = {
           headers: {
-            Authorization: `Bearer ${token}`
+            Authorization: `Bearer ${token}`,
           },
-          httpMethod: 'GET'
-        }
+          httpMethod: "GET",
+        };
         await JWTAuthMiddleware(options).before({
           context: {} as any,
           error: {} as Error,
           event,
           response: null,
-          internal: {}
-        })
+          internal: {},
+        });
         expect(event.auth!.payload).toEqual({
           ...data,
-          iat: expect.any(Number)
-        })
-      })
+          iat: expect.any(Number),
+        });
+      });
 
       it("rejects if payload doesn't pass the payload type guard", async () => {
         const options = {
           algorithm: EncryptionAlgorithms.HS256,
           isPayload,
-          secretOrPublicKey: 'secret'
-        }
-        const data = { iat: 1, user: 1 }
+          secretOrPublicKey: "secret",
+        };
+        const data = { iat: 1, user: 1 };
         const token = JWT.sign(data, options.secretOrPublicKey, {
-          algorithm: options.algorithm
-        })
+          algorithm: options.algorithm,
+        });
         const event: IAuthorizedEvent = {
           headers: {
-            Authorization: `Bearer ${token}`
+            Authorization: `Bearer ${token}`,
           },
-          httpMethod: 'GET'
-        }
+          httpMethod: "GET",
+        };
         await expect(
           JWTAuthMiddleware(options).before({
             context: {} as any,
             error: {} as Error,
             event,
             response: null,
-            internal: {}
-          })
+            internal: {},
+          }),
         ).rejects.toEqual(
           createHttpError(
             400,
             'Token payload malformed, was {"iat":1,"user":1}',
             {
               payload: { iat: 1, user: 1 },
-              type: 'TokenPayloadMalformedError'
-            }
-          )
-        )
-      })
-    })
+              type: "TokenPayloadMalformedError",
+            },
+          ),
+        );
+      });
+    });
 
-    describe('with custom tokenSources', () => {
-      it('resolves successfully if no token is found', async () => {
+    describe("with custom tokenSources", () => {
+      it("resolves successfully if no token is found", async () => {
         const options = {
           algorithm: EncryptionAlgorithms.ES256,
-          secretOrPublicKey: 'secret',
-          tokenSource: (event: any) => event.queryStringParameters.token
-        }
+          secretOrPublicKey: "secret",
+          tokenSource: (event: any) => event.queryStringParameters.token,
+        };
         await expect(
-          JWTAuthMiddleware(options).before({} as any)
-        ).resolves.toEqual(undefined)
-      })
+          JWTAuthMiddleware(options).before({} as any),
+        ).resolves.toEqual(undefined);
+      });
 
-      it('saves token information to event.auth.payload if token is valid', async () => {
+      it("saves token information to event.auth.payload if token is valid", async () => {
         const options = {
           algorithm: EncryptionAlgorithms.HS256,
-          secretOrPublicKey: 'secret',
-          tokenSource: (e: any) => e.queryStringParameters.token
-        }
-        const data = { userId: 1 }
+          secretOrPublicKey: "secret",
+          tokenSource: (e: any) => e.queryStringParameters.token,
+        };
+        const data = { userId: 1 };
         const token = JWT.sign(data, options.secretOrPublicKey, {
-          algorithm: options.algorithm
-        })
+          algorithm: options.algorithm,
+        });
         const event: any = {
-          httpMethod: 'GET',
-          queryStringParameters: { token }
-        }
+          httpMethod: "GET",
+          queryStringParameters: { token },
+        };
         await JWTAuthMiddleware(options).before({
           context: {} as any,
           error: {} as Error,
           event,
           response: null,
-          internal: {}
-        })
-        expect(event.auth.payload).toEqual({ ...data, iat: expect.any(Number) })
-      })
-    })
-  })
-})
+          internal: {},
+        });
+        expect(event.auth.payload).toEqual({
+          ...data,
+          iat: expect.any(Number),
+        });
+      });
+    });
+  });
+});
