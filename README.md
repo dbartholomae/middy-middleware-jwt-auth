@@ -24,7 +24,7 @@ npm install middy-middleware-jwt-auth --save
 
 ## Documentation
 
-There is [additional documentation](https://dbartholomae.github.com/middy-middleware-jwt-auth).
+There is [additional documentation](https://dbartholomae.github.io/middy-middleware-jwt-auth/).
 
 ## Usage
 
