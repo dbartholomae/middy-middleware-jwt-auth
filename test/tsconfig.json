@@ -8,6 +8,6 @@
     "sourceMap": false,
     "jsx": "react",
     "moduleResolution": "node",
-    "rootDir": "../",
-  },
+    "rootDir": "../"
+  }
 }

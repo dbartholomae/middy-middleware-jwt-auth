@@ -28,14 +28,14 @@ importers:
         specifier: ^19.0.3
         version: 19.1.0
       '@middy/core':
-        specifier: ^5.2.3
-        version: 5.3.2
+        specifier: ^6.4.1
+        version: 6.4.1
       '@middy/http-error-handler':
-        specifier: ^5.2.3
-        version: 5.3.2
+        specifier: ^6.4.1
+        version: 6.4.1
       '@middy/http-header-normalizer':
-        specifier: ^5.2.3
-        version: 5.3.2
+        specifier: ^6.4.1
+        version: 6.4.1
       '@semantic-release/changelog':
         specifier: ^6.0.3
         version: 6.0.3(semantic-release@23.0.6(typescript@5.4.3))
@@ -601,10 +601,6 @@ packages:
     resolution: {integrity: sha512-IchNf6dN4tHoMFIn/7OE8LWZ19Y6q/67Bmf6vnGREv8RSbBVb9LPJxEcnwrcwX6ixSvaiGoomAUvu4YSxXrVgw==}
     engines: {node: '>=12'}
 
-  '@datastream/core@0.0.35':
-    resolution: {integrity: sha512-jmKFcDTYqtDy8DHPahaheg3MlLBiQboYX4jYX8oxE1tO5x7cfLl5M6bqR/o46RCEFZ3M9yMVfEEh0hy5raErEw==}
-    engines: {node: '>=18'}
-
   '@eslint-community/eslint-utils@4.4.0':
     resolution: {integrity: sha512-1/sA4dwrzBAyeUoQ6oxahHKmrZvsnLCg4RfxW3ZFGGmQkSNQPFNLV9CUEFQP1x9EYXHTo5p6xdhZM1Ne9p/AfA==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
@@ -847,21 +843,21 @@ packages:
   '@kwsites/promise-deferred@1.1.1':
     resolution: {integrity: sha512-GaHYm+c0O9MjZRu0ongGBRbinu8gVAMd2UZjji6jVmqKtZluZnptXGWhz1E8j8D2HJ3f/yMxKAUC0b+57wncIw==}
 
-  '@middy/core@5.3.2':
-    resolution: {integrity: sha512-g1PonDsJI/t6DldRD/MijnE9kQBWYDZRfGkqJv/Dy+TXyTJmsmk6k/znx+RgqZYlpz1QodWi+6gzRsjPuvM8ew==}
-    engines: {node: '>=18'}
+  '@middy/core@6.4.1':
+    resolution: {integrity: sha512-NaKLoLUSkoxite0hkw5Tsa3DmuWyhRkZBbhD1tvr7FCWmj+MaQapNEvKMOSVNx/ET4ifY3KnKp0Zm0Q141Xcmg==}
+    engines: {node: '>=20'}
 
-  '@middy/http-error-handler@5.3.2':
-    resolution: {integrity: sha512-GJIT3K2uHsVcJiitbzMAS3VqD6wULs6aRyVpOJXypvjXnnjRBmIr7NaiyX7UDd0Ak+bOZbIEbaWylcWVKVCNfg==}
-    engines: {node: '>=18'}
+  '@middy/http-error-handler@6.4.1':
+    resolution: {integrity: sha512-06RAohqdb1AFRWFzM2qzw4+n0xqggnPgawssBY9jaSU/pjh+9+LQ2KbreY6qLtjxTt1xs+bdWElwU66FPVRb1g==}
+    engines: {node: '>=20'}
 
-  '@middy/http-header-normalizer@5.3.2':
-    resolution: {integrity: sha512-OHEHoU5C8xmm+IBBAO76KOnKfJ3cocj1DEPK7FuQZPSW/wUrrL2UUbZ2LGbysxHcicTyLoHtwea+/O87GohaeA==}
-    engines: {node: '>=18'}
+  '@middy/http-header-normalizer@6.4.1':
+    resolution: {integrity: sha512-R6SLfoz2T5A+wu4fPuXSha94MjTEoyZirvcJ+qyt8ebDZXl3GmisgA1w+BnaklTzJjMcs3GoosFPReZgKGWq5A==}
+    engines: {node: '>=20'}
 
-  '@middy/util@5.3.2':
-    resolution: {integrity: sha512-/Y5xxPwkQAigphYmJhThN6TGQCCFgybOYYK7SfiEr8cY7IhYnTys2uyTJR7ziS5jP82zNlgE9H5ZEj6IswHOKQ==}
-    engines: {node: '>=18'}
+  '@middy/util@6.4.1':
+    resolution: {integrity: sha512-/re+VOjVo/UrGbUmFDW5ty4H7YNUor76SWo+tjtEOj1950luXSvdfb1xQUz850SQs0HVUfBCfJaGYZ5hy/o2Vg==}
+    engines: {node: '>=20'}
 
   '@nodelib/fs.scandir@2.1.5':
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
@@ -1878,9 +1874,6 @@ packages:
   buffer@5.7.1:
     resolution: {integrity: sha512-EHcyIPBQ4BSGlvjB16k5KgAJ27CIsHY/2JBmCRReo48y9rQ3MaUzWX3KVlBa4U7MyX02HdVj0K7C3WaB3ju7FQ==}
 
-  buffer@6.0.3:
-    resolution: {integrity: sha512-FTiCpNxtwiZZHEZbcbTIcZjERVICn9yq/pDFkTl95/AxzD1naBctN7YO68riM/gLSDY7sdrMby8hofADYuuqOA==}
-
   builtin-modules@3.3.0:
     resolution: {integrity: sha512-zhaCDicdLuWN5UbN5IMnFqNMhNfo919sH85y2/ea+5Yg9TsTkeZxpL+JLbp6cgYFS4sRLp3YV4S6yDuqVWHYOw==}
     engines: {node: '>=6'}
@@ -2037,9 +2030,6 @@ packages:
   clone@1.0.4:
     resolution: {integrity: sha512-JQHZ2QMW6l3aH/j6xCqQThY/9OH4D/9ls34cgkUBiEeocRTU04tHfKPBsUK1PqZCUQM7GiA0IIXJSuXHI64Kbg==}
     engines: {node: '>=0.8'}
-
-  cloneable-readable@3.0.0:
-    resolution: {integrity: sha512-Lkfd9IRx1nfiBr7UHNxJSl/x7DOeUfYmxzCkxYJC2tyc/9vKgV75msgLGurGQsak/NvJDHMWcshzEXRlxfvhqg==}
 
   co@4.6.0:
     resolution: {integrity: sha512-QVb0dM5HvG+uaxitm8wONl7jltx8dqhfU33DcqtOZcLSVIKSDDLDi7+0LbAKiyI8hD9u42m2YxXSkMGWThaecQ==}
@@ -4173,10 +4163,6 @@ packages:
     resolution: {integrity: sha512-fMyMQbKCxX51YxR7YGCzPjLsU3yDzXFkP4oi1/Mt5Ixnk7GO/7uUTj8mrCHUwuvozWzI+V7QSJR9cZYnwNOZPg==}
     engines: {node: '>=10.0'}
 
-  process@0.11.10:
-    resolution: {integrity: sha512-cdGef/drWFoydD1JsMzuFf8100nZl+GT+yacc2bEced5f9Rjk4z+WtFUTBu9PhOi9j/jfmBPu0mMEY4wIdAF8A==}
-    engines: {node: '>= 0.6.0'}
-
   promise-queue@2.2.5:
     resolution: {integrity: sha512-p/iXrPSVfnqPft24ZdNNLECw/UrtLTpT3jpAAMzl/o5/rDsGCPo3/CQS2611flL6LkoEJ3oQZw7C8Q80ZISXRQ==}
     engines: {node: '>= 0.8.0'}
@@ -4261,10 +4247,6 @@ packages:
   readable-stream@3.6.2:
     resolution: {integrity: sha512-9u/sniCrY3D5WdsERHzHE4G2YCXqoG5FTHUiCC4SIbr6XcLZBY05ya9EKjYek9O5xOAwjGq+1JdGBAS7Q9ScoA==}
     engines: {node: '>= 6'}
-
-  readable-stream@4.5.2:
-    resolution: {integrity: sha512-yjavECdqeZ3GLXNgRXgeQEdz9fvDDkNKyHnbHRFtOr7/LcfgBcmct7t/ET+HaCTqfh06OzoAxrkN/IfjJBVe+g==}
-    engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
 
   readable-web-to-node-stream@3.0.2:
     resolution: {integrity: sha512-ePeK6cc1EcKLEhJFt/AebMCLL+GgSKhuygrZ/GLaKZYEecIgIECf4UaUuaByiGtzckwR4ain9VzUh95T1exYGw==}
@@ -6198,10 +6180,6 @@ snapshots:
       '@jridgewell/trace-mapping': 0.3.9
     optional: true
 
-  '@datastream/core@0.0.35':
-    dependencies:
-      cloneable-readable: 3.0.0
-
   '@eslint-community/eslint-utils@4.4.0(eslint@9.1.0)':
     dependencies:
       eslint: 9.1.0
@@ -6632,17 +6610,15 @@ snapshots:
 
   '@kwsites/promise-deferred@1.1.1': {}
 
-  '@middy/core@5.3.2':
+  '@middy/core@6.4.1': {}
+
+  '@middy/http-error-handler@6.4.1':
     dependencies:
-      '@datastream/core': 0.0.35
+      '@middy/util': 6.4.1
 
-  '@middy/http-error-handler@5.3.2':
-    dependencies:
-      '@middy/util': 5.3.2
+  '@middy/http-header-normalizer@6.4.1': {}
 
-  '@middy/http-header-normalizer@5.3.2': {}
-
-  '@middy/util@5.3.2': {}
+  '@middy/util@6.4.1': {}
 
   '@nodelib/fs.scandir@2.1.5':
     dependencies:
@@ -8122,11 +8098,6 @@ snapshots:
       base64-js: 1.5.1
       ieee754: 1.2.1
 
-  buffer@6.0.3:
-    dependencies:
-      base64-js: 1.5.1
-      ieee754: 1.2.1
-
   builtin-modules@3.3.0: {}
 
   builtins@1.0.3: {}
@@ -8297,10 +8268,6 @@ snapshots:
       mimic-response: 1.0.1
 
   clone@1.0.4: {}
-
-  cloneable-readable@3.0.0:
-    dependencies:
-      readable-stream: 4.5.2
 
   co@4.6.0: {}
 
@@ -10574,8 +10541,6 @@ snapshots:
       memoizee: 0.4.15
       type: 2.7.2
 
-  process@0.11.10: {}
-
   promise-queue@2.2.5: {}
 
   prompts@2.4.2:
@@ -10667,14 +10632,6 @@ snapshots:
       inherits: 2.0.4
       string_decoder: 1.3.0
       util-deprecate: 1.0.2
-
-  readable-stream@4.5.2:
-    dependencies:
-      abort-controller: 3.0.0
-      buffer: 6.0.3
-      events: 3.3.0
-      process: 0.11.10
-      string_decoder: 1.3.0
 
   readable-web-to-node-stream@3.0.2:
     dependencies:
