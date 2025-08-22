@@ -132,6 +132,30 @@ describe("JWTAuthMiddleware", () => {
         ).toEqual(undefined);
       });
 
+      it("resolves if secretOrPublicKey is a function", async () => {
+        const options = {
+          algorithm: EncryptionAlgorithms.HS512,
+          secretOrPublicKey: () => "secret",
+        };
+        const token = await JWT.sign({}, options.secretOrPublicKey(), {
+          algorithm: options.algorithm,
+        });
+        expect(
+          await JWTAuthMiddleware(options).before({
+            context: fakeLambdaContext,
+            error: {} as Error,
+            event: {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+              httpMethod: "GET",
+            },
+            response: null,
+            internal: {},
+          }),
+        ).toEqual(undefined);
+      });
+
       it("saves token information to event.auth.payload if token is valid", async () => {
         const options = {
           algorithm: EncryptionAlgorithms.HS256,
