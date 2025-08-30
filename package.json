@@ -1,6 +1,6 @@
 {
   "name": "middy-middleware-jwt-auth",
-  "version": "6.1.0",
+  "version": "6.2.0",
   "description": "A middy JSON web token authorization middleware inspired by express-jwt.",
   "homepage": "",
   "license": "MIT",
