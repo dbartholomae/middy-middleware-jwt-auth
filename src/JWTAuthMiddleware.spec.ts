@@ -24,9 +24,9 @@ const fakeLambdaContext = {
     return 100;
   },
 
-  done() {},
-  fail() {},
-  succeed() {},
+  done() { },
+  fail() { },
+  succeed() { },
 };
 
 describe("exports", () => {
@@ -74,7 +74,7 @@ describe("JWTAuthMiddleware", () => {
             error: {} as Error,
             event: {
               headers: {
-                Authorization: `Bearer ${token}`,
+                Authorization: `Bearer ${ token }`,
               },
               httpMethod: "GET",
             },
@@ -98,7 +98,7 @@ describe("JWTAuthMiddleware", () => {
             error: {} as Error,
             event: {
               headers: {
-                authorization: `Bearer ${token}`,
+                authorization: `Bearer ${ token }`,
               },
               httpMethod: "GET",
             },
@@ -122,7 +122,7 @@ describe("JWTAuthMiddleware", () => {
             error: {} as Error,
             event: {
               headers: {
-                Authorization: [`Bearer ${token}`],
+                Authorization: [`Bearer ${ token }`],
               },
               httpMethod: "GET",
             },
@@ -134,10 +134,10 @@ describe("JWTAuthMiddleware", () => {
 
       it("resolves if secretOrPublicKey is a function", async () => {
         const options = {
-          algorithm: EncryptionAlgorithms.HS512,
-          secretOrPublicKey: () => "secret",
+          algorithm: EncryptionAlgorithms.HS256,
+          secretOrPublicKey: (header: any, callback: any) => callback(null, "secret"),
         };
-        const token = await JWT.sign({}, options.secretOrPublicKey(), {
+        const token = JWT.sign({}, options.secretOrPublicKey({}, (err: any, key: any) => key), {
           algorithm: options.algorithm,
         });
         expect(
@@ -146,7 +146,7 @@ describe("JWTAuthMiddleware", () => {
             error: {} as Error,
             event: {
               headers: {
-                Authorization: `Bearer ${token}`,
+                Authorization: `Bearer ${ token }`,
               },
               httpMethod: "GET",
             },
@@ -167,7 +167,7 @@ describe("JWTAuthMiddleware", () => {
         });
         const event: IAuthorizedEvent = {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${ token }`,
           },
           httpMethod: "GET",
         };
@@ -195,7 +195,7 @@ describe("JWTAuthMiddleware", () => {
         });
         const event: IAuthorizedEvent = {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${ token }`,
           },
           httpMethod: "GET",
         };
@@ -221,7 +221,7 @@ describe("JWTAuthMiddleware", () => {
         const event: IAuthorizedEvent = {
           auth: { payload: "", token: "" },
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${ token }`,
           },
           httpMethod: "GET",
         };
@@ -251,8 +251,8 @@ describe("JWTAuthMiddleware", () => {
         });
         const event: IAuthorizedEvent = {
           headers: {
-            Authorization: `Bearer ${token}`,
-            authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${ token }`,
+            authorization: `Bearer ${ token }`,
           },
           httpMethod: "GET",
         };
@@ -318,7 +318,7 @@ describe("JWTAuthMiddleware", () => {
             error: {} as Error,
             event: {
               headers: {
-                Authorization: `Bearer ${token}`,
+                Authorization: `Bearer ${ token }`,
               },
               httpMethod: "GET",
             },
@@ -346,7 +346,7 @@ describe("JWTAuthMiddleware", () => {
             error: {} as Error,
             event: {
               headers: {
-                Authorization: `Bearer ${token}`,
+                Authorization: `Bearer ${ token }`,
               },
               httpMethod: "GET",
             },
@@ -382,7 +382,7 @@ describe("JWTAuthMiddleware", () => {
             error: {} as Error,
             event: {
               headers: {
-                Authorization: `Bearer ${token}`,
+                Authorization: `Bearer ${ token }`,
               },
               httpMethod: "GET",
             },
@@ -390,7 +390,7 @@ describe("JWTAuthMiddleware", () => {
             internal: {},
           }),
         ).rejects.toEqual(
-          createHttpError(401, `Token not valid before ${validDate}`, {
+          createHttpError(401, `Token not valid before ${ validDate }`, {
             date: validDate,
             type: "NotBeforeError",
           }),
@@ -450,7 +450,7 @@ describe("JWTAuthMiddleware", () => {
         });
         const event: IAuthorizedEvent = {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${ token }`,
           },
           httpMethod: "GET",
         };
@@ -479,7 +479,7 @@ describe("JWTAuthMiddleware", () => {
         });
         const event: IAuthorizedEvent = {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${ token }`,
           },
           httpMethod: "GET",
         };
@@ -520,6 +520,32 @@ describe("JWTAuthMiddleware", () => {
         };
         await expect(
           JWTAuthMiddleware(options).before({} as never),
+        ).resolves.toEqual(undefined);
+      });
+
+      it("resolves successfully when async tokenSource is used", async () => {
+        const options = {
+          algorithm: EncryptionAlgorithms.HS512,
+          secretOrPublicKey: "secret",
+          tokenSource: async (event: CustomEvent) =>
+            event.queryStringParameters.token,
+        };
+        const data = { userId: 1 };
+        const token = JWT.sign(data, options.secretOrPublicKey, {
+          algorithm: options.algorithm,
+        });
+        const event: CustomEvent = {
+          httpMethod: "GET",
+          queryStringParameters: { token },
+        };
+        await expect(
+          JWTAuthMiddleware(options).before({
+            context: fakeLambdaContext,
+            error: {} as Error,
+            event,
+            response: null,
+            internal: {},
+          }),
         ).resolves.toEqual(undefined);
       });
 
