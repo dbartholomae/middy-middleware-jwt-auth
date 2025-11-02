@@ -12,3 +12,7 @@ updates:
       - dependency-name: "serverless"
         # Starting with version 4, serverless requires a license key
         versions: [ "4.x"]
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
