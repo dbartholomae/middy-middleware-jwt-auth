@@ -3,6 +3,7 @@ pull_request_rules:
     conditions:
       - base=main
       - "#approved-reviews-by>=1"
+      - status-success=lint-pr-title
       - status-success=build (2.x)
       - status-success=build (3.x)
       - status-success=build (4.x)
@@ -17,6 +18,7 @@ pull_request_rules:
     conditions:
       - author=dbartholomae
       - base=main
+      - status-success=lint-pr-title
       - status-success=build (2.x)
       - status-success=build (3.x)
       - status-success=build (4.x)
@@ -29,6 +31,7 @@ pull_request_rules:
   - name: automatic merge for Dependabot pull requests
     conditions:
       - author~=^dependabot(|-preview)\[bot\]$
+      - status-success=lint-pr-title
       - status-success=build (2.x)
       - status-success=build (3.x)
       - status-success=build (4.x)
