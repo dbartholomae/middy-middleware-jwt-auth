@@ -8,3 +8,7 @@ updates:
       all:
         patterns:
           - "*"
+    ignore:
+      - dependency-name: "serverless"
+        # Starting with version 4, serverless requires a license key
+        versions: [ "4.x"]
