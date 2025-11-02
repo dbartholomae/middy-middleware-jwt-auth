@@ -3,6 +3,7 @@
     "baseUrl": ".",
     "module": "commonjs",
     "esModuleInterop": true,
+    "skipLibCheck": true,
     "target": "es5",
     "lib": ["es6", "dom"],
     "sourceMap": false,

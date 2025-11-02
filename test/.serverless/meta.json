@@ -1,0 +1,67 @@
+{
+  "/Users/danielbartholomae/repos/middy-middleware-jwt-auth/test/serverless.yml": {
+    "versionFramework": "4.22.0",
+    "servicePath": "/Users/danielbartholomae/repos/middy-middleware-jwt-auth/test/serverless.yml",
+    "serviceConfigFileName": "serverless.yml",
+    "service": {
+      "service": "test-microservice",
+      "plugins": ["serverless-webpack", "serverless-offline"],
+      "provider": {
+        "name": "aws",
+        "runtime": "nodejs20.x",
+        "httpApi": {
+          "payload": "2.0"
+        }
+      },
+      "functions": {
+        "hello": {
+          "handler": "handler.fullExample",
+          "events": [
+            {
+              "http": {
+                "method": "get",
+                "path": "/rest/hello"
+              }
+            },
+            {
+              "httpApi": {
+                "method": "get",
+                "path": "/http/hello"
+              }
+            }
+          ]
+        },
+        "status": {
+          "handler": "handler.status",
+          "events": [
+            {
+              "http": {
+                "method": "get",
+                "path": "/status"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "provider": {
+      "name": "aws",
+      "runtime": "nodejs20.x",
+      "httpApi": {
+        "payload": "2.0"
+      }
+    },
+    "error": {
+      "message": "You must sign in or use a license key with Serverless Framework V.4 and later versions. Please use \"serverless login\".",
+      "stack": "Error: You must sign in or use a license key with Serverless Framework V.4 and later versions. Please use \"serverless login\".\n    at Authentication.getAuthenticatedData (file:///Users/danielbartholomae/.serverless/releases/4.22.0/package/dist/sf-core.js:717:11064)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async Authentication.authenticate (file:///Users/danielbartholomae/.serverless/releases/4.22.0/package/dist/sf-core.js:719:22222)\n    at async TraditionalRunner.resolveVariablesAndAuthenticate (file:///Users/danielbartholomae/.serverless/releases/4.22.0/package/dist/sf-core.js:726:1266)\n    at async TraditionalRunner.run (file:///Users/danielbartholomae/.serverless/releases/4.22.0/package/dist/sf-core.js:1353:27914)\n    at async route (file:///Users/danielbartholomae/.serverless/releases/4.22.0/package/dist/sf-core.js:1528:2878)\n    at async Object.run (file:///Users/danielbartholomae/.serverless/releases/4.22.0/package/dist/sf-core.js:1529:3755)\n    at async run2 (file:///Users/danielbartholomae/.serverless/releases/4.22.0/package/dist/sf-core.js:1529:4909)"
+    },
+    "serviceRawFile": "service: test-microservice\n\nplugins:\n  - serverless-webpack\n  - serverless-offline\n\nprovider:\n  name: aws\n  runtime: nodejs20.x\n  httpApi:\n    payload: \"2.0\"\n\nfunctions:\n  hello:\n    handler: handler.fullExample\n    events:\n      - http:\n          method: get\n          path: /rest/hello\n      - httpApi:\n          method: get\n          path: /http/hello\n\n  status:\n    handler: handler.status\n    events:\n      - http:\n          method: get\n          path: /status\n",
+    "command": ["offline"],
+    "options": {},
+    "serviceProviderAwsCfStackId": null,
+    "serviceProviderAwsCfStackCreated": null,
+    "serviceProviderAwsCfStackUpdated": null,
+    "serviceProviderAwsCfStackStatus": null,
+    "serviceProviderAwsCfStackOutputs": null
+  }
+}

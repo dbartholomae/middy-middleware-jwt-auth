@@ -215,7 +215,7 @@ export class JWTAuthMiddleware<Payload> {
     );
     try {
       return this.options.tokenSource && this.options.tokenSource(event);
-    } catch (err) {
+    } catch {
       return undefined;
     }
   }

@@ -45,7 +45,7 @@ describe("exports", () => {
 
 describe("JWTAuthMiddleware", () => {
   it("throws a type error when options are misformed", () => {
-    expect(() => JWTAuthMiddleware({} as never)).toThrowError(TypeError);
+    expect(() => JWTAuthMiddleware({} as never)).toThrow(TypeError);
   });
 
   describe("before hook", () => {
