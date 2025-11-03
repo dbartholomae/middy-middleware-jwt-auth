@@ -19,7 +19,7 @@ jobs:
         middyVersion: ["2.x", "3.x", "4.x", "5.x", "6.x"]
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
       - name: Setup Node.js
@@ -58,7 +58,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
