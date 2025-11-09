@@ -9,6 +9,6 @@ Closes #<!-- Replace this comment with the issue number -->
 
 - [ ] I have updated the documentation accordingly.
 - [ ] I have read the **CONTRIBUTING** document.
-- [ ] I confirm that I've signed off all my commits in accordance with the [Developer Certificate of Origin](../DCO.md)
+- [ ] I confirm that I've signed off all my commits in accordance with the [Developer Certificate of Origin](https://github.com/dbartholomae/middy-middleware-jwt-auth/blob/main/DCO.md)
 
 <!-- If you wrote meaningful commit messages, this is it. If you don't feel confident that your commit messages fully explain your changes and your reasoning behind it, then you can add more information to this PR. Or, even better, update your commit messages ;) -->
