@@ -1,0 +1,59 @@
+name: Run tests
+
+on:
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        middyVersion: ["2.x", "3.x", "4.x", "5.x", "6.x"]
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22.x
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ^7.17.1
+
+      - name: Install
+        run: pnpm install --frozen-lockfile=false
+
+      - name: Install middy version ${{ matrix.middyVersion }}
+        run: |
+          pnpm add @middy/core@${{ matrix.middyVersion }}
+          pnpm add @middy/http-error-handler@${{ matrix.middyVersion }}
+          pnpm add @middy/http-header-normalizer@${{ matrix.middyVersion }}
+
+      - name: Build
+        run: pnpm run build
+
+      - name: Build documentation
+        run: |
+          pnpm run docs
+          touch ./docs/.nojekyll
+
+      - name: Lint
+        run: pnpm run lint
+
+      - name: Run unit tests
+        run: pnpm run test:unit
+
+      - name: Upload code coverage to codecov
+        uses: codecov/codecov-action@v5
+
+      - name: Run integration tests
+        run: pnpm run test:integration

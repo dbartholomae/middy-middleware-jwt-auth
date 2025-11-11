@@ -1,0 +1,12 @@
+name: Check PR
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    uses: run-tests.yml
