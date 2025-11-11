@@ -1,3 +1,4 @@
+import { describe, it, expect } from "vitest";
 import JWT from "jsonwebtoken";
 import request from "supertest";
 const server = request("http://localhost:3000");

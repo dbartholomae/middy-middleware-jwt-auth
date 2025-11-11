@@ -1,3 +1,4 @@
+import { describe, it, expect } from "vitest";
 import { IAuthorizedEvent, isAuthorizedEvent } from "./IAuthorizedEvent";
 
 describe("IAuthorizedEvent", () => {
