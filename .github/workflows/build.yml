@@ -76,9 +76,9 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
       - name: Publish
-        uses: cycjimmy/semantic-release-action@v5
+        uses: cycjimmy/semantic-release-action@ba330626c4750c19d8299de843f05c7aa5574f62 # v5.0.2
         with:
-          semantic_version: 25
+          semantic_version: 25.0.1
           branches: main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
