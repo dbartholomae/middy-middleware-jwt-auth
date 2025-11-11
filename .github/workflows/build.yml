@@ -8,7 +8,8 @@ on:
 
 permissions:
   id-token: write  # Required for OIDC
-  contents: write
+  issues: write # For commenting on issues/PRs solved by a release
+  contents: write # Save version/documentation updates on release
 
 jobs:
   build:
