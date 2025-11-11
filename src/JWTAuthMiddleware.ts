@@ -213,16 +213,21 @@ export class JWTAuthMiddleware<Payload> {
   }
 
   /** Extracts a token from a source defined in the options. */
-  private async getTokenFromSource(
+  private getTokenFromSource(
     event: IAuthorizedEvent<Payload>,
   ): Promise<string | undefined> {
     this.logger(
       "Checking whether event contains token based on given tokenSource",
     );
+    const { tokenSource } = this.options;
+    if (!tokenSource) {
+      return Promise.resolve(undefined);
+    }
+
     try {
-      return this.options.tokenSource && await this.options.tokenSource(event);
+      return Promise.resolve(tokenSource(event)).catch(() => undefined);
     } catch {
-      return undefined;
+      return Promise.resolve(undefined);
     }
   }
 }

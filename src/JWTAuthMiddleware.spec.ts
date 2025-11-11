@@ -549,6 +549,37 @@ describe("JWTAuthMiddleware", () => {
         ).resolves.toEqual(undefined);
       });
 
+      it("falls back to authorization header if tokenSource throws", async () => {
+        const options = {
+          algorithm: EncryptionAlgorithms.HS256,
+          secretOrPublicKey: "secret",
+          tokenSource: () => Promise.reject(new Error("token source failed")),
+        };
+        const data = { userId: 1 };
+        const token = JWT.sign(data, options.secretOrPublicKey, {
+          algorithm: options.algorithm,
+        });
+        const event: IAuthorizedEvent = {
+          headers: {
+            Authorization: `Bearer ${ token }`,
+          },
+          httpMethod: "GET",
+        };
+        await expect(
+          JWTAuthMiddleware(options).before({
+            context: fakeLambdaContext,
+            error: {} as Error,
+            event,
+            response: null,
+            internal: {},
+          }),
+        ).resolves.toEqual(undefined);
+        expect(event.auth?.payload).toEqual({
+          ...data,
+          iat: expect.any(Number),
+        });
+      });
+
       it("saves token information to event.auth.payload if token is valid", async () => {
         const options = {
           algorithm: EncryptionAlgorithms.HS256,
