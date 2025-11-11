@@ -78,7 +78,8 @@ export class JWTAuthMiddleware<Payload> {
     }
 
     const token =
-      await this.getTokenFromSource(event) || this.getTokenFromAuthHeader(event);
+      (await this.getTokenFromSource(event)) ||
+      this.getTokenFromAuthHeader(event);
 
     if (token === undefined) {
       return;
@@ -87,14 +88,19 @@ export class JWTAuthMiddleware<Payload> {
     this.logger("Verifying authorization token");
     let payload: any;
     try {
-      payload = await (new Promise((resolve, reject) => {
-        jwt.verify(token, this.options.secretOrPublicKey, {
-          algorithms: [this.options.algorithm],
-        }, (err, decoded) => {
-          if (err) return reject(err);
-          resolve(decoded);
-        });
-      }));
+      payload = await new Promise((resolve, reject) => {
+        jwt.verify(
+          token,
+          this.options.secretOrPublicKey,
+          {
+            algorithms: [this.options.algorithm],
+          },
+          (err, decoded) => {
+            if (err) return reject(err);
+            resolve(decoded);
+          },
+        );
+      });
     } catch (err) {
       this.logger("Token could not be verified");
 
@@ -213,7 +219,7 @@ export class JWTAuthMiddleware<Payload> {
   }
 
   /** Extracts a token from a source defined in the options. */
-  private getTokenFromSource(
+  private async getTokenFromSource(
     event: IAuthorizedEvent<Payload>,
   ): Promise<string | undefined> {
     this.logger(
@@ -221,13 +227,13 @@ export class JWTAuthMiddleware<Payload> {
     );
     const { tokenSource } = this.options;
     if (!tokenSource) {
-      return Promise.resolve(undefined);
+      return undefined;
     }
 
     try {
-      return Promise.resolve(tokenSource(event)).catch(() => undefined);
+      return await tokenSource(event);
     } catch {
-      return Promise.resolve(undefined);
+      return undefined;
     }
   }
 }
