@@ -9,7 +9,7 @@ pull_request_rules:
       - status-success=build (4.x)
       - status-success=build (5.x)
       - status-success=build (6.x)
-      - status-success=license/cla
+      - status-success=dco/dco
     actions:
       merge:
         method: merge
