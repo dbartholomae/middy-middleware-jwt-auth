@@ -89,5 +89,8 @@
     "wait-on": "^9.0.1",
     "webpack": "^5.102.1"
   },
-  "repository": "git@github.com:dbartholomae/middy-middleware-jwt-auth.git"
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/dbartholomae/middy-middleware-jwt-auth.git"
+  }
 }
