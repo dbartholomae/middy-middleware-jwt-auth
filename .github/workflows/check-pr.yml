@@ -9,4 +9,4 @@ permissions:
 
 jobs:
   test:
-    uses: run-tests.yml
+    uses: ./.github/workflows/run-tests.yml
