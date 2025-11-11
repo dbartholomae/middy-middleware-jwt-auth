@@ -1,3 +1,16 @@
+# [6.3.0](https://github.com/dbartholomae/middy-middleware-jwt-auth/compare/6.2.0...6.3.0) (2025-11-11)
+
+
+### Bug Fixes
+
+* added support for async tokenSource and an optional callback for secretOrPublicKey ([8ad96d9](https://github.com/dbartholomae/middy-middleware-jwt-auth/commit/8ad96d9b91f2f2002a13fd59caea2d80b54b392f))
+* added test for tokenSource and fixed test for secretOrPublicKey as function ([b564e1a](https://github.com/dbartholomae/middy-middleware-jwt-auth/commit/b564e1a40afe818862501201acbc96a5bed03ed7))
+
+
+### Features
+
+* add support for async tokenSource and an optional callback for secretPublicKey ([3d1e6b2](https://github.com/dbartholomae/middy-middleware-jwt-auth/commit/3d1e6b2cc3b3b6c841837f62ad2d489267672ed2))
+
 # [6.2.0](https://github.com/dbartholomae/middy-middleware-jwt-auth/compare/6.1.0...6.2.0) (2025-08-30)
 
 
