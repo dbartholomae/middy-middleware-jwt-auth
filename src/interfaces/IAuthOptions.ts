@@ -27,7 +27,13 @@ export interface IAuthOptions<P = any> {
   /** An optional type guard function that verifies token payload structure */
   isPayload?: (payload: any) => payload is P;
   /** A string or buffer containing either the secret for HMAC algorithms, or the PEM encoded public key for RSA and ECDSA */
-  secretOrPublicKey: string | Buffer | ((header: any, callback: (error: Error | null, key?: string) => void) => void);
+  secretOrPublicKey:
+    | string
+    | Buffer
+    | ((
+        header: any,
+        callback: (error: Error | null, key?: string) => void,
+      ) => void);
   /** An optional function to get the authorization token from the event */
   tokenSource?: (event: any) => string | Promise<string>;
   /** An optional boolean that allows making authorization necessary */

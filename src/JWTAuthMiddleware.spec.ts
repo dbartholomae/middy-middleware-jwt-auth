@@ -25,9 +25,9 @@ const fakeLambdaContext = {
     return 100;
   },
 
-  done() { },
-  fail() { },
-  succeed() { },
+  done() {},
+  fail() {},
+  succeed() {},
 };
 
 describe("exports", () => {
@@ -75,7 +75,7 @@ describe("JWTAuthMiddleware", () => {
             error: {} as Error,
             event: {
               headers: {
-                Authorization: `Bearer ${ token }`,
+                Authorization: `Bearer ${token}`,
               },
               httpMethod: "GET",
             },
@@ -99,7 +99,7 @@ describe("JWTAuthMiddleware", () => {
             error: {} as Error,
             event: {
               headers: {
-                authorization: `Bearer ${ token }`,
+                authorization: `Bearer ${token}`,
               },
               httpMethod: "GET",
             },
@@ -123,7 +123,7 @@ describe("JWTAuthMiddleware", () => {
             error: {} as Error,
             event: {
               headers: {
-                Authorization: [`Bearer ${ token }`],
+                Authorization: [`Bearer ${token}`],
               },
               httpMethod: "GET",
             },
@@ -136,18 +136,23 @@ describe("JWTAuthMiddleware", () => {
       it("resolves if secretOrPublicKey is a function", async () => {
         const options = {
           algorithm: EncryptionAlgorithms.HS256,
-          secretOrPublicKey: (header: any, callback: any) => callback(null, "secret"),
+          secretOrPublicKey: (header: any, callback: any) =>
+            callback(null, "secret"),
         };
-        const token = JWT.sign({}, options.secretOrPublicKey({}, (err: any, key: any) => key), {
-          algorithm: options.algorithm,
-        });
+        const token = JWT.sign(
+          {},
+          options.secretOrPublicKey({}, (err: any, key: any) => key),
+          {
+            algorithm: options.algorithm,
+          },
+        );
         expect(
           await JWTAuthMiddleware(options).before({
             context: fakeLambdaContext,
             error: {} as Error,
             event: {
               headers: {
-                Authorization: `Bearer ${ token }`,
+                Authorization: `Bearer ${token}`,
               },
               httpMethod: "GET",
             },
@@ -168,7 +173,7 @@ describe("JWTAuthMiddleware", () => {
         });
         const event: IAuthorizedEvent = {
           headers: {
-            Authorization: `Bearer ${ token }`,
+            Authorization: `Bearer ${token}`,
           },
           httpMethod: "GET",
         };
@@ -196,7 +201,7 @@ describe("JWTAuthMiddleware", () => {
         });
         const event: IAuthorizedEvent = {
           headers: {
-            Authorization: `Bearer ${ token }`,
+            Authorization: `Bearer ${token}`,
           },
           httpMethod: "GET",
         };
@@ -222,7 +227,7 @@ describe("JWTAuthMiddleware", () => {
         const event: IAuthorizedEvent = {
           auth: { payload: "", token: "" },
           headers: {
-            Authorization: `Bearer ${ token }`,
+            Authorization: `Bearer ${token}`,
           },
           httpMethod: "GET",
         };
@@ -252,8 +257,8 @@ describe("JWTAuthMiddleware", () => {
         });
         const event: IAuthorizedEvent = {
           headers: {
-            Authorization: `Bearer ${ token }`,
-            authorization: `Bearer ${ token }`,
+            Authorization: `Bearer ${token}`,
+            authorization: `Bearer ${token}`,
           },
           httpMethod: "GET",
         };
@@ -319,7 +324,7 @@ describe("JWTAuthMiddleware", () => {
             error: {} as Error,
             event: {
               headers: {
-                Authorization: `Bearer ${ token }`,
+                Authorization: `Bearer ${token}`,
               },
               httpMethod: "GET",
             },
@@ -347,7 +352,7 @@ describe("JWTAuthMiddleware", () => {
             error: {} as Error,
             event: {
               headers: {
-                Authorization: `Bearer ${ token }`,
+                Authorization: `Bearer ${token}`,
               },
               httpMethod: "GET",
             },
@@ -383,7 +388,7 @@ describe("JWTAuthMiddleware", () => {
             error: {} as Error,
             event: {
               headers: {
-                Authorization: `Bearer ${ token }`,
+                Authorization: `Bearer ${token}`,
               },
               httpMethod: "GET",
             },
@@ -391,7 +396,7 @@ describe("JWTAuthMiddleware", () => {
             internal: {},
           }),
         ).rejects.toEqual(
-          createHttpError(401, `Token not valid before ${ validDate }`, {
+          createHttpError(401, `Token not valid before ${validDate}`, {
             date: validDate,
             type: "NotBeforeError",
           }),
@@ -451,7 +456,7 @@ describe("JWTAuthMiddleware", () => {
         });
         const event: IAuthorizedEvent = {
           headers: {
-            Authorization: `Bearer ${ token }`,
+            Authorization: `Bearer ${token}`,
           },
           httpMethod: "GET",
         };
@@ -480,7 +485,7 @@ describe("JWTAuthMiddleware", () => {
         });
         const event: IAuthorizedEvent = {
           headers: {
-            Authorization: `Bearer ${ token }`,
+            Authorization: `Bearer ${token}`,
           },
           httpMethod: "GET",
         };
@@ -562,7 +567,7 @@ describe("JWTAuthMiddleware", () => {
         });
         const event: IAuthorizedEvent = {
           headers: {
-            Authorization: `Bearer ${ token }`,
+            Authorization: `Bearer ${token}`,
           },
           httpMethod: "GET",
         };
