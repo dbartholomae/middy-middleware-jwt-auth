@@ -9,7 +9,6 @@ export default defineConfig({
       provider: "v8",
       reportsDirectory: "coverage",
       reporter: ["text", "lcov"],
-      all: true,
       include: ["src/**/*"],
       thresholds: {
         statements: 100,
